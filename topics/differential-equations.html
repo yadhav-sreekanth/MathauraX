@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Differential Equations - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  html {
+      scroll-behavior: smooth;
+    }
+  .logo img {
+    height: 50px;
+  }
+  
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Differential Equations</h1>
+    <p>A <strong>differential equation</strong> is an equation involving a function and its derivatives. It describes how the function changes, and solving it means finding the function that satisfies the equation.</p>
+
+    <section id="basic-concepts" class="topic-section">
+      <h2>Basic Concepts</h2>
+      <div class="concept-box">
+        <h3>Order and Degree</h3>
+        <p>The <strong>order</strong> of a differential equation is the highest derivative order present.</p>
+        <p>The <strong>degree</strong> is the power of the highest order derivative (if the equation is polynomial in derivatives).</p>
+      </div>
+      <div class="concept-box">
+        <h3>Types of Differential Equations</h3>
+        <p><strong>Ordinary Differential Equations (ODEs)</strong> involve derivatives with respect to one variable.</p>
+        <p><strong>Partial Differential Equations (PDEs)</strong> involve partial derivatives with respect to multiple variables.</p>
+      </div>
+      <div class="concept-box">
+        <h3>Linear vs Nonlinear</h3>
+        <p>Linear differential equations have the function and its derivatives appearing linearly.</p>
+        <p>Nonlinear differential equations involve nonlinear terms of the function or its derivatives.</p>
+      </div>
+    </section>
+
+    <section id="simple-ode" class="topic-section">
+      <h2>Simple First-Order ODE Example</h2>
+      <div class="example">
+        <p><strong>Equation:</strong> <code>dy/dx = 3x^2</code></p>
+        <p><strong>Solution:</strong> Integrate both sides w.r.t. <code>x</code>:</p>
+        <ul>
+          <li>∫ dy = ∫ 3x² dx</li>
+          <li>y = x³ + C, where C is the constant of integration.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="separable-ode" class="topic-section">
+      <h2>Separable Differential Equations</h2>
+      <p>A differential equation is separable if it can be written as:</p>
+      <p style="font-style: italic; text-align: center;">dy/dx = g(x) h(y)</p>
+      <p>Rewrite as:</p>
+      <p style="font-style: italic; text-align: center;">dy / h(y) = g(x) dx</p>
+      <p>Then integrate both sides.</p>
+
+      <div class="example">
+        <p><strong>Equation:</strong> dy/dx = xy</p>
+        <p><strong>Solution:</strong></p>
+        <ul>
+          <li>Rewrite: (1/y) dy = x dx</li>
+          <li>Integrate both sides: ∫(1/y) dy = ∫ x dx</li>
+          <li>ln|y| = x²/2 + C</li>
+          <li>y = ± e^(x²/2 + C) = Ae^(x²/2)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="step-by-step" class="topic-section">
+      <h2>Step-by-Step: Solving a Separable ODE</h2>
+      <div class="step-by-step">
+        <ol>
+          <li>Rewrite the equation in separable form: dy/dx = g(x)h(y).</li>
+          <li>Separate variables: dy/h(y) = g(x) dx.</li>
+          <li>Integrate both sides.</li>
+          <li>Solve the resulting equation for y, if possible.</li>
+          <li>Include constant of integration.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Solve: <code>dy/dx = 2x</code></p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution1">Show Solution</button>
+        <div id="solution1" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Integrate both sides:</p>
+          <p>y = x² + C</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Solve: <code>dy/dx = yx</code></p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution2">Show Solution</button>
+        <div id="solution2" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Separate variables: (1/y) dy = x dx</p>
+          <p>Integrate: ln|y| = x²/2 + C</p>
+          <p>y = Ae^(x²/2)</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Solve: <code>dy/dx = y^2</code></p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution3">Show Solution</button>
+        <div id="solution3" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Separate variables: dy/y² = dx</p>
+          <p>Integrate: ∫ y⁻² dy = ∫ dx</p>
+          <p>-1/y = x + C</p>
+          <p>y = -1/(x + C)</p>
+        </div>
+      </div>
+
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Differential equations topic navigation">
+    <h3>Differential Equations Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Basic Concepts</a></li>
+      <li><a href="#simple-ode">Simple ODE Example</a></li>
+      <li><a href="#separable-ode">Separable ODE</a></li>
+      <li><a href="#step-by-step">Step-by-Step</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Navigation active link toggle
+  document.querySelectorAll('.topic-nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      document.querySelectorAll('.topic-nav a').forEach(a => a.classList.remove('active'));
+      e.target.classList.add('active');
+    });
+  });
+
+  // Show/hide solutions
+  document.querySelectorAll('.show-solution').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const solution = btn.nextElementSibling;
+      const isVisible = solution.style.display === 'block';
+      solution.style.display = isVisible ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', !isVisible);
+      solution.setAttribute('aria-hidden', isVisible);
+    });
+  });
+</script>
+
+</body>
+</html>

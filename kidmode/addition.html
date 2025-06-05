@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn Addition - MathauraX Kids</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(135deg, #f8edeb, #fcd5ce);
+      color: #333;
+    }
+
+    header {
+      background: #ff6f61;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 2rem;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    .container {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .section {
+      background: #fff;
+      margin: 2rem auto;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 700px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      animation: fadeIn 2s;
+    }
+
+    .section h2 {
+      color: #ff4081;
+      font-size: 2rem;
+    }
+
+    .step {
+      font-size: 1.4rem;
+      background: #d0f4de;
+      border-radius: 12px;
+      margin: 1rem auto;
+      padding: 1rem;
+      max-width: 500px;
+      animation: bounce 1s ease-in-out;
+    }
+
+    .example {
+      font-size: 2rem;
+      margin-top: 1rem;
+    }
+
+    .balloon {
+      font-size: 3rem;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    .quiz-section {
+      margin-top: 2rem;
+    }
+
+    .quiz-section input {
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      border-radius: 10px;
+      border: 2px solid #ffb703;
+      width: 80px;
+      text-align: center;
+    }
+
+    .check-btn {
+      margin-top: 1rem;
+      background-color: #00b4d8;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  ➕ Let's Learn Addition with Fun! 🎉
+</header>
+
+<div class="container">
+  <section class="section">
+    <h2>What is Addition?</h2>
+    <p class="step">Addition means putting things together!</p>
+    <p class="step">Example: 2 apples 🍎 + 3 apples 🍎 = <strong>5 apples 🍎</strong></p>
+    <p class="balloon">🎈🎈🎈</p>
+  </section>
+
+  <section class="section">
+    <h2>Step by Step Example</h2>
+    <div class="step">🧸 Step 1: Count the first number → 4</div>
+    <div class="step">🎈 Step 2: Add the second number → 2</div>
+    <div class="step">🔢 Final Answer: 4 + 2 = <strong>6</strong> 🎉</div>
+    <div class="example">🧸🧸🧸🧸 + 🎈🎈 = 🎉6 Toys!</div>
+  </section>
+
+  <section class="section quiz-section">
+    <h2>Try It Yourself!</h2>
+    <p class="example" id="quiz-text"></p>
+    <input type="number" id="answer" />
+    <br/>
+    <button class="check-btn" onclick="checkAnswer()">Check Answer</button>
+    <div class="result" id="result"></div>
+    <p style="margin-top: 15px; font-size: 1.1rem; color: #6a1b9a; font-weight: bold;">
+      🔄 Refresh the page to get a new question!
+    </p>
+  </section>
+  
+</div>
+
+<script>
+    let num1, num2, correctAnswer;
+  
+    function generateProblem() {
+      num1 = Math.floor(Math.random() * 10) + 1;
+      num2 = Math.floor(Math.random() * 10) + 1;
+      correctAnswer = num1 + num2;
+      document.getElementById("quiz-text").textContent = `${num1} + ${num2} = ?`;
+      document.getElementById("answer").value = '';
+      document.getElementById("result").textContent = '';
+    }
+  
+    function checkAnswer() {
+      const userAnswer = parseInt(document.getElementById("answer").value);
+      const result = document.getElementById("result");
+  
+      if (userAnswer === correctAnswer) {
+        result.textContent = "🎉 Correct! Great job!";
+        result.style.color = "#2ecc71";
+      } else {
+        result.textContent = "❌ Oops! Try again.";
+        result.style.color = "#e74c3c";
+      }
+    }
+  
+    // Generate a new problem on page load
+    window.onload = generateProblem;
+  </script>
+</body>
+</html>

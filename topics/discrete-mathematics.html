@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Discrete Mathematics - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  html {
+      scroll-behavior: smooth;
+    }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Discrete Mathematics</h1>
+    <p>Discrete Mathematics is the study of mathematical structures that are fundamentally discrete rather than continuous. It includes topics such as logic, set theory, combinatorics, graph theory, and algorithms.</p>
+
+    <!-- Basic Concepts -->
+    <section id="basic-concepts" class="topic-section">
+      <h2>Basic Concepts</h2>
+
+      <div class="concept-box">
+        <h3>Set Theory</h3>
+        <p>A <strong>set</strong> is a collection of distinct objects, considered as an object in its own right. Sets are usually denoted by curly braces, e.g., <span class="math-expr">{a, b, c}</span>.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Logic</h3>
+        <p>Logic deals with reasoning and propositions. A <strong>proposition</strong> is a statement that is either true or false. Logical connectives include AND (<code>∧</code>), OR (<code>∨</code>), NOT (<code>¬</code>), and IMPLIES (<code>→</code>).</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Functions and Relations</h3>
+        <p>A <strong>function</strong> maps elements from one set to another. A <strong>relation</strong> defines a relationship between elements of sets.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Graph Theory</h3>
+        <p>Graphs are collections of nodes (vertices) connected by edges. They can represent networks, paths, and connections.</p>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 1:</strong> Determine if the set <span class="math-expr">{1, 2, 3, 4}</span> is a subset of <span class="math-expr">{1, 2, 3, 4, 5, 6}</span>.</p>
+        <p><strong>Solution:</strong> Since every element of the first set is in the second, <span class="math-expr">{1, 2, 3, 4} \subseteq {1, 2, 3, 4, 5, 6}</span>.</p>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 2:</strong> Evaluate the logical expression <span class="math-expr">(p \wedge \neg q) \lor r</span> when <code>p = true</code>, <code>q = false</code>, and <code>r = false</code>.</p>
+        <p><strong>Solution:</strong> <code>\neg q = true</code>, so <code>p ∧ ¬q = true ∧ true = true</code>, and <code>true ∨ false = true</code>.</p>
+      </div>
+    </section>
+
+    <!-- Step-by-Step -->
+    <section id="step-by-step" class="topic-section">
+      <h2>Step-by-Step Methods</h2>
+
+      <div class="step-by-step">
+        <h3>Determining Subsets</h3>
+        <ol>
+          <li>Check each element of the first set.</li>
+          <li>Verify if it is present in the second set.</li>
+          <li>If all elements are present, the first set is a subset of the second.</li>
+        </ol>
+      </div>
+
+      <div class="step-by-step">
+        <h3>Evaluating Logical Expressions</h3>
+        <ol>
+          <li>Assign truth values to variables.</li>
+          <li>Apply NOT operations.</li>
+          <li>Evaluate AND and OR operations following precedence.</li>
+          <li>Determine the final truth value.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Is the set <span class="math-expr">{2, 4}</span> a subset of <span class="math-expr">{1, 2, 3, 4, 5}</span>?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution1">Show Solution</button>
+        <div id="solution1" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Yes, since both 2 and 4 are elements of the second set.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Evaluate <span class="math-expr">p \lor (q \wedge \neg r)</span> given <code>p = false</code>, <code>q = true</code>, and <code>r = true</code>.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution2">Show Solution</button>
+        <div id="solution2" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p><code>\neg r = false</code>, so <code>q ∧ ¬r = true ∧ false = false</code>, and <code>p ∨ false = false</code>.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Find the complement of the set <span class="math-expr">{1, 3, 5}</span> assuming the universal set is <span class="math-expr">{1, 2, 3, 4, 5, 6}</span>.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution3">Show Solution</button>
+        <div id="solution3" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>The complement is all elements in the universal set not in the given set: <span class="math-expr">{2, 4, 6}</span>.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>4. In graph theory, how many edges does a complete graph with 5 vertices have?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution4">Show Solution</button>
+        <div id="solution4" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>A complete graph with <span class="math-expr">n</span> vertices has <span class="math-expr">\frac{n(n-1)}{2}</span> edges. For <span class="math-expr">n=5</span>, edges = <span class="math-expr">\frac{5 \times 4}{2} = 10</span>.</p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Topic Navigation">
+    <h3>Discrete Math Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Basic Concepts</a></li>
+      <li><a href="#step-by-step">Step-by-Step</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Toggle solution visibility
+  document.querySelectorAll('.show-solution').forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = button.nextElementSibling;
+      const isVisible = solution.style.display === 'block';
+
+      solution.style.display = isVisible ? 'none' : 'block';
+      button.setAttribute('aria-expanded', !isVisible);
+      solution.setAttribute('aria-hidden', isVisible);
+      button.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+    });
+  });
+
+  // Smooth scroll for topic nav links and active link highlight
+  const navLinks = document.querySelectorAll('.topic-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

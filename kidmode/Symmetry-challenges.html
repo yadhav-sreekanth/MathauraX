@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Symmetry Challenges - MathauraX Kids</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #ffd6ff, #c1fba4);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #4a148c;
+    text-align: center;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #6a1b9a;
+    text-shadow: 1px 1px 2px #b39ddb;
+  }
+  .explanation {
+    background: #fff3e0;
+    border: 2px dashed #ff9800;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    color: #e65100;
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .explanation h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .explanation ul {
+    text-align: left;
+    padding-left: 1.2rem;
+  }
+  .instructions {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+  .shape-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .shape-box {
+    background: #ce93d8;
+    border-radius: 20px;
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 6px 12px #ba68c8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .shape-box:hover {
+    transform: scale(1.1);
+  }
+  svg {
+    width: 100px;
+    height: 100px;
+    fill: #4a148c;
+  }
+  #message {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    font-weight: bold;
+  }
+  .correct {
+    background: #81c784 !important;
+    box-shadow: 0 0 15px #388e3c !important;
+  }
+</style>
+</head>
+<body>
+
+<h1>Symmetry Challenges</h1>
+
+<div class="explanation">
+  <h2>🌟 What is Symmetry?</h2>
+  <p>Symmetry means that if you fold a shape along a special line, both sides match perfectly. That line is called the <strong>line of symmetry</strong>.</p>
+  <p>Let’s look at the shapes below. Click on the ones that are symmetrical!</p>
+  <h3>📚 Which Shapes Have Symmetry?</h3>
+  <ul>
+    <li><strong>Square</strong> – ✅ Yes! It has 4 lines of symmetry.</li>
+    <li><strong>Rectangle</strong> – ✅ Yes! It has 2 lines of symmetry.</li>
+    <li><strong>Equilateral Triangle</strong> – ✅ Yes! It has 3 lines of symmetry.</li>
+    <li><strong>Scalene Triangle</strong> – ❌ No! It has no lines of symmetry.</li>
+    <li><strong>Trapezoid</strong> – ❌ No! Most trapezoids don’t have symmetry.</li>
+  </ul>
+</div>
+
+<p class="instructions">🎯 Click the shapes that have a line of symmetry!</p>
+
+<div class="shape-container" id="shapeContainer">
+  <!-- shapes inserted by JS -->
+</div>
+
+<p id="message"></p>
+
+<script>
+  const shapes = [
+    { name: 'Square', svg: '<rect x="10" y="10" width="80" height="80" />', symmetrical: true },
+    { name: 'Rectangle', svg: '<rect x="0" y="25" width="100" height="50" />', symmetrical: true },
+    { name: 'Triangle (Equilateral)', svg: '<polygon points="50,10 90,90 10,90" />', symmetrical: true },
+    { name: 'Scalene Triangle', svg: '<polygon points="15,75 85,90 45,20" />', symmetrical: false },
+    { name: 'Trapezoid', svg: '<polygon points="20,80 35,40 65,40 80,80" />', symmetrical: false }
+  ];
+
+  const container = document.getElementById('shapeContainer');
+  const message = document.getElementById('message');
+  let correctCount = 0;
+
+  shapes.forEach(shape => {
+    const div = document.createElement('div');
+    div.className = 'shape-box';
+    div.title = shape.name;
+    div.innerHTML = `<svg viewBox="0 0 100 100">${shape.svg}</svg>`;
+    div.addEventListener('click', () => {
+      if (div.classList.contains('correct')) return; // prevent double count
+      if (shape.symmetrical) {
+        div.classList.add('correct');
+        message.textContent = '✅ Great! This shape has symmetry.';
+        correctCount++;
+        if (correctCount === shapes.filter(s => s.symmetrical).length) {
+          setTimeout(() => {
+            message.textContent = '🎉 You found all symmetrical shapes! 🎉';
+          }, 500);
+        }
+      } else {
+        message.textContent = '❌ Oops! This shape does NOT have symmetry.';
+      }
+    });
+    container.appendChild(div);
+  });
+</script>
+
+</body>
+</html>

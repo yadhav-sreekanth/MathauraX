@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shape Matching - MathauraX Kids</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #f9f871, #ffb347);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #2b2d42;
+    text-align: center;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ef476f;
+    text-shadow: 1px 1px 3px #00000050;
+  }
+  .instructions {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .shapes, .names {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .shape-box, .name-box {
+    background: #ffd6d6;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px #ef476f50;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s ease;
+  }
+  .shape-box:hover, .name-box:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px #ef476f80;
+  }
+  svg {
+    width: 80px;
+    height: 80px;
+  }
+  .matched {
+    background: #2a9d8f;
+    color: white;
+    cursor: default;
+    pointer-events: none;
+    box-shadow: 0 0 15px #2a9d8f;
+  }
+  #message {
+    font-size: 1.4rem;
+    margin-top: 1rem;
+    color: #264653;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Shape Matching Game</h1>
+<p class="instructions">Click a shape, then click its correct name. Match all to win!</p>
+
+<div class="shapes" id="shapes">
+  <!-- Shapes inserted by JS -->
+</div>
+
+<div class="names" id="names">
+  <!-- Names inserted by JS -->
+</div>
+
+<p id="message"></p>
+
+<script>
+  const shapes = [
+    { name: 'Circle', svg: '<circle cx="40" cy="40" r="35" fill="#ef476f" />' },
+    { name: 'Square', svg: '<rect width="70" height="70" fill="#06d6a0" />' },
+    { name: 'Triangle', svg: '<polygon points="35,5 70,70 0,70" fill="#f4a261" />' },
+    { name: 'Star', svg: '<polygon points="40,5 48,30 75,30 53,45 60,70 40,55 20,70 27,45 5,30 32,30" fill="#ffd166" />' }
+  ];
+
+  // Shuffle array helper
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while(currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
+  const shapeContainer = document.getElementById('shapes');
+  const nameContainer = document.getElementById('names');
+  const message = document.getElementById('message');
+
+  let selectedShape = null;
+  let matchedCount = 0;
+
+  function createShapeBoxes() {
+    shuffle(shapes).forEach((shape, idx) => {
+      const div = document.createElement('div');
+      div.className = 'shape-box';
+      div.dataset.name = shape.name;
+      div.innerHTML = `<svg viewBox="0 0 80 80">${shape.svg}</svg>`;
+      div.addEventListener('click', () => {
+        if (div.classList.contains('matched')) return;
+        if (selectedShape) selectedShape.style.border = 'none';
+        selectedShape = div;
+        div.style.border = '3px solid #264653';
+        message.textContent = 'Now click the matching name!';
+      });
+      shapeContainer.appendChild(div);
+    });
+  }
+
+  function createNameBoxes() {
+    const namesShuffled = shuffle(shapes.map(s => s.name));
+    namesShuffled.forEach(name => {
+      const div = document.createElement('div');
+      div.className = 'name-box';
+      div.textContent = name;
+      div.dataset.name = name;
+      div.addEventListener('click', () => {
+        if (!selectedShape) {
+          message.textContent = 'Please select a shape first!';
+          return;
+        }
+        if (selectedShape.dataset.name === name) {
+          // Match!
+          selectedShape.classList.add('matched');
+          div.classList.add('matched');
+          selectedShape.style.border = 'none';
+          selectedShape = null;
+          matchedCount++;
+          message.textContent = 'Good job! Keep going!';
+          if (matchedCount === shapes.length) {
+            message.textContent = '🎉 All matched! Well done! 🎉';
+          }
+        } else {
+          message.textContent = 'Oops! Try again.';
+          selectedShape.style.border = 'none';
+          selectedShape = null;
+        }
+      });
+      nameContainer.appendChild(div);
+    });
+  }
+
+  createShapeBoxes();
+  createNameBoxes();
+</script>
+
+</body>
+</html>

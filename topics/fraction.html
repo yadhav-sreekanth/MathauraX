@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fractions - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  html {
+      scroll-behavior: smooth;
+    }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Understanding Fractions</h1>
+    <p>Fractions represent parts of a whole or a ratio between two numbers.</p>
+
+    <!-- Basic Concepts -->
+    <section id="basic-concepts" class="topic-section">
+      <h2>Basic Concepts of Fractions</h2>
+
+      <div class="concept-box">
+        <h3>Definition</h3>
+        <p>A fraction is expressed as <span class="math-expr">\frac{a}{b}</span>, where <span class="math-expr">a</span> is the numerator and <span class="math-expr">b \neq 0</span> is the denominator.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Types of Fractions</h3>
+        <ul>
+          <li><strong>Proper fraction:</strong> numerator is less than denominator, e.g., <span class="math-expr">\frac{3}{4}</span>.</li>
+          <li><strong>Improper fraction:</strong> numerator is greater than or equal to denominator, e.g., <span class="math-expr">\frac{5}{3}</span>.</li>
+          <li><strong>Mixed number:</strong> a whole number plus a proper fraction, e.g., <span class="math-expr">1 \frac{2}{5}</span>.</li>
+        </ul>
+      </div>
+
+      <div class="concept-box">
+        <h3>Equivalent Fractions</h3>
+        <p>Fractions that represent the same value, e.g., <span class="math-expr">\frac{1}{2} = \frac{2}{4} = \frac{50}{100}</span>.</p>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 1:</strong> Simplify <span class="math-expr">\frac{8}{12}</span>.</p>
+        <p><strong>Solution:</strong> Divide numerator and denominator by their GCD 4: <span class="math-expr">\frac{8 \div 4}{12 \div 4} = \frac{2}{3}</span>.</p>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 2:</strong> Convert the mixed number <span class="math-expr">2 \frac{3}{5}</span> into an improper fraction.</p>
+        <p><strong>Solution:</strong> Multiply whole number by denominator and add numerator: <span class="math-expr">\frac{2 \times 5 + 3}{5} = \frac{13}{5}</span>.</p>
+      </div>
+    </section>
+
+    <!-- Step-by-Step -->
+    <section id="step-by-step" class="topic-section">
+      <h2>Step-by-Step Methods</h2>
+
+      <div class="step-by-step">
+        <h3>Simplifying Fractions</h3>
+        <ol>
+          <li>Find the Greatest Common Divisor (GCD) of numerator and denominator.</li>
+          <li>Divide numerator and denominator by the GCD.</li>
+          <li>The result is the simplified fraction.</li>
+        </ol>
+      </div>
+
+      <div class="step-by-step">
+        <h3>Adding Fractions</h3>
+        <ol>
+          <li>Find the Least Common Denominator (LCD).</li>
+          <li>Convert fractions to equivalent fractions with the LCD.</li>
+          <li>Add the numerators and keep the denominator same.</li>
+          <li>Simplify the resulting fraction if needed.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Simplify <span class="math-expr">\frac{15}{25}</span>.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution1">Show Solution</button>
+        <div id="solution1" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>GCD of 15 and 25 is 5, so <span class="math-expr">\frac{15 \div 5}{25 \div 5} = \frac{3}{5}</span>.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Add <span class="math-expr">\frac{1}{4} + \frac{1}{6}</span>.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution2">Show Solution</button>
+        <div id="solution2" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>LCD of 4 and 6 is 12. Convert: <span class="math-expr">\frac{3}{12} + \frac{2}{12} = \frac{5}{12}</span>.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Convert <span class="math-expr">3 \frac{1}{2}</span> to an improper fraction.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution3">Show Solution</button>
+        <div id="solution3" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p><span class="math-expr">\frac{3 \times 2 + 1}{2} = \frac{7}{2}</span>.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>4. Multiply <span class="math-expr">\frac{2}{3} \times \frac{4}{5}</span>.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution4">Show Solution</button>
+        <div id="solution4" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Multiply numerators and denominators: <span class="math-expr">\frac{2 \times 4}{3 \times 5} = \frac{8}{15}</span>.</p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Topic Navigation">
+    <h3>Fraction Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Basic Concepts</a></li>
+      <li><a href="#step-by-step">Step-by-Step</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Toggle solution visibility
+  document.querySelectorAll('.show-solution').forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = button.nextElementSibling;
+      const isVisible = solution.style.display === 'block';
+
+      solution.style.display = isVisible ? 'none' : 'block';
+      button.setAttribute('aria-expanded', !isVisible);
+      solution.setAttribute('aria-hidden', isVisible);
+      button.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+    });
+  });
+
+  // Smooth scroll for topic nav links and active link highlight
+  const navLinks = document.querySelectorAll('.topic-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pattern Recognition - MathauraX Kids</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #a0e7e5, #b4f8c8);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #333;
+    text-align: center;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 3rem;
+    color: #ff595e;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px #7a263a;
+  }
+  .pattern-box {
+    margin: 1.5rem auto;
+    max-width: 500px;
+    background: #fff3b0;
+    border-radius: 15px;
+    padding: 1rem 2rem;
+    box-shadow: 0 8px 15px #f08a5d40;
+  }
+  .pattern {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1rem;
+  }
+  input[type=number] {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+  }
+  button {
+    background: #ffca3a;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 1rem;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #ffd54f;
+  }
+  #feedback {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Pattern Recognition</h1>
+<div class="pattern-box">
+  <div class="pattern" id="patternDisplay">2, 4, 6, 8, ?</div>
+  <input type="number" id="answerInput" placeholder="Next number" />
+  <button id="checkBtn">Check</button>
+  <div id="feedback"></div>
+</div>
+
+<script>
+  const patterns = [
+    { seq: [2, 4, 6, 8], answer: 10 },
+    { seq: [1, 3, 5, 7], answer: 9 },
+    { seq: [5, 10, 15, 20], answer: 25 },
+    { seq: [10, 20, 30, 40], answer: 50 },
+    { seq: [3, 6, 9, 12], answer: 15 }
+  ];
+
+  let currentIndex = 0;
+  const patternDisplay = document.getElementById('patternDisplay');
+  const answerInput = document.getElementById('answerInput');
+  const checkBtn = document.getElementById('checkBtn');
+  const feedback = document.getElementById('feedback');
+
+  function loadPattern() {
+    const pattern = patterns[currentIndex];
+    patternDisplay.textContent = pattern.seq.join(', ') + ', ?';
+    answerInput.value = '';
+    feedback.textContent = '';
+  }
+
+  checkBtn.addEventListener('click', () => {
+    const pattern = patterns[currentIndex];
+    const userAnswer = Number(answerInput.value);
+    if (userAnswer === pattern.answer) {
+      feedback.textContent = '🎉 Correct!';
+      feedback.style.color = '#198754';
+      currentIndex = (currentIndex + 1) % patterns.length;
+      setTimeout(loadPattern, 1500);
+    } else {
+      feedback.textContent = '❌ Try again!';
+      feedback.style.color = '#dc3545';
+    }
+  });
+
+  loadPattern();
+</script>
+
+</body>
+</html>
+    

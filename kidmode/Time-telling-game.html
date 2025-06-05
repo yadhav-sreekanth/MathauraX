@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Time Telling Game - MathauraX Kids</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #a0c4ff, #caf0f8);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #023e8a;
+    text-align: center;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 3rem;
+    color: #0077b6;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px #023e8a80;
+  }
+  .clock-container {
+    margin: 2rem auto;
+    max-width: 300px;
+    background: #ade8f4;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px #0077b640;
+    padding: 1rem;
+  }
+  canvas {
+    background: white;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+  .question {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  input[type=text] {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    width: 140px;
+    border-radius: 12px;
+    border: 2px solid #0077b6;
+    text-align: center;
+  }
+  button {
+    background: #00b4d8;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 12px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-left: 1rem;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #0096c7;
+  }
+  #feedback {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Time Telling Game</h1>
+<div class="clock-container">
+  <canvas id="clock" width="250" height="250"></canvas>
+  <div class="question" id="question"></div>
+  <input type="text" id="answerInput" placeholder="Eg- 9:15" />
+  <button id="checkBtn">Check</button>
+  <div id="feedback"></div>
+</div>
+
+<script>
+  const canvas = document.getElementById('clock');
+  const ctx = canvas.getContext('2d');
+  const radius = canvas.height / 2;
+  ctx.translate(radius, radius);
+
+  function drawClock(hour, minute) {
+    ctx.clearRect(-radius, -radius, canvas.width, canvas.height);
+    drawFace(ctx, radius);
+    drawHands(ctx, radius, hour, minute);
+  }
+
+  function drawFace(ctx, radius) {
+    ctx.beginPath();
+    ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#caf0f8';
+    ctx.fill();
+
+    ctx.strokeStyle = '#0077b6';
+    ctx.lineWidth = 8;
+    ctx.stroke();
+
+    for(let num = 1; num <= 12; num++){
+      const ang = num * Math.PI / 6;
+      ctx.rotate(ang);
+      ctx.translate(0, -radius * 0.85);
+      ctx.rotate(-ang);
+      ctx.fillStyle = '#023e8a';
+      ctx.font = radius * 0.15 + "px Comic Sans MS";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(num.toString(), 0, 0);
+      ctx.rotate(ang);
+      ctx.translate(0, radius * 0.85);
+      ctx.rotate(-ang);
+    }
+  }
+
+  function drawHands(ctx, radius, hour, minute){
+    // Hour
+    let hourAngle = ((hour % 12) + minute/60) * Math.PI / 6;
+    drawHand(ctx, hourAngle, radius*0.5, 8);
+    // Minute
+    let minuteAngle = (minute) * Math.PI / 30;
+    drawHand(ctx, minuteAngle, radius*0.8, 6);
+  }
+
+  function drawHand(ctx, pos, length, width){
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
+  }
+
+  // Questions array
+  const questions = [
+    {hour: 3, minute: 15, answer: "3:15"},
+    {hour: 7, minute: 30, answer: "7:30"},
+    {hour: 12, minute: 45, answer: "12:45"},
+    {hour: 10, minute: 5, answer: "10:05"},
+    {hour: 1, minute: 50, answer: "1:50"},
+  ];
+
+  let currentIndex = 0;
+  const questionElem = document.getElementById('question');
+  const answerInput = document.getElementById('answerInput');
+  const checkBtn = document.getElementById('checkBtn');
+  const feedback = document.getElementById('feedback');
+
+  function loadQuestion() {
+    const q = questions[currentIndex];
+    drawClock(q.hour, q.minute);
+    questionElem.textContent = "What time is shown on the clock?";
+    answerInput.value = '';
+    feedback.textContent = '';
+  }
+
+  checkBtn.addEventListener('click', () => {
+    const userAnswer = answerInput.value.trim();
+    
+    if (userAnswer === questions[currentIndex].answer) {
+      let stars = localStorage.getItem('stars') || 0;
+      stars = parseInt(stars) + 1;
+      localStorage.setItem('stars', stars);
+    
+      feedback.textContent = "🎉 Correct!";
+      feedback.style.color = "#007700";
+      currentIndex = (currentIndex + 1) % questions.length;
+      setTimeout(loadQuestion, 1500);
+    } else {
+      feedback.textContent = "❌ Try again!";
+      feedback.style.color = "#cc0000";
+    }
+  });
+
+  loadQuestion();
+</script>
+
+</body>
+</html>

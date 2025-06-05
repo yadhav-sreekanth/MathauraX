@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Combinatorics - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  html {
+      scroll-behavior: smooth;
+    }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Combinatorics Basics</h1>
+    <p>Combinatorics is the branch of mathematics dealing with counting, arrangement, and selection of objects. It helps solve problems related to how many ways things can happen in an organized manner.</p>
+
+    <!-- Basic Concepts -->
+    <section id="basic-concepts" class="topic-section">
+      <h2>Key Concepts in Combinatorics</h2>
+
+      <div class="concept-box">
+        <h3>Factorial (n!)</h3>
+        <p>The factorial of a non-negative integer <span class="math-expr">n</span> is the product of all positive integers less than or equal to <span class="math-expr">n</span>.</p>
+        <p>Example: <span class="math-expr">5! = 5 \times 4 \times 3 \times 2 \times 1 = 120</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Permutation</h3>
+        <p>A permutation is an arrangement of objects in a specific order.</p>
+        <p>Formula for permutations of <span class="math-expr">n</span> distinct objects taken <span class="math-expr">r</span> at a time:</p>
+        <p class="math-expr"><strong>P(n, r) = \frac{n!}{(n-r)!}</strong></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Permutation with Repetition</h3>
+        <p>If some objects are repeated, the total permutations are divided by factorials of the counts of repeated objects.</p>
+        <p>Formula for <span class="math-expr">n</span> objects with repetitions: <span class="math-expr">n_1, n_2, ..., n_k</span> repeated:</p>
+        <p class="math-expr"><strong>\frac{n!}{n_1! \times n_2! \times \cdots \times n_k!}</strong></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Circular Permutations</h3>
+        <p>Number of ways to arrange <span class="math-expr">n</span> objects around a circle:</p>
+        <p class="math-expr"><strong>(n - 1)!</strong></p>
+        <p>Because rotations are considered the same arrangement.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Combination</h3>
+        <p>A combination is a selection of objects without regard to order.</p>
+        <p>Formula for combinations of <span class="math-expr">n</span> distinct objects taken <span class="math-expr">r</span> at a time:</p>
+        <p class="math-expr"><strong>C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}</strong></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Combination with Repetition</h3>
+        <p>Number of ways to choose <span class="math-expr">r</span> objects from <span class="math-expr">n</span> types allowing repetition:</p>
+        <p class="math-expr"><strong>C(n + r - 1, r) = \binom{n + r - 1}{r} = \frac{(n+r-1)!}{r!(n-1)!}</strong></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Binomial Theorem</h3>
+        <p>The binomial theorem describes the algebraic expansion of powers of a binomial:</p>
+        <p class="math-expr"><strong>(a + b)^n = \sum_{k=0}^n \binom{n}{k} a^{n-k} b^k</strong></p>
+        <p>This links binomial coefficients (combinations) with algebra.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Fundamental Counting Principle</h3>
+        <p>If one event can happen in <span class="math-expr">m</span> ways and another independent event in <span class="math-expr">n</span> ways, total ways both happen is:</p>
+        <p class="math-expr"><strong>m \times n</strong></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Pigeonhole Principle</h3>
+        <p>If <span class="math-expr">n</span> items are placed into <span class="math-expr">k</span> boxes and <span>n > k</span>, then at least one box contains more than one item.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Inclusion-Exclusion Principle</h3>
+        <p>Used to count the number of elements in the union of overlapping sets.</p>
+        <p>For two sets <span class="math-expr">A</span> and <span class="math-expr">B</span>:</p>
+        <p class="math-expr"><strong>|A \cup B| = |A| + |B| - |A \cap B|</strong></p>
+        <p>Extends similarly for more sets.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Multinomial Coefficients</h3>
+        <p>Generalization of combinations for splitting <span class="math-expr">n</span> items into groups of sizes <span class="math-expr">n_1, n_2, ..., n_k</span> (where <span class="math-expr">n_1 + n_2 + ... + n_k = n</span>):</p>
+        <p class="math-expr"><strong>\binom{n}{n_1, n_2, ..., n_k} = \frac{n!}{n_1! \times n_2! \times \cdots \times n_k!}</strong></p>
+      </div>
+    </section>
+
+    <!-- Detailed Examples -->
+    <section id="examples" class="topic-section">
+      <h2>Examples & Step-by-Step Solutions</h2>
+
+      <div class="example">
+        <p><strong>Example 1: Permutations</strong></p>
+        <p>How many ways to arrange 5 different books on a shelf?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Number of objects: 5</li>
+            <li>Order matters, so use permutations formula: <span class="math-expr">5! = 120</span></li>
+            <li>Therefore, 120 ways to arrange.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 2: Permutations with Repetition</strong></p>
+        <p>How many ways to arrange the letters in the word "BALLOON"?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Total letters: 7</li>
+            <li>Repeated letters: L(2), O(2)</li>
+            <li>Formula: <span class="math-expr">\frac{7!}{2! \times 2!} = \frac{5040}{4} = 1260</span></li>
+            <li>So, 1260 unique arrangements.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 3: Combinations</strong></p>
+        <p>From 10 students, how many ways to select a committee of 3?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Total students: 10</li>
+            <li>Committee size: 3</li>
+            <li>Use combinations formula: <span class="math-expr">\binom{10}{3} = \frac{10!}{3!7!} = 120</span></li>
+            <li>Answer: 120 ways.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 4: Combination with Repetition</strong></p>
+        <p>How many ways to choose 4 ice cream scoops from 3 flavors if repetition allowed?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Flavors: 3, Scoops: 4</li>
+            <li>Use formula: <span class="math-expr">\binom{3+4-1}{4} = \binom{6}{4} = 15</span></li>
+            <li>So, 15 ways.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 5: Circular Permutations</strong></p>
+        <p>Number of ways to seat 6 people around a round table?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Total people: 6</li>
+            <li>Use circular permutation formula: <span class="math-expr">(6 - 1)! = 5! = 120</span></li>
+            <li>Answer: 120 ways.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 6: Pigeonhole Principle</strong></p>
+        <p>If 13 people are in a room, prove that at least two share the same birth month.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Months = 12</li>
+            <li>People = 13 > 12</li>
+            <li>By pigeonhole principle, at least one month must have 2 or more people.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 7: Inclusion-Exclusion</strong></p>
+        <p>In a class, 20 students study Math, 15 study Physics, and 5 study both. How many study at least one?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Total studying Math or Physics: <span class="math-expr">|M \cup P| = |M| + |P| - |M \cap P|</span></li>
+            <li><span class="math-expr">= 20 + 15 - 5 = 30</span></li>
+            <li>Answer: 30 students.</li>
+          </ol>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p><strong>Problem 1:</strong> How many ways to arrange the letters in "STATISTICS"?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="sol1" aria-label="Show solution for Problem 1">Show Solution</button>
+        <div id="sol1" class="solution" aria-hidden="true">
+          <p>Word length: 10 letters</p>
+          <p>Repeated letters: S(3), T(3), I(2)</p>
+          <p>Permutations = <span class="math-expr">\frac{10!}{3! \times 3! \times 2!} = 50400</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 2:</strong> From 12 different books, how many ways to select 5?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="sol2" aria-label="Show solution for Problem 2">Show Solution</button>
+        <div id="sol2" class="solution" aria-hidden="true">
+          <p>Use combinations: <span class="math-expr">\binom{12}{5} = 792</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 3:</strong> How many different 3-digit numbers can be formed using digits 1-5 without repetition?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="sol3" aria-label="Show solution for Problem 3">Show Solution</button>
+        <div id="sol3" class="solution" aria-hidden="true">
+          <p>Number of digits: 5</p>
+          <p>Choosing 3 digits and arranging in order: <span class="math-expr">P(5, 3) = \frac{5!}{(5-3)!} = 60</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 4:</strong> How many ways to seat 4 people around a round table?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="sol4" aria-label="Show solution for Problem 4">Show Solution</button>
+        <div id="sol4" class="solution" aria-hidden="true">
+          <p>Circular permutations: <span class="math-expr">(4 - 1)! = 3! = 6</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 5:</strong> If you toss 3 coins, how many possible outcomes are there?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="sol5" aria-label="Show solution for Problem 5">Show Solution</button>
+        <div id="sol5" class="solution" aria-hidden="true">
+          <p>Each coin has 2 outcomes, so total: <span class="math-expr">2^3 = 8</span></p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Topic Navigation">
+    <h3>Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Key Concepts</a></li>
+      <li><a href="#examples">Examples</a></li>
+      <li><a href="#practice">Practice</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Smooth active topic nav switching on click
+  const navLinks = document.querySelectorAll('aside.topic-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // Toggle solutions show/hide
+  const solutionButtons = document.querySelectorAll('.show-solution');
+  solutionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = document.getElementById(button.getAttribute('aria-controls'));
+      const isHidden = solution.style.display === 'none' || solution.style.display === '';
+      solution.style.display = isHidden ? 'block' : 'none';
+      button.setAttribute('aria-expanded', isHidden);
+    });
+  });
+</script>
+
+<style>
+  /* Insert your embedded CSS here as per your style */
+
+  main {
+    display: flex;
+    max-width: 1100px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  article {
+    flex: 3;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  aside.topic-nav {
+    flex: 1;
+    margin-left: 20px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #ddd;
+  }
+
+  aside.topic-nav h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+  }
+
+  aside.topic-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  aside.topic-nav li {
+    margin-bottom: 10px;
+  }
+
+  aside.topic-nav a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  aside.topic-nav a.active,
+  aside.topic-nav a:hover {
+    text-decoration: underline;
+  }
+
+  h1, h2, h3 {
+    color: #003366;
+  }
+
+  .concept-box {
+    background: #e6f0ff;
+    border-left: 6px solid #007bff;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+
+  .math-expr {
+    font-family: 'Courier New', Courier, monospace;
+    background: #d0e7ff;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin: 5px 0;
+  }
+
+  .example, .practice-problem {
+    margin-bottom: 20px;
+    background: #f1faff;
+    padding: 15px 20px;
+    border-radius: 6px;
+    border: 1px solid #b3d7ff;
+  }
+
+  .step-by-step ol {
+    padding-left: 20px;
+  }
+
+  .solution {
+    display: none;
+    margin-top: 10px;
+    background: #e0f1ff;
+    border-left: 4px solid #3399ff;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  button.show-solution {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button.show-solution:hover {
+    background: #0056b3;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main {
+      flex-direction: column;
+      margin: 10px;
+    }
+
+    aside.topic-nav {
+      margin-left: 0;
+      margin-top: 20px;
+    }
+  }
+</style>

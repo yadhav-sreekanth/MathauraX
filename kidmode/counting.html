@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Counting Fun - Kid Mode</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #d81b60;
+      animation: bounce 1s infinite alternate;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #4a148c;
+    }
+
+    .counting-emojis {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      letter-spacing: 10px;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .option-btn {
+      background-color: #fff59d;
+      border: none;
+      padding: 20px 30px;
+      font-size: 2rem;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .option-btn:hover {
+      background-color: #ffee58;
+      transform: scale(1.1);
+    }
+
+    #result {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .refresh-text {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: #00695c;
+    }
+
+    .refresh-btn {
+      margin-top: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .refresh-btn:hover {
+      background-color: #388e3c;
+      transform: scale(1.05);
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧮 Let's Count Together!</h1>
+
+  <div class="question" id="count-question">How many 🐥 are there?</div>
+  <div class="counting-emojis" id="emoji-row">🐥 🐥 🐥</div>
+
+  <div class="options" id="count-options">
+    <!-- Number options will be inserted by JS -->
+  </div>
+
+  <div id="result"></div>
+
+  <div class="refresh-text">🔄 Click the button below for the next question:</div>
+  <button class="refresh-btn" onclick="location.reload()">Click This for Next Question</button>
+
+  <script>
+    const emojis = ["🐥", "🍎", "🐸", "🌟", "🍌", "🎈", "🐶", "🧁"];
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    const count = Math.floor(Math.random() * 6) + 1;
+    const emojiRow = document.getElementById("emoji-row");
+    const question = document.getElementById("count-question");
+    const options = document.getElementById("count-options");
+    const result = document.getElementById("result");
+
+    emojiRow.textContent = Array(count).fill(randomEmoji).join(" ");
+    question.textContent = `How many ${randomEmoji} are there?`;
+
+    let choices = new Set([count]);
+    while (choices.size < 4) {
+      choices.add(Math.floor(Math.random() * 6) + 1);
+    }
+
+    const shuffled = Array.from(choices).sort(() => Math.random() - 0.5);
+    shuffled.forEach(num => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = num;
+      btn.onclick = () => {
+        if (num === count) {
+          result.textContent = "✅ Correct! Great job!";
+          result.style.color = "green";
+        } else {
+          result.textContent = "❌ Oops! Try again.";
+          result.style.color = "red";
+        }
+      };
+      options.appendChild(btn);
+    });
+  </script>
+
+</body>
+</html>

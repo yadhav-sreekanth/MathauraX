@@ -1,0 +1,239 @@
+/* Reset & basics */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9fc;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 90px; /* for fixed header */
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.logo h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(0, 94, 255);
+}
+
+/* Navigation */
+nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Nav menu - desktop inline */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-menu li {
+    display: inline-block;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.nav-menu li a:hover {
+    color: #005eff;
+}
+
+/* Nav toggle button - hidden on desktop */
+.nav-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.nav-toggle img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Settings menu */
+.settings-menu {
+    position: relative;
+}
+
+.settings-menu i {
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #000;
+    user-select: none;
+}
+
+/* Settings dropdown */
+.settings-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    list-style: none;
+    padding: 0.5rem 0;
+    min-width: 130px;
+    display: none;
+    z-index: 1001;
+}
+
+.settings-dropdown li {
+    padding: 0.5rem 1rem;
+}
+
+.settings-dropdown li a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.settings-dropdown li a:hover {
+    background-color: #f0f0f0;
+}
+
+.settings-dropdown li a#logoutLink {
+    color: red;
+}
+
+/* Show dropdown when active */
+.settings-dropdown.show {
+    display: block;
+}
+footer {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}   
+/* Responsive styles */
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Hide nav menu by default */
+    .nav-menu {
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 180px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        display: none; /* hidden by default */
+        z-index: 999;
+    }
+
+    /* Show nav menu when toggled */
+    .nav-menu.show {
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin: 0.5rem 0;
+        padding-left: 1rem;
+        display: block;
+    }
+
+    /* Allow wrapping on mobile links */
+    .nav-menu li a {
+        white-space: normal;
+    }
+}
+
+.kid-mode-btn {
+    background: linear-gradient(45deg, #FF9A8B, #FF6B95, #FF8E53);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.kid-mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.kid-mode-btn i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Update header layout to accommodate the new button */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem !important;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.header-middle {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg">  
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Number Theory - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Number Theory Basics</h1>
+    <p>Number theory is the study of integers and their properties, including divisibility, primes, and integer solutions to equations.</p>
+
+    <!-- Basic Concepts -->
+    <section id="basic-concepts" class="topic-section">
+      <h2>Key Concepts in Number Theory</h2>
+
+      <div class="concept-box">
+        <h3>Divisibility</h3>
+        <p>An integer <span class="math-expr">a</span> divides another integer <span class="math-expr">b</span> if there exists an integer <span class="math-expr">k</span> such that <span class="math-expr">b = a \times k</span>.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Prime Numbers</h3>
+        <p>A prime number is an integer greater than 1 that has no positive divisors other than 1 and itself.</p>
+        <p>Examples: <span class="math-expr">2, 3, 5, 7, 11, 13, 17</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Greatest Common Divisor (GCD)</h3>
+        <p>The greatest common divisor or Highest Common Factor (HCF) of two integers is the largest integer that divides both.</p>
+        <p>Notation: <span class="math-expr">gcd(a, b)</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Least Common Multiple (LCM)</h3>
+        <p>The least common multiple of two integers is the smallest positive integer divisible by both.</p>
+        <p>Notation: <span class="math-expr">lcm(a, b)</span></p>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 1:</strong> Find <span class="math-expr">gcd(24, 36)</span> and <span class="math-expr">lcm(24, 36)</span>.</p>
+        <p><strong>Solution:</strong></p>
+        <ul>
+          <li><span class="math-expr">gcd(24, 36) = 12</span></li>
+          <li><span class="math-expr">lcm(24, 36) = 72</span></li>
+        </ul>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 2:</strong> Is 29 a prime number?</p>
+        <p><strong>Solution:</strong> Yes, because it has no divisors other than 1 and 29.</p>
+      </div>
+    </section>
+
+    <!-- Step-by-Step -->
+    <section id="step-by-step" class="topic-section">
+      <h2>Step-by-Step Solutions</h2>
+
+      <div class="step-by-step">
+        <h3>How to Find GCD Using Euclidean Algorithm</h3>
+        <ol>
+          <li>Divide the larger number by the smaller number and find the remainder.</li>
+          <li>Replace the larger number with the smaller number, and the smaller number with the remainder.</li>
+          <li>Repeat until the remainder is 0.</li>
+          <li>The non-zero remainder just before 0 is the GCD.</li>
+        </ol>
+      </div>
+
+      <div class="step-by-step">
+        <h3>How to Check if a Number is Prime</h3>
+        <ol>
+          <li>Check divisibility by all prime numbers less than or equal to the square root of the number.</li>
+          <li>If none divide the number, it is prime.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Find the <span class="math-expr">gcd(48, 180)</span>.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution1">Show Solution</button>
+        <div id="solution1" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Using Euclidean algorithm:</p>
+          <ul>
+            <li><span class="math-expr">180 ÷ 48 = 3</span> remainder <span class="math-expr">36</span></li>
+            <li><span class="math-expr">48 ÷ 36 = 1</span> remainder <span class="math-expr">12</span></li>
+            <li><span class="math-expr">36 ÷ 12 = 3</span> remainder <span class="math-expr">0</span></li>
+          </ul>
+          <p>Thus, <span class="math-expr">gcd(48, 180) = 12</span>.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Check if 37 is a prime number.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution2">Show Solution</button>
+        <div id="solution2" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Check divisibility by primes ≤ √37 (~6.08): 2, 3, 5.</p>
+          <p>None divides 37, so 37 is prime.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Find the <span class="math-expr">lcm(12, 15)</span>.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution3">Show Solution</button>
+        <div id="solution3" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Using the relation <span class="math-expr">lcm(a,b) \times gcd(a,b) = a \times b</span>:</p>
+          <p><span class="math-expr">gcd(12, 15) = 3</span></p>
+          <p><span class="math-expr">lcm(12, 15) = \frac{12 \times 15}{3} = 60</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>4. Is 51 a prime number?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution4">Show Solution</button>
+        <div id="solution4" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>51 is divisible by 3 (since <span class="math-expr">5+1=6</span>, divisible by 3), so 51 is not prime.</p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Topic Navigation">
+    <h3>Number Theory Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Key Concepts</a></li>
+      <li><a href="#step-by-step">Step-by-Step</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Toggle solution visibility
+  document.querySelectorAll('.show-solution').forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = button.nextElementSibling;
+      const isVisible = solution.style.display === 'block';
+
+      solution.style.display = isVisible ? 'none' : 'block';
+      button.setAttribute('aria-expanded', !isVisible);
+      solution.setAttribute('aria-hidden', isVisible);
+      button.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+    });
+  });
+
+  // Smooth scroll for topic nav links and active link highlight
+  const navLinks = document.querySelectorAll('.topic-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

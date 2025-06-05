@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* Reset & basics */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9fc;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 90px; /* for fixed header */
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.logo h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(0, 94, 255);
+}
+
+/* Navigation */
+nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Nav menu - desktop inline */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-menu li {
+    display: inline-block;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.nav-menu li a:hover {
+    color: #005eff;
+}
+
+/* Nav toggle button - hidden on desktop */
+.nav-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.nav-toggle img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Settings menu */
+.settings-menu {
+    position: relative;
+}
+
+.settings-menu i {
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #000;
+    user-select: none;
+}
+
+/* Settings dropdown */
+.settings-dropdown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    list-style: none;
+    padding: 0.5rem 0;
+    min-width: 130px;
+    display: none;
+    z-index: 1001;
+}
+
+.settings-dropdown li {
+    padding: 0.5rem 1rem;
+}
+
+.settings-dropdown li a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.settings-dropdown li a:hover {
+    background-color: #f0f0f0;
+}
+
+.settings-dropdown li a#logoutLink {
+    color: red;
+}
+
+/* Show dropdown when active */
+.settings-dropdown.show {
+    display: block;
+}
+footer {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}   
+/* Responsive styles */
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Hide nav menu by default */
+    .nav-menu {
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 180px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        display: none; /* hidden by default */
+        z-index: 999;
+    }
+
+    /* Show nav menu when toggled */
+    .nav-menu.show {
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin: 0.5rem 0;
+        padding-left: 1rem;
+        display: block;
+    }
+
+    /* Allow wrapping on mobile links */
+    .nav-menu li a {
+        white-space: normal;
+    }
+}
+.kid-main {
+    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.hero-section {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: #fff3cd;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(255, 195, 0, 0.3);
+}
+
+.hero-section h2 {
+    font-size: 2.5rem;
+    color: #ff6b6b;
+    animation: bounce 2s infinite;
+}
+
+.hero-section h2 span {
+    color: #007bff;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.start-btn {
+    background: #28a745;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+.start-btn:hover {
+    transform: scale(1.1);
+    background-color: #218838;
+}
+
+.fun-topics {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #e0f7fa;
+    border-radius: 20px;
+}
+
+.fun-topics h3 {
+    color: #ff4081;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.topic-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    background-color: #ffe0b2;
+}
+
+.game-zone {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f8bbd0;
+    border-radius: 20px;
+}
+
+.play-game-btn {
+    background: #ff9800;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
+
+.play-game-btn:hover {
+    background: #fb8c00;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.kid-mode-btn {
+    background: linear-gradient(45deg, #FF9A8B, #FF6B95, #FF8E53);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.kid-mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.kid-mode-btn i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Update header layout to accommodate the new button */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem !important;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.header-middle {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+
+}   
+html{
+    scroll-behavior: smooth;
+}
+@media (max-width: 768px) {
+    /* Keep header fixed height */
+    header {
+        height: 70px; /* Adjust this to match your header height */
+        min-height: 70px; /* Prevents height change */
+        overflow: visible; /* Allows dropdown to show */
+    }
+    
+    /* Position the mobile menu below header */
+    .nav-menu {
+        top: 70px !important; /* Match header height */
+        right: 0;
+        width: 100%;
+        border-radius: 0 0 10px 10px;
+        background-color: #ab9d9d;
+    }
+    .nav-menu li a{
+        color: #fff;
+
+    }
+    #settingsIcon{
+        background-color: transparent;
+    }
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+nav > ul, .nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  display: none;
+}
+
+.nav-menu.show {
+  display: flex;
+}
+
+header {
+  position: relative;
+  z-index: 1000;
+}
+
+</style>
+  <header style="position: fixed; top: 0; right: 0; width: auto; z-index: 1000; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; display: flex; justify-content: space-between; align-items: center;">
+    <div class="logo" style="display: flex; align-items: center;">
+        <img src="../assets/logo.svg" alt="MathauraX Logo">
+        &nbsp; &nbsp;
+        <h1 style="font-size: 2rem; font-weight: bold; color: rgba(25, 90, 202, 0.815);">MathauraX</h1>
+    </div>
+    
+    <nav>
+        <div class="nav-toggle" id="navToggle">
+            <img src="../assets/nav.png" alt="Menu" style="width:24px; height:24px;"/>
+        </div>
+        <ul style="position: relative; display: flex; align-items: center;" class="nav-menu" >
+            <li><a href="#kid-main">Home</a></li>
+            <li><a href="#topics" style="margin-left: 10px; margin-right: 10px;">Topics</a></li>
+            <!-- Kid Mode Button -->
+            <li>
+                <a href="../home.html" style="background: linear-gradient(45deg, #FF9A8B, #FF6B95, #FF8E53);
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 25px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin: 0 10px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                    transition: all 0.3s ease;
+                    animation: pulse 2s infinite;
+                    display: flex;
+                    align-items: center;
+                    font-size: 1rem;
+                    text-decoration: none;">
+                    <i class="fas fa-child" style="margin-right: 8px;"></i> Standard Mode
+                </a>
+            </li>
+            <li><a href="#contact" style="margin-right: 10px;">Help</a></li>
+            <li class="settings-menu">
+                <i id="settingsIcon" class="fas fa-cog" style="cursor: pointer; font-size: 1.4rem; color: #000;"></i>
+                <ul id="settingsDropdown" class="settings-dropdown" style="display: none;">
+                    <li><a href="#" id="logoutLink" style="color: red;">Logout</a></li>
+                    <li><a href="https://yadhav-sreekanth.github.io/Yadhav-Portfolio/" target="_blank">Developer</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+<body>
+    <main class="kid-main" id="kid-main">
+      <section class="hero-section">
+        <h2>Welcome to <span>MathauraX Kid Mode</span>!</h2>
+        <p>Learn Math the Fun Way 🎉</p>
+        <a href="#topics" class="start-btn" ><i class="fas fa-play"></i> Start Learning</a>
+      </section>
+  
+      <section class="fun-topics" id="topics">
+        <h3>Fun Math Topics</h3>
+        <div class="topic-cards">
+          <div class="card"><a href="addition.html" style="text-decoration: none; color: inherit;">Addition 🎯</a></div>
+          <div class="card"><a href="shapes.html" style="text-decoration: none; color: inherit;">Shapes 🔷</a></div>
+          <div class="card"><a href="counting.html" style="text-decoration: none; color: inherit;">Counting 🔢</a></div>
+          <div class="card"><a href="puzzle.html" style="text-decoration: none; color: inherit;">Puzzles 🧩</a></div>
+          <div class="card"><a href="Number-puzzles.html" style="text-decoration: none; color: inherit;">Number Puzzles 🔢</a></div>
+          <div class="card"><a href="Pattern-recognition.html" style="text-decoration: none; color: inherit;">Pattern Recognition 🔢</a></div>
+          <div class="card"><a href="Shape-matching.html" style="text-decoration: none; color: inherit;">Shape Matching 🔷</a></div>
+          <div class="card"><a href="Symmetry-challenges.html" style="text-decoration: none; color: inherit;">Symmetry Challenges 🔷</a></div>
+          <div class="card"><a href="Time-telling-game.html" style="text-decoration: none; color: inherit;">Time Telling Game 🎮</a></div>
+
+        </div>
+      </section>
+
+    </main>
+    <section id="contact" style="
+    background: linear-gradient(135deg, #4a90e2, #50e3c2);
+    padding: 3rem 1rem;
+    color: #fff;
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    max-width: 700px;
+    margin: 2rem auto;
+    ">
+    <h2 style="
+      color: #ffd54f;
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px #3b5998;
+      animation: glow 2s ease-in-out infinite alternate;
+    ">
+      Contact MathauraX
+    </h2>
+    <p style="
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+      color: #fffde7;
+      text-shadow: 1px 1px #2a7f62;
+    ">
+      Connect with us and explore the exciting world of mathematics through MathauraX!
+    </p>
+    <nav aria-label="Social media and contact links" style="
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    ">
+      <!-- Each link styled for kids with animations -->
+      <a href="https://github.com/yadhav-sreekanth" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="
+        color: #fff;
+        font-size: 2.8rem;
+        text-decoration: none;
+        transition: transform 0.3s, color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80px;
+        cursor: pointer;
+        ">
+        <i class="fab fa-github" style="filter: drop-shadow(0 0 3px #000);"></i>
+        <div style="font-size: 1rem; margin-top: 0.3rem; color: #fff;">GitHub</div>
+      </a>
+  
+      <a href="https://www.linkedin.com/in/yadhav-sreekanth-b4522635a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="
+        color: #fff;
+        font-size: 2.8rem;
+        text-decoration: none;
+        transition: transform 0.3s, color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80px;
+        cursor: pointer;
+        ">
+        <i class="fab fa-linkedin" style="filter: drop-shadow(0 0 3px #000);"></i>
+        <div style="font-size: 1rem; margin-top: 0.3rem; color: #fff;">LinkedIn</div>
+      </a>
+  
+      <a href="https://wa.me/9633588111" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="
+        color: #fff;
+        font-size: 2.8rem;
+        text-decoration: none;
+        transition: transform 0.3s, color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80px;
+        cursor: pointer;
+        ">
+        <i class="fab fa-whatsapp" style="filter: drop-shadow(0 0 3px #000);"></i>
+        <div style="font-size: 1rem; margin-top: 0.3rem; color: #fff;">WhatsApp</div>
+      </a>
+  
+      <a href="https://instagram.com/yadhav_sreekanth" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="
+        color: #fff;
+        font-size: 2.8rem;
+        text-decoration: none;
+        transition: transform 0.3s, color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80px;
+        cursor: pointer;
+        ">
+        <i class="fab fa-instagram" style="filter: drop-shadow(0 0 3px #000);"></i>
+        <div style="font-size: 1rem; margin-top: 0.3rem; color: #fff;">Instagram</div>
+      </a>
+  
+      <a href="mailto:mathaurax@gmail.com" aria-label="Email" style="
+        color: #fff;
+        font-size: 2.8rem;
+        text-decoration: none;
+        transition: transform 0.3s, color 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80px;
+        cursor: pointer;
+        ">
+        <i class="fas fa-envelope" style="filter: drop-shadow(0 0 3px #000);"></i>
+        <div style="font-size: 1rem; margin-top: 0.3rem; color: #fff;">Email</div>
+      </a>
+    </nav>
+  </section>
+  
+  <style>
+    @keyframes glow {
+      from {
+        text-shadow:
+          0 0 5px #00ff04,
+          0 0 10px #ffd54f,
+          0 0 15px #ffd54f,
+          0 0 20px #fff176;
+      }
+      to {
+        text-shadow:
+          0 0 10px #00ffaa,
+          0 0 20px #e3006a,
+          0 0 30px #00ff0d,
+          0 0 40px #fff59d;
+      }
+    }
+    a:hover {
+      color: #ffeb3b !important;
+      transform: scale(1.2);
+    }
+  </style>
+  
+  <!-- Remember to include FontAwesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  
+    <footer>
+      <p>&copy; 2025 MathauraX | For Bright Young Minds 🌟</p>
+    </footer>
+  </body>
+  <script>
+      const navToggle = document.getElementById('navToggle');
+const navMenu = document.querySelector('nav > ul');
+
+navToggle.addEventListener('click', () => {
+  if (navMenu.style.display === 'flex' || navMenu.style.display === 'block') {
+    navMenu.style.display = 'none';
+  } else {
+    navMenu.style.display = 'block';
+  }
+});
+
+const settingsIcon = document.getElementById('settingsIcon');
+  const settingsDropdown = document.getElementById('settingsDropdown');
+  
+  settingsIcon.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent click from bubbling up
+      if (settingsDropdown.style.display === 'block') {
+          settingsDropdown.style.display = 'none';
+      } else {
+          settingsDropdown.style.display = 'block';
+      }
+  });
+  
+  // Close dropdown if clicking outside
+  document.addEventListener('click', () => {
+      settingsDropdown.style.display = 'none';
+  });
+  </script>
+<script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  
+      const SUPABASE_URL = 'https://kijgvbrjjofvtswqkyyj.supabase.co';  // Replace with your Supabase project URL
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtpamd2YnJqam9mdnRzd3FreXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MTM0MDUsImV4cCI6MjA2NDI4OTQwNX0.CGx5yeAXYHoeB8NK5qh7FT-3j2I5TvxNCLEfWW0X6xg';  // Replace with your anon public key
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  
+    const logoutLink = document.getElementById('logoutLink');
+  
+    logoutLink.addEventListener('click', async (e) => {
+      e.preventDefault(); // prevent default link behavior
+  
+      const confirmed = confirm('Are you sure you want to logout?');
+  
+      if (confirmed) {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+          alert('Logout failed: ' + error.message);
+        } else {
+          window.location.href = 'index.html';
+        }
+      }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // Elements
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const settingsIcon = document.getElementById('settingsIcon');
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    const body = document.body;
+    const logoutLink = document.getElementById('logoutLink');
+    const navLinks = document.querySelectorAll('.nav-menu li a:not(.kid-mode-btn)');
+    const header = document.querySelector('header');
+
+    // Toggle mobile menu
+    navToggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpening = !navMenu.classList.contains('show');
+        navMenu.classList.toggle('show');
+        if (isOpening) settingsDropdown.classList.remove('show');
+        body.classList.toggle('no-scroll', isOpening);
+    });
+
+    // Toggle settings dropdown
+    settingsIcon.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpening = !settingsDropdown.classList.contains('show');
+        settingsDropdown.classList.toggle('show');
+        if (isOpening) {
+            navMenu.classList.remove('show');
+            body.classList.remove('no-scroll');
+        }
+    });
+
+    // Close all menus when clicking outside
+    document.addEventListener('click', function () {
+        navMenu.classList.remove('show');
+        settingsDropdown.classList.remove('show');
+        body.classList.remove('no-scroll');
+    });
+
+    // Prevent dropdown from closing when clicking inside
+    settingsDropdown.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    // Close mobile menu when a nav item is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            navMenu.classList.remove('show');
+            body.classList.remove('no-scroll');
+        });
+    });
+
+    // Handle logout
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            alert('Logging out...');
+            // window.location.href = 'logout.html';
+        });
+    }
+
+    // Responsive header behavior
+    function handleHeaderResize() {
+        if (window.innerWidth <= 768) {
+            header.style.height = '70px';
+        } else {
+            header.style.height = '';
+            navMenu.classList.remove('show');
+            body.classList.remove('no-scroll');
+        }
+    }
+
+    // Initialize on load and resize
+    window.addEventListener('load', handleHeaderResize);
+    window.addEventListener('resize', handleHeaderResize);
+});
+
+    </script>
+    </html>

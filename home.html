@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathauraX - Explore Mathematics</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/logo.svg">
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+    <link rel="stylesheet" href="styles/home.css">
+</head>
+<body>
+
+<style>
+@media (max-width: 768px) {
+    /* Keep header fixed height */
+    header {
+        height: 70px; /* Adjust this to match your header height */
+        min-height: 70px; /* Prevents height change */
+        overflow: visible; /* Allows dropdown to show */
+    }
+    
+    /* Position the mobile menu below header */
+    .nav-menu {
+        top: 70px !important; /* Match header height */
+        right: 0;
+        width: 100%;
+        border-radius: 0 0 10px 10px;
+    }
+    
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+    .nav-menu {
+        top: 70px !important; /* Match header height */
+        right: 0;
+        width: 100%;
+        border-radius: 0 0 10px 10px;
+        background-color: #ab9d9d;
+    }
+    .nav-menu li a{
+        color: #fff;
+
+    }
+    #settingsIcon{
+        background-color: transparent;
+     
+    }
+}
+nav > ul, .nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  display: none;
+}
+
+.nav-menu.show {
+  display: flex;
+}
+
+header {
+  position: relative;
+  z-index: 1000;
+}
+
+</style>
+
+      
+  <header style="position: fixed; top: 0; right: 0; width: auto; z-index: 1000; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; display: flex; justify-content: space-between; align-items: center;">
+    <div class="logo" style="display: flex; align-items: center;">
+        <img src="assets/logo.svg" alt="MathauraX Logo">
+        &nbsp;&nbsp;
+        <h1 style="font-size: 2rem; font-weight: bold; color: rgba(25, 90, 202, 0.815);">MathauraX</h1>
+    </div>
+    
+    <nav>
+        <div class="nav-toggle" id="navToggle">
+            <img src="assets/nav.png" alt="Menu" style="width:24px; height:24px;"/>
+        </div>
+        <ul style="position: relative; display: flex; align-items: center;" class="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#topics" style="margin-left: 10px; margin-right: 10px;">Topics</a></li>
+            <!-- Kid Mode Button -->
+            <li>
+                <a href="kidmode/kid.html" style="background: linear-gradient(45deg, #FF9A8B, #FF6B95, #FF8E53);
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 25px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin: 0 10px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                    transition: all 0.3s ease;
+                    animation: pulse 2s infinite;
+                    display: flex;
+                    align-items: center;
+                    font-size: 1rem;
+                    text-decoration: none;">
+                    <i class="fas fa-child" style="margin-right: 8px;"></i> Kid Mode
+                </a>
+            </li>
+            <li><a href="#contact" style="margin-right: 10px;">Help</a></li>
+            <li class="settings-menu">
+                <i id="settingsIcon" class="fas fa-cog" style="cursor: pointer; font-size: 1.4rem; color: #000;">   </i>
+                <ul id="settingsDropdown" class="settings-dropdown" style="display: none;">
+                    <li><a href="#" id="logoutLink" style="color: red;">Logout</a></li>
+                    <li><a href="https://yadhav-sreekanth.github.io/Yadhav-Portfolio/" target="_blank">Developer</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+    /* Kid Mode Button Animation */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    /* Hover effect for Kid Mode button */
+    .nav-menu li a[href="kid.html"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+</style>
+
+    <main>
+        <section class="search-section">
+            <h2>Find Mathematical Concepts</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for topics...">
+                <button id="searchButton">Search</button>
+            </div>
+            <div id="searchResults"></div>
+        </section>
+
+        <section class="recommended-topics" id="topics">
+          <h2>Recommended Topics</h2>
+          <div class="topic-grid">
+              <a href="topics/algebra.html" class="topic-card">
+                  <h3>Algebra</h3>
+                  <p>Equations, polynomials, and algebraic structures</p>
+              </a>
+              <a href="topics/geometry.html" class="topic-card">
+                  <h3>Geometry</h3>
+                  <p>Shapes, angles, and spatial reasoning</p>
+              </a>
+              <a href="topics/calculus.html" class="topic-card">
+                  <h3>Calculus</h3>
+                  <p>Limits, derivatives, and integrals</p>
+              </a>
+              <a href="topics/trigonometry.html" class="topic-card">
+                  <h3>Trigonometry</h3>
+                  <p>Angles, sine, cosine, and triangle relationships</p>
+              </a>
+              <a href="topics/statistics.html" class="topic-card">
+                  <h3>Statistics</h3>
+                  <p>Data interpretation, averages, and distributions</p>
+              </a>
+              <a href="topics/probability.html" class="topic-card">
+                  <h3>Probability</h3>
+                  <p>Chance, events, and statistical outcomes</p>
+              </a>
+              <a href="topics/linear-algebra.html" class="topic-card">
+                  <h3>Linear Algebra</h3>
+                  <p>Vectors, matrices, and systems of equations</p>
+              </a>
+              <a href="topics/differential-equations.html" class="topic-card">
+                  <h3>Differential Equations</h3>
+                  <p>Solving equations involving derivatives</p>
+              </a>
+              <a href="topics/numbertheory.html" class="topic-card">
+                  <h3>Number Theory</h3>
+                  <p>Prime numbers, divisibility, and modular arithmetic</p>
+              </a>
+              <a href="topics/discrete-mathematics.html" class="topic-card">
+                  <h3>Discrete Mathematics</h3>
+                  <p>Logic, sets, and graph theory</p>
+              </a>
+              <a href="topics/logic.html" class="topic-card">
+                  <h3>Logic</h3>
+                  <p>Reasoning, propositions, and truth tables</p>
+              </a>
+              <a href="topics/mathematical-physics.html" class="topic-card">
+                  <h3>Mathematical Physics</h3>
+                  <p>Math applied to physical problems and systems</p>
+              </a>
+
+          </div>
+      </section>
+
+
+    <section class="recommended-topics" id="topics">
+      <h2>NCERT Solutions for CBSE - Class 10</h2>
+      <div class="topic-grid" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+          <a href="class10/class-10.html" class="topic-card">
+              <h3>Standard 10</h3>
+          </a>
+
+      </div>
+  </section>
+      
+    </main>
+    <section id="contact" style="background-color: #050558; padding: 3rem 1rem; color: #eee; text-align: center;">
+        <h2 style="color: #0a74da; font-size: 2.2rem; margin-bottom: 1rem;">Contact MathauraX</h2>
+        <p style="max-width: 600px; margin: 0 auto 2rem; color: #bbb; font-size: 1rem;">
+          Connect with us and explore the world of mathematics through MathauraX.
+        </p>
+        <nav aria-label="Social media and contact links" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+          <a href="https://github.com/yadhav-sreekanth" target="_blank" rexl="noopener noreferrer" aria-label="GitHub" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+            <i class="fab fa-github"></i>
+            <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">GitHub</div>
+          </a>
+          <a href="https://www.linkedin.com/in/yadhav-sreekanth-b4522635a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+            <i class="fab fa-linkedin"></i>
+            <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">LinkedIn</div>
+          </a>
+          <a href="https://wa.me/9633588111" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+            <i class="fab fa-whatsapp"></i>
+            <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">WhatsApp</div>
+          </a>
+          <a href="https://instagram.com/yadhav_sreekanth" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+            <i class="fab fa-instagram"></i>
+            <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Instagram</div>
+          </a>
+          <a href="mailto:mathaurax@gmail.com" aria-label="Email" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+            <i class="fas fa-envelope"></i>
+            <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Email</div>
+          </a>
+        </nav>
+
+      </section>
+
+      <footer>
+        <p>&copy;<img src="assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
+    </footer>
+
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/search.js"></script>
+</body>
+<script>
+  const navToggle = document.getElementById('navToggle');
+const navMenu = document.querySelector('nav > ul');
+
+navToggle.addEventListener('click', () => {
+  if (navMenu.style.display === 'flex' || navMenu.style.display === 'block') {
+    navMenu.style.display = 'none';
+  } else {
+    navMenu.style.display = 'block';
+  }
+});
+
+const settingsIcon = document.getElementById('settingsIcon');
+  const settingsDropdown = document.getElementById('settingsDropdown');
+  
+  settingsIcon.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent click from bubbling up
+      if (settingsDropdown.style.display === 'block') {
+          settingsDropdown.style.display = 'none';
+      } else {
+          settingsDropdown.style.display = 'block';
+      }
+  });
+  
+  // Close dropdown if clicking outside
+  document.addEventListener('click', () => {
+      settingsDropdown.style.display = 'none';
+  });
+  </script>
+<script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  
+      const SUPABASE_URL = 'https://kijgvbrjjofvtswqkyyj.supabase.co';  // Replace with your Supabase project URL
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtpamd2YnJqam9mdnRzd3FreXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MTM0MDUsImV4cCI6MjA2NDI4OTQwNX0.CGx5yeAXYHoeB8NK5qh7FT-3j2I5TvxNCLEfWW0X6xg';  // Replace with your anon public key
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  
+    const logoutLink = document.getElementById('logoutLink');
+  
+    logoutLink.addEventListener('click', async (e) => {
+      e.preventDefault(); // prevent default link behavior
+  
+      const confirmed = confirm('Are you sure you want to logout?');
+  
+      if (confirmed) {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+          alert('Logout failed: ' + error.message);
+        } else {
+          window.location.href = 'index.html';
+        }
+      }
+    });
+    
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const settingsIcon = document.getElementById('settingsIcon');
+    const settingsDropdown = document.getElementById('settingsDropdown');
+    const body = document.body;
+    
+    // Toggle mobile menu
+    navToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Toggle menu visibility
+        const isOpening = !navMenu.classList.contains('show');
+        navMenu.classList.toggle('show');
+        
+        // Close settings dropdown if opening menu
+        if (isOpening) {
+            settingsDropdown.classList.remove('show');
+        }
+        
+        // Toggle body scroll lock
+        body.classList.toggle('no-scroll', isOpening);
+    });
+    
+    // Toggle settings dropdown
+    settingsIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Toggle dropdown visibility
+        const isOpening = !settingsDropdown.classList.contains('show');
+        settingsDropdown.classList.toggle('show');
+        
+        // Close mobile menu if opening dropdown
+        if (isOpening) {
+            navMenu.classList.remove('show');
+            body.classList.remove('no-scroll');
+        }
+    });
+    
+    // Close all menus when clicking outside
+    document.addEventListener('click', function() {
+        navMenu.classList.remove('show');
+        settingsDropdown.classList.remove('show');
+        body.classList.remove('no-scroll');
+    });
+    
+    // Prevent dropdown from closing when clicking inside
+    settingsDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    
+    // Close mobile menu when a nav item is clicked
+    const navLinks = document.querySelectorAll('.nav-menu li a:not(.kid-mode-btn)');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('show');
+            body.classList.remove('no-scroll');
+        });
+    });
+    
+    // Handle logout
+    const logoutLink = document.getElementById('logoutLink');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Add your logout logic here
+            alert('Logging out...');
+            // window.location.href = 'logout.html';
+        });
+    }
+    
+    // Responsive header behavior
+    function handleHeaderResize() {
+        const header = document.querySelector('header');
+        if (window.innerWidth <= 768) {
+            header.style.height = '70px';
+        } else {
+            header.style.height = '';
+            // Close mobile menu when switching to desktop
+            navMenu.classList.remove('show');
+            body.classList.remove('no-scroll');
+        }
+    }
+    
+    // Initialize on load and resize
+    window.addEventListener('load', handleHeaderResize);
+    window.addEventListener('resize', handleHeaderResize);
+});
+  </script>
+  
+</html>
+
