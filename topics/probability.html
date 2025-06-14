@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Probability - MathauraX</title>
+  <style>
+    /* Reset & base styles */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      background: #f8f9fb;
+      color: #222;
+      display: flex;
+      min-height: 100vh;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover, a:focus {
+      text-decoration: underline;
+    }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #004080;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      z-index: 1000;
+    }
+    header .logo {
+      color: white;
+      text-decoration: none;
+    }
+    h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  
+    /* Layout */
+    main {
+      display: flex;
+      margin-top: 70px;
+      flex: 1;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1rem 2rem;
+      gap: 2rem;
+    }
+    article.content {
+      flex: 1 1 70%;
+      background: white;
+      padding: 2rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    }
+    aside.topic-nav {
+      flex: 0 0 250px;
+      background: #f0f4f8;
+      border-radius: 6px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+      height: fit-content;
+      position: sticky;
+      top: 80px;
+    }
+    aside.topic-nav h3 {
+      margin-top: 0;
+      color: #004080;
+      font-size: 1.25rem;
+      border-bottom: 2px solid #004080;
+      padding-bottom: 0.5rem;
+    }
+    aside.topic-nav ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 1rem;
+    }
+    aside.topic-nav li {
+      margin-bottom: 0.75rem;
+    }
+    aside.topic-nav a {
+      color: #004080;
+      font-weight: 600;
+      display: block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    aside.topic-nav a.active,
+    aside.topic-nav a:hover,
+    aside.topic-nav a:focus {
+      background-color: #0066cc;
+      color: white;
+      outline: none;
+    }
+    /* Topic sections */
+    .topic-section {
+      margin-bottom: 3rem;
+    }
+    .topic-section h2 {
+      color: #004080;
+      border-bottom: 3px solid #0066cc;
+      padding-bottom: 0.25rem;
+      margin-bottom: 1rem;
+    }
+    .topic-section h3 {
+      color: #004080;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .topic-section p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .example, .practice-problem {
+      background: #e8f0fe;
+      border-left: 5px solid #004080;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 4px;
+    }
+    .example strong, .practice-problem strong {
+      color: #003366;
+    }
+    button.show-solution {
+      background-color: #004080;
+      border: none;
+      color: white;
+      padding: 0.4rem 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    button.show-solution:hover,
+    button.show-solution:focus {
+      background-color: #0066cc;
+      outline: none;
+    }
+    .solution {
+      background: #d9e8ff;
+      border-radius: 4px;
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      display: none;
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre-wrap;
+    }
+    /* Math expressions style */
+    .math-expr {
+      font-family: 'Times New Roman', Times, serif;
+      font-style: italic;
+      color: #003366;
+      background: #f0f8ff;
+      padding: 0 0.2rem;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    ul {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+      }
+      aside.topic-nav {
+        flex: 1 1 auto;
+        position: relative;
+        top: auto;
+        margin-bottom: 1rem;
+      }
+      article.content {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <a href="../home.html" class="logo" aria-label="Home"><img src="../assets/logo.svg" alt="MathauraX Logo" width="50px"/></a>
+</header>
+
+<main>
+  <article class="content" role="main" tabindex="-1">
+    <h1>Probability</h1>
+
+    <!-- Basic Concepts -->
+    <section id="basic-concepts" class="topic-section">
+      <h2>Basic Concepts</h2>
+      <p>Probability measures how likely an event is to occur. It ranges from <span class="math-expr">0</span> (impossible) to <span class="math-expr">1</span> (certain).</p>
+      <p>Probability of an event <span class="math-expr">A</span> is denoted as <span class="math-expr">P(A)</span>.</p>
+      <p>If all outcomes are equally likely:</p>
+      <p><span class="math-expr">P(A) = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}}</span></p>
+
+      <div class="example">
+        <p><strong>Example 1:</strong> What is the probability of rolling a 4 on a fair six-sided die?</p>
+        <button class="show-solution" aria-expanded="false">Show Solution</button>
+        <div class="solution" aria-hidden="true">
+          <p>Number of favorable outcomes = 1 (rolling a 4)</p>
+          <p>Total possible outcomes = 6 (faces of die)</p>
+          <p>So, <span class="math-expr">P(4) = \frac{1}{6} \approx 0.167</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Probability Rules -->
+    <section id="probability-rules" class="topic-section">
+      <h2>Probability Rules</h2>
+      <ul>
+        <li><span class="math-expr">0 \leq P(A) \leq 1</span> for any event <span class="math-expr">A</span>.</li>
+        <li><span class="math-expr">P(\emptyset) = 0</span> (impossible event)</li>
+        <li><span class="math-expr">P(S) = 1</span> where <span class="math-expr">S</span> is the sample space (certain event).</li>
+        <li><span class="math-expr">P(A^c) = 1 - P(A)</span> where <span class="math-expr">A^c</span> is the complement of <span class="math-expr">A</span>.</li>
+        <li><span class="math-expr">P(A \cup B) = P(A) + P(B) - P(A \cap B)</span> (Addition rule)</li>
+      </ul>
+
+      <div class="example">
+        <p><strong>Example 2:</strong> Given <span class="math-expr">P(A) = 0.3</span>, <span class="math-expr">P(B) = 0.5</span>, and <span class="math-expr">P(A \cap B) = 0.2</span>, find <span class="math-expr">P(A \cup B)</span>.</p>
+        <button class="show-solution" aria-expanded="false">Show Solution</button>
+        <div class="solution" aria-hidden="true">
+          <p>Use addition rule:</p>
+          <p><span class="math-expr">P(A \cup B) = 0.3 + 0.5 - 0.2 = 0.6</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conditional Probability -->
+    <section id="conditional-probability" class="topic-section">
+      <h2>Conditional Probability</h2>
+      <p>Conditional probability is the probability of event <span class="math-expr">A</span> given event <span class="math-expr">B</span> has occurred, denoted:</p>
+      <p><span class="math-expr">P(A \mid B) = \frac{P(A \cap B)}{P(B)}</span>, where <span class="math-expr">P(B) > 0</span>.</p>
+
+      <div class="example">
+        <p><strong>Example 3:</strong> If <span class="math-expr">P(A \cap B) = 0.15</span> and <span class="math-expr">P(B) = 0.3</span>, find <span class="math-expr">P(A \mid B)</span>.</p>
+        <button class="show-solution" aria-expanded="false">Show Solution</button>
+        <div class="solution" aria-hidden="true">
+          <p><span class="math-expr">P(A \mid B) = \frac{0.15}{0.3} = 0.5</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Discrete Probability Distributions -->
+    <section id="discrete-distributions" class="topic-section">
+      <h2>Discrete Probability Distributions</h2>
+      <p>A discrete random variable takes countable values. Probability distribution lists probabilities for each value.</p>
+      <p><strong>Example:</strong> Tossing a fair coin twice, possible outcomes and probabilities:</p>
+      <ul>
+        <li>HH: <span class="math-expr">P = \frac{1}{4}</span></li>
+        <li>HT: <span class="math-expr">P = \frac{1}{4}</span></li>
+        <li>TH: <span class="math-expr">P = \frac{1}{4}</span></li>
+        <li>TT: <span class="math-expr">P = \frac{1}{4}</span></li>
+      </ul>
+
+      <div class="example">
+        <p><strong>Example 4:</strong> What is the probability of getting exactly one head when tossing two coins?</p>
+        <button class="show-solution" aria-expanded="false">Show Solution</button>
+        <div class="solution" aria-hidden="true">
+          <p>Outcomes with exactly one head: HT, TH</p>
+          <p>Number of favorable outcomes = 2</p>
+          <p>Total outcomes = 4</p>
+          <p><span class="math-expr">P(\text{1 head}) = \frac{2}{4} = 0.5</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice-problems" class="topic-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p><strong>Problem 1:</strong> A box contains 3 red, 5 blue, and 2 green balls. What is the probability of picking a red ball?</p>
+        <button class="show-solution" aria-expanded="false">Show Solution</button>
+        <div class="solution" aria-hidden="true">
+          <p>Total balls = 3 + 5 + 2 = 10</p>
+          <p>Favorable = 3</p>
+          <p><span class="math-expr">P(\text{red}) = \frac{3}{10} = 0.3</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 2:</strong> Two dice are rolled. What is the probability the sum is 7?</p>
+        <button class="show-solution" aria-expanded="false">Show Solution</button>
+        <div class="solution" aria-hidden="true">
+          <p>Possible sums of 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1)</p>
+          <p>Number of favorable outcomes = 6</p>
+          <p>Total possible outcomes = 36</p>
+          <p><span class="math-expr">P(\text{sum} = 7) = \frac{6}{36} = \frac{1}{6} \approx 0.167</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 3:</strong> If <span class="math-expr">P(A) = 0.4</span> and <span class="math-expr">P(B) = 0.5</span>, and they are mutually exclusive, find <span class="math-expr">P(A \cup B)</span>.</p>
+        <button class="show-solution" aria-expanded="false">Show Solution</button>
+        <div class="solution" aria-hidden="true">
+          <p>Since mutually exclusive, <span class="math-expr">P(A \cap B) = 0</span></p>
+          <p><span class="math-expr">P(A \cup B) = P(A) + P(B) = 0.4 + 0.5 = 0.9</span></p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <aside class="topic-nav" role="navigation" aria-label="Probability topics navigation">
+    <h3>Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Basic Concepts</a></li>
+      <li><a href="#probability-rules">Probability Rules</a></li>
+      <li><a href="#conditional-probability">Conditional Probability</a></li>
+      <li><a href="#discrete-distributions">Discrete Distributions</a></li>
+      <li><a href="#practice-problems">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Handle sidebar link active states & smooth scroll
+  const navLinks = document.querySelectorAll('.topic-nav a');
+  const sections = [...navLinks].map(link => document.querySelector(link.hash));
+  
+  function activateLinkOnScroll() {
+    let scrollPos = window.scrollY + 100;
+    let activeSet = false;
+    sections.forEach((section, i) => {
+      if(section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        navLinks[i].classList.add('active');
+        activeSet = true;
+      }
+    });
+    if(!activeSet) navLinks.forEach(link => link.classList.remove('active'));
+  }
+  window.addEventListener('scroll', activateLinkOnScroll);
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetSection = document.querySelector(link.hash);
+      targetSection.scrollIntoView({behavior: 'smooth', block: 'start'});
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // Show/hide solutions toggle
+  const toggles = document.querySelectorAll('button.show-solution');
+  toggles.forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = button.nextElementSibling;
+      if(solution.style.display === 'block') {
+        solution.style.display = 'none';
+        button.setAttribute('aria-expanded', 'false');
+        solution.setAttribute('aria-hidden', 'true');
+        button.textContent = 'Show Solution';
+      } else {
+        solution.style.display = 'block';
+        button.setAttribute('aria-expanded', 'true');
+        solution.setAttribute('aria-hidden', 'false');
+        button.textContent = 'Hide Solution';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

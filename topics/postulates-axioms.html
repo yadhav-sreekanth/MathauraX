@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />  
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+  <title>Complete Mathematical Postulates & Axioms - MathauraX</title>
+  <style>
+    /* Reset & Global */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo img {
+      height: 50px;
+    }
+
+    main {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    article {
+      flex: 1;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    aside.topic-nav {
+      width: 260px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 80px;
+      height: fit-content;
+      font-size: 0.95rem;
+    }
+    aside.topic-nav h3 {
+      color: #6e8efb;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3rem;
+    }
+    aside.topic-nav ul {
+      list-style: none;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+    aside.topic-nav li {
+      margin-bottom: 0.6rem;
+    }
+    aside.topic-nav a {
+      color: #555;
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.3rem 0;
+      transition: color 0.3s;
+    }
+    aside.topic-nav a:hover,
+    aside.topic-nav a.active {
+      color: #6e8efb;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      color: #6e8efb;
+    }
+    h2 {
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.3rem;
+      color: #444;
+    }
+    h3 {
+      margin-bottom: 1rem;
+      color: #6e8efb;
+    }
+    p {
+      margin-bottom: 1rem;
+      color: #555;
+      font-size: 1.05rem;
+    }
+
+    .concept-box {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 5px solid #6e8efb;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .math-expr {
+      font-family: "Cambria Math", serif;
+      font-style: italic;
+      color: #d63384;
+      background-color: #fff0f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .example {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 1rem 1.2rem;
+      border-radius: 6px;
+      margin-top: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .example p strong {
+      color: #6e8efb;
+    }
+
+    .step-by-step {
+      background: #e9f0ff;
+      padding: 1.5rem 1.8rem;
+      border-radius: 8px;
+      margin: 1.5rem 0 2rem;
+      border-left: 6px solid #4a6df7;
+    }
+    .step-by-step ol {
+      padding-left: 1.2rem;
+    }
+    .step-by-step li {
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+
+    .practice-section {
+      margin-top: 3rem;
+    }
+    .practice-problem {
+      background: #fff8f0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #ffe0b2;
+      margin-bottom: 1.8rem;
+    }
+    .practice-problem p {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .show-solution {
+      background-color: #6e8efb;
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      transition: background-color 0.3s;
+    }
+    .show-solution:hover {
+      background-color: #5a7df4;
+    }
+
+    .solution {
+      background: #f5f5f5;
+      border-left: 5px solid #27ae60;
+      padding: 1.2rem 1.5rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      display: none;
+      color: #444;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+      }
+      aside.topic-nav {
+        width: 100%;
+        position: static;
+        margin-bottom: 2rem;
+        top: auto;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="../assets/logo.svg" alt="MathauraX Logo" />
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <h1>Complete Mathematical Postulates & Axioms</h1>
+      <p>This page collects fundamental postulates and axioms from various fields of mathematics, serving as a comprehensive reference.</p>
+
+      <!-- Euclid's Postulates and Axioms -->
+      <section id="euclid-postulates">
+        <h2>Euclid's Postulates and Common Notions (Geometry)</h2>
+        <div class="concept-box">
+          <h3>Five Postulates</h3>
+          <ol>
+            <li>A straight line segment can be drawn joining any two points.</li>
+            <li>A straight line segment can be extended indefinitely in a straight line.</li>
+            <li>A circle can be drawn with any center and radius.</li>
+            <li>All right angles are equal to one another.</li>
+            <li>Through a point not on a given line, exactly one parallel line can be drawn (Parallel Postulate).</li>
+          </ol>
+          <h3>Common Notions (Axioms)</h3>
+          <ol>
+            <li>Things that are equal to the same thing are equal to each other.</li>
+            <li>If equals are added to equals, the wholes are equal.</li>
+            <li>If equals are subtracted from equals, the remainders are equal.</li>
+            <li>Things that coincide with one another are equal to one another.</li>
+            <li>The whole is greater than the part.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Other Geometry Postulates -->
+      <section id="other-geometry-postulates">
+        <h2>Other Important Geometry Postulates & Axioms</h2>
+        <div class="concept-box">
+          <ul>
+            <li><strong>Playfair's Axiom:</strong> Through a point not on a given line, exactly one parallel line can be drawn (alternative formulation of Euclid's 5th postulate).</li>
+            <li><strong>Ruler Postulate:</strong> Points on a line can be paired with real numbers so that the distance between points is the absolute difference of the numbers.</li>
+            <li><strong>Segment Addition Postulate:</strong> If B lies between A and C on a line segment, then AB + BC = AC.</li>
+            <li><strong>Angle Addition Postulate:</strong> If point D lies inside angle ABC, then m∠ABD + m∠DBC = m∠ABC.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Non-Euclidean Geometry -->
+      <section id="non-euclidean-axioms">
+        <h2>Non-Euclidean Geometry Axioms</h2>
+        <div class="concept-box">
+          <h3>Hyperbolic Geometry</h3>
+          <p>The Parallel Postulate is replaced by: For a given line and a point not on it, there exist infinitely many lines through the point not intersecting the given line.</p>
+
+          <h3>Elliptic Geometry</h3>
+          <p>No parallel lines exist; any two lines intersect.</p>
+        </div>
+      </section>
+
+      <!-- Peano Axioms -->
+      <section id="peano-axioms">
+        <h2>Peano Axioms (Natural Numbers)</h2>
+        <div class="concept-box">
+          <ol>
+            <li>0 is a natural number.</li>
+            <li>Every natural number has a unique successor.</li>
+            <li>0 is not the successor of any natural number.</li>
+            <li>If the successor of a number equals the successor of another, then the numbers are equal.</li>
+            <li>If a set contains 0 and is closed under the successor operation, then it contains all natural numbers (induction axiom).</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ZFC Axioms -->
+      <section id="zfc-axioms">
+        <h2>Zermelo-Fraenkel Set Theory with Choice (ZFC)</h2>
+        <p>ZFC axioms form the foundation of modern set theory.</p>
+        <div class="concept-box">
+          <ol>
+            <li><strong>Axiom of Extensionality:</strong> Two sets are equal if and only if they have the same elements.</li>
+            <li><strong>Axiom of Empty Set:</strong> There exists a set with no elements.</li>
+            <li><strong>Axiom of Pairing:</strong> For any two sets, there is a set that contains exactly these two sets.</li>
+            <li><strong>Axiom of Union:</strong> For any set of sets, there is a set that contains exactly the elements of those sets.</li>
+            <li><strong>Axiom of Infinity:</strong> There exists an infinite set.</li>
+            <li><strong>Axiom Schema of Replacement:</strong> The image of a set under any definable function is also a set.</li>
+            <li><strong>Axiom of Power Set:</strong> For any set, there exists a set of all its subsets.</li>
+            <li><strong>Axiom of Regularity (Foundation):</strong> Every non-empty set has an element disjoint from it.</li>
+            <li><strong>Axiom of Choice:</strong> For any set of non-empty sets, there exists a choice function selecting an element from each set.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Field Axioms -->
+      <section id="field-axioms">
+        <h2>Field Axioms (Algebraic Structures)</h2>
+        <div class="concept-box">
+          <p>A <em>field</em> is a set <span class="math-expr">F</span> with two operations + (addition) and × (multiplication) satisfying:</p>
+          <h3>Addition Axioms</h3>
+          <ul>
+            <li><strong>Closure:</strong> For all <span class="math-expr">a, b ∈ F</span>, <span class="math-expr">a + b ∈ F</span>.</li>
+            <li><strong>Associativity:</strong> <span class="math-expr">(a + b) + c = a + (b + c)</span>.</li>
+            <li><strong>Commutativity:</strong> <span class="math-expr">a + b = b + a</span>.</li>
+            <li><strong>Identity Element:</strong> There exists <span class="math-expr">0 ∈ F</span> such that <span class="math-expr">a + 0 = a</span>.</li>
+            <li><strong>Inverse Element:</strong> For every <span class="math-expr">a ∈ F</span>, there exists <span class="math-expr">-a ∈ F</span> such that <span class="math-expr">a + (-a) = 0</span>.</li>
+          </ul>
+
+          <h3>Multiplication Axioms</h3>
+          <ul>
+            <li><strong>Closure:</strong> For all <span class="math-expr">a, b ∈ F</span>, <span class="math-expr">a × b ∈ F</span>.</li>
+            <li><strong>Associativity:</strong> <span class="math-expr">(a × b) × c = a × (b × c)</span>.</li>
+            <li><strong>Commutativity:</strong> <span class="math-expr">a × b = b × a</span>.</li>
+            <li><strong>Identity Element:</strong> There exists <span class="math-expr">1 ≠ 0 ∈ F</span> such that <span class="math-expr">a × 1 = a</span>.</li>
+            <li><strong>Inverse Element:</strong> For every <span class="math-expr">a ≠ 0</span>, there exists <span class="math-expr">a^{-1} ∈ F</span> such that <span class="math-expr">a × a^{-1} = 1</span>.</li>
+          </ul>
+
+          <h3>Distributive Law</h3>
+          <ul>
+            <li><span class="math-expr">a × (b + c) = (a × b) + (a × c)</span>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Order Axioms -->
+      <section id="order-axioms">
+        <h2>Order Axioms</h2>
+        <div class="concept-box">
+          <p>An <em>ordered field</em> is a field equipped with a total order <span class="math-expr">≤</span> satisfying:</p>
+          <ul>
+            <li><strong>Trichotomy:</strong> For all <span class="math-expr">a, b</span>, exactly one holds: <span class="math-expr">a &lt; b</span>, <span class="math-expr">a = b</span>, or <span class="math-expr">a &gt; b</span>.</li>
+            <li><strong>Transitivity:</strong> If <span class="math-expr">a ≤ b</span> and <span class="math-expr">b ≤ c</span>, then <span class="math-expr">a ≤ c</span>.</li>
+            <li><strong>Addition compatibility:</strong> If <span class="math-expr">a ≤ b</span>, then <span class="math-expr">a + c ≤ b + c</span> for all <span class="math-expr">c</span>.</li>
+            <li><strong>Multiplication compatibility:</strong> If <span class="math-expr">0 ≤ a</span> and <span class="math-expr">0 ≤ b</span>, then <span class="math-expr">0 ≤ a × b</span>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Logic Axioms -->
+      <section id="logic-axioms">
+        <h2>Logic Axioms</h2>
+        <div class="concept-box">
+          <h3>Propositional Logic Axioms (Hilbert System)</h3>
+          <ul>
+            <li><span class="math-expr">A → (B → A)</span></li>
+            <li><span class="math-expr">(A → (B → C)) → ((A → B) → (A → C))</span></li>
+            <li><span class="math-expr">(¬B → ¬A) → ((¬B → A) → B)</span></li>
+          </ul>
+
+          <h3>Predicate Logic Axioms</h3>
+          <ul>
+            <li><span class="math-expr">∀x A(x) → A(t)</span> (where t is free for x in A)</li>
+            <li><span class="math-expr">A(t) → ∃x A(x)</span></li>
+            <li>Rules include Universal Instantiation, Existential Generalization, etc.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Topology Axioms -->
+      <section id="topology-axioms">
+        <h2>Topology Axioms</h2>
+        <div class="concept-box">
+          <p>A <em>topology</em> on a set <span class="math-expr">X</span> is a collection <span class="math-expr">𝒯</span> of subsets of <span>X</span> satisfying:</p>
+          <ol>
+            <li>The empty set ∅ and <span>X</span> are in <span>𝒯</span>.</li>
+            <li>The union of any collection of sets in <span>𝒯</span> is also in <span>𝒯</span>.</li>
+            <li>The finite intersection of sets in <span>𝒯</span> is also in <span>𝒯</span>.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Measure Theory Axioms -->
+      <section id="measure-axioms">
+        <h2>Measure Theory Axioms</h2>
+        <div class="concept-box">
+          <p>A <em>measure</em> <span>μ</span> on a σ-algebra <span>𝔽</span> of subsets of a set <span>X</span> satisfies:</p>
+          <ol>
+            <li><strong>Non-negativity:</strong> <span>μ(A) ≥ 0</span> for all <span>A ∈ 𝔽</span>.</li>
+            <li><strong>Null empty set:</strong> <span>μ(∅) = 0</span>.</li>
+            <li><strong>Countable additivity:</strong> For any countable sequence of disjoint sets <span>{A_i}</span>, <span>μ(⋃ A_i) = Σ μ(A_i)</span>.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Category Theory Axioms -->
+      <section id="category-axioms">
+        <h2>Category Theory Axioms</h2>
+        <div class="concept-box">
+          <p>A <em>category</em> consists of:</p>
+          <ul>
+            <li>A collection of <strong>objects</strong>.</li>
+            <li>For each pair of objects <span>A, B</span>, a set of <strong>morphisms</strong> (arrows) <span>Hom(A, B)</span>.</li>
+            <li><strong>Composition:</strong> For morphisms <span>f ∈ Hom(A, B)</span> and <span>g ∈ Hom(B, C)</span>, there is a composite morphism <span>g ∘ f ∈ Hom(A, C)</span>.</li>
+            <li><strong>Associativity:</strong> <span>(h ∘ g) ∘ f = h ∘ (g ∘ f)</span> when compositions are defined.</li>
+            <li><strong>Identity:</strong> For every object <span>A</span>, there is an identity morphism <span>id_A ∈ Hom(A, A)</span> such that <span>id_B ∘ f = f = f ∘ id_A</span> for any <span>f ∈ Hom(A, B)</span>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Practice Section -->
+      <section class="practice-section" id="practice">
+        <h2>Practice Problems</h2>
+
+        <div class="practice-problem">
+          <p><strong>Problem 1:</strong> Using Euclid's postulates, prove that the base angles of an isosceles triangle are equal.</p>
+          <button class="show-solution">Show Solution</button>
+          <div class="solution">
+            <p>Construct the bisector of the vertex angle. Using the congruency of triangles by the Side-Angle-Side postulate (two equal sides and the included angle), show the base angles are equal.</p>
+          </div>
+        </div>
+
+        <div class="practice-problem">
+          <p><strong>Problem 2:</strong> Show that 0 is not the successor of any natural number using Peano axioms.</p>
+          <button class="show-solution">Show Solution</button>
+          <div class="solution">
+            <p>By Peano's third axiom, 0 is defined as not being the successor of any number, which is foundational for natural number construction.</p>
+          </div>
+        </div>
+
+        <div class="practice-problem">
+          <p><strong>Problem 3:</strong> Verify the distributive law in the field of real numbers for <span class="math-expr">a=2, b=3, c=4</span>.</p>
+          <button class="show-solution">Show Solution</button>
+          <div class="solution">
+            <p>Calculate <span>(2 × (3 + 4)) = 2 × 7 = 14</span> and <span>((2 × 3) + (2 × 4)) = 6 + 8 = 14</span>, proving equality.</p>
+          </div>
+        </div>
+
+      </section>
+    </article>
+
+    <aside class="topic-nav" aria-label="Section navigation">
+      <h3>Jump To Section</h3>
+      <ul>
+        <li><a href="#euclid-postulates">Euclid's Postulates</a></li>
+        <li><a href="#other-geometry-postulates">Other Geometry Postulates</a></li>
+        <li><a href="#non-euclidean-axioms">Non-Euclidean Geometry</a></li>
+        <li><a href="#peano-axioms">Peano Axioms</a></li>
+        <li><a href="#zfc-axioms">ZFC Axioms</a></li>
+        <li><a href="#field-axioms">Field Axioms</a></li>
+        <li><a href="#order-axioms">Order Axioms</a></li>
+        <li><a href="#logic-axioms">Logic Axioms</a></li>
+        <li><a href="#topology-axioms">Topology Axioms</a></li>
+        <li><a href="#measure-axioms">Measure Theory Axioms</a></li>
+        <li><a href="#category-axioms">Category Theory Axioms</a></li>
+        <li><a href="#practice">Practice Problems</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <script>
+    // Highlight active nav link on scroll
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("aside.topic-nav a");
+
+    function activateNavLink() {
+      let scrollPos = window.scrollY || document.documentElement.scrollTop;
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        const bottom = top + section.offsetHeight;
+        const id = section.getAttribute("id");
+        if (scrollPos >= top && scrollPos < bottom) {
+          navLinks.forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === "#" + id) {
+              link.classList.add("active");
+            }
+          });
+        }
+      });
+    }
+    window.addEventListener("scroll", activateNavLink);
+    activateNavLink();
+
+    // Toggle solutions on button click
+    document.querySelectorAll(".show-solution").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const solution = btn.nextElementSibling;
+        if (solution.style.display === "block") {
+          solution.style.display = "none";
+          btn.textContent = "Show Solution";
+        } else {
+          solution.style.display = "block";
+          btn.textContent = "Hide Solution";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

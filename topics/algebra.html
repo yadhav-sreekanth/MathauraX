@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Algebra - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+    }
+    p, li {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Algebra Fundamentals</h1>
+    <p>Algebra is the branch of mathematics that uses letters and symbols to represent numbers and quantities in formulas and equations. It provides methods for solving problems that involve unknown values and understanding relationships between variables.</p>
+
+    <!-- Basic Concepts -->
+    <section id="basic-concepts" class="topic-section">
+      <h2>Basic Algebraic Concepts</h2>
+
+      <div class="concept-box">
+        <h3>Variables and Constants</h3>
+        <p>A <strong>variable</strong> is a symbol (usually a letter) that represents an unknown number or value. A <strong>constant</strong> is a fixed value that doesn't change.</p>
+        <div class="example">
+          <p><strong>Example:</strong> In the expression <span class="math-expr">3x + 5</span>:</p>
+          <ul>
+            <li><span class="math-expr">x</span> is the variable.</li>
+            <li><span class="math-expr">3</span> and <span class="math-expr">5</span> are constants.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="concept-box">
+        <h3>Algebraic Expressions</h3>
+        <p>An <strong>algebraic expression</strong> combines variables, constants, and operations such as addition, subtraction, multiplication, and division.</p>
+        <div class="example">
+          <p><strong>Example:</strong> <span class="math-expr">4y^2 - 7y + 9</span> is an algebraic expression with terms involving powers of <span class="math-expr">y</span>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Linear Equations -->
+    <section id="linear-equations" class="topic-section">
+      <h2>Solving Linear Equations</h2>
+
+      <p>A linear equation is an equation of the first degree, meaning the highest power of the variable is 1. The general form is:</p>
+      <p><span class="math-expr">ax + b = c</span></p>
+      <p>where <span class="math-expr">a</span>, <span class="math-expr">b</span>, and <span class="math-expr">c</span> are constants, and <span class="math-expr">x</span> is the variable.</p>
+
+      <div class="concept-box">
+        <h3>Example 1: Simple Linear Equation</h3>
+        <p>Solve for <span class="math-expr">x</span>: <span class="math-expr">3x + 5 = 20</span></p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <div class="step-by-step">
+            <ol>
+              <li>Subtract 5 from both sides: <span class="math-expr">3x = 20 - 5</span></li>
+              <li>Simplify the right side: <span class="math-expr">3x = 15</span></li>
+              <li>Divide both sides by 3: <span class="math-expr">x = \frac{15}{3} = 5</span></li>
+            </ol>
+          </div>
+          <p><strong>Answer:</strong> <span class="math-expr">x = 5</span></p>
+        </div>
+      </div>
+
+      <div class="concept-box">
+        <h3>Example 2: Variables on Both Sides</h3>
+        <p>Solve for <span class="math-expr">x</span>: <span class="math-expr">5x + 3 = 2x + 15</span></p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <div class="step-by-step">
+            <ol>
+              <li>Subtract <span class="math-expr">2x</span> from both sides: <span class="math-expr">3x + 3 = 15</span></li>
+              <li>Subtract 3 from both sides: <span class="math-expr">3x = 12</span></li>
+              <li>Divide both sides by 3: <span class="math-expr">x = 4</span></li>
+            </ol>
+          </div>
+          <p><strong>Answer:</strong> <span class="math-expr">x = 4</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quadratic Equations -->
+    <section id="quadratic-equations" class="topic-section">
+      <h2>Quadratic Equations</h2>
+      <p>A quadratic equation is a polynomial equation of degree 2. Its general form is:</p>
+      <p><span class="math-expr">ax^2 + bx + c = 0</span></p>
+      <p>where <span class="math-expr">a \ne 0</span>.</p>
+
+      <div class="concept-box">
+        <h3>Solving Using Quadratic Formula</h3>
+        <p>The roots of a quadratic equation can be found using the formula:</p>
+        <p><span class="math-expr">x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}</span></p>
+
+        <div class="example">
+          <p><strong>Example:</strong> Solve <span class="math-expr">2x^2 - 4x - 6 = 0</span>.</p>
+          <button class="show-solution">Show Solution</button>
+          <div class="solution">
+            <div class="step-by-step">
+              <ol>
+                <li>Identify coefficients: <span class="math-expr">a=2</span>, <span class="math-expr">b=-4</span>, <span class="math-expr">c=-6</span></li>
+                <li>Calculate discriminant: <span class="math-expr">D = b^2 - 4ac = (-4)^2 - 4(2)(-6) = 16 + 48 = 64</span></li>
+                <li>Find square root of discriminant: <span class="math-expr">\sqrt{64} = 8</span></li>
+                <li>Calculate roots:
+                  <ul>
+                    <li><span class="math-expr">x = \frac{-(-4) + 8}{2 \times 2} = \frac{4 + 8}{4} = 3</span></li>
+                    <li><span class="math-expr">x = \frac{-(-4) - 8}{2 \times 2} = \frac{4 - 8}{4} = -1</span></li>
+                  </ul>
+                </li>
+              </ol>
+            </div>
+            <p><strong>Answer:</strong> <span class="math-expr">x = 3</span> or <span class="math-expr">x = -1</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Polynomials -->
+    <section id="polynomials" class="topic-section">
+      <h2>Polynomials</h2>
+      <p>A polynomial is an algebraic expression made up of variables and coefficients involving only addition, subtraction, multiplication, and non-negative integer exponents of variables.</p>
+      <p>General form of a polynomial in one variable <span class="math-expr">x</span>:</p>
+      <p><span class="math-expr">a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0</span></p>
+      <p>where <span class="math-expr">a_n, a_{n-1}, \ldots, a_0</span> are constants and <span class="math-expr">n</span> is a non-negative integer.</p>
+
+      <div class="concept-box">
+        <h3>Example</h3>
+        <p><span class="math-expr">4x^3 - 3x^2 + 2x - 5</span> is a polynomial of degree 3.</p>
+      </div>
+    </section>
+
+    <!-- Functions -->
+    <section id="functions" class="topic-section">
+      <h2>Functions</h2>
+      <p>A function is a relation between a set of inputs and a set of possible outputs where each input is related to exactly one output.</p>
+      <p>It can be written as <span class="math-expr">f(x)</span>, which means the function <span class="math-expr">f</span> depends on variable <span class="math-expr">x</span>.</p>
+
+      <div class="concept-box">
+        <h3>Example</h3>
+        <p><span class="math-expr">f(x) = 2x + 3</span></p>
+        <p>For each value of <span class="math-expr">x</span>, you get a corresponding output <span class="math-expr">f(x)</span>.</p>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice" class="topic-section practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p><strong>Problem 1:</strong> Solve for <span class="math-expr">x</span>: <span class="math-expr">4x - 7 = 9</span></p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <div class="step-by-step">
+            <ol>
+              <li>Add 7 to both sides: <span class="math-expr">4x = 16</span></li>
+              <li>Divide both sides by 4: <span class="math-expr">x = 4</span></li>
+            </ol>
+          </div>
+          <p><strong>Answer:</strong> <span class="math-expr">x = 4</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 2:</strong> Solve for <span class="math-expr">x</span>: <span class="math-expr">3x + 5 = 2x + 11</span></p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <div class="step-by-step">
+            <ol>
+              <li>Subtract 2x from both sides: <span class="math-expr">x + 5 = 11</span></li>
+              <li>Subtract 5 from both sides: <span class="math-expr">x = 6</span></li>
+            </ol>
+          </div>
+          <p><strong>Answer:</strong> <span class="math-expr">x = 6</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p><strong>Problem 3:</strong> Solve the quadratic equation <span class="math-expr">x^2 - 5x + 6 = 0</span></p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <div class="step-by-step">
+            <ol>
+              <li>Factor the equation: <span class="math-expr">(x - 2)(x - 3) = 0</span></li>
+              <li>Set each factor equal to zero:
+                <ul>
+                  <li><span class="math-expr">x - 2 = 0 \Rightarrow x = 2</span></li>
+                  <li><span class="math-expr">x - 3 = 0 \Rightarrow x = 3</span></li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+          <p><strong>Answer:</strong> <span class="math-expr">x = 2</span> or <span class="math-expr">x = 3</span></p>
+        </div>
+      </div>
+
+    </section>
+  </article>
+
+  <aside class="topic-nav">
+    <h3>Algebra Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Basic Concepts</a></li>
+      <li><a href="#linear-equations">Linear Equations</a></li>
+      <li><a href="#quadratic-equations">Quadratic Equations</a></li>
+      <li><a href="#polynomials">Polynomials</a></li>
+      <li><a href="#functions">Functions</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<footer style="text-align:center; margin:3rem 0 1rem; color:#777; font-size:0.9rem;">
+  &copy; 2023 MathauraX. All rights reserved.
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Toggle solutions
+    document.querySelectorAll('.show-solution').forEach(button => {
+      button.addEventListener('click', () => {
+        const solution = button.nextElementSibling;
+        if (solution.style.display === 'block') {
+          solution.style.display = 'none';
+          button.textContent = 'Show Solution';
+        } else {
+          solution.style.display = 'block';
+          button.textContent = 'Hide Solution';
+        }
+      });
+    });
+
+    // Smooth scroll and active nav link
+    const navLinks = document.querySelectorAll('aside.topic-nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Highlight nav on scroll
+    window.addEventListener('scroll', () => {
+      let scrollPos = window.scrollY + 100;
+      navLinks.forEach(link => {
+        const section = document.querySelector(link.getAttribute('href'));
+        if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

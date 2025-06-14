@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MathauraX - Sign In / Sign Up</title>
+<link rel="icon" href="assets/logo.svg" />
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #0a1128;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .auth-container {
+    background: #001f54;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0 0 15px #001f54;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #4ea8de;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+  }
+  input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #0077b6;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #0096c7;
+  }
+  .toggle-links {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  .toggle-links span {
+    cursor: pointer;
+    color: #4ea8de;
+    text-decoration: underline;
+  }
+  .error-msg {
+    background: #c53030;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <div class="auth-container">
+    <h2 id="form-title">Sign In to MathauraX</h2>
+    <div class="error-msg" id="error-msg"></div>
+
+    <form id="auth-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password" required />
+
+      <button type="submit" id="submit-btn">Sign In</button>
+    </form>
+
+    <div class="toggle-links">
+      <span id="toggle-link">Don't have an account? Sign Up</span>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+  <script>
+    // Initialize Supabase
+    const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_URL.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const authForm = document.getElementById('auth-form');
+    const toggleLink = document.getElementById('toggle-link');
+    const formTitle = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submit-btn');
+    const errorMsg = document.getElementById('error-msg');
+
+    let isLogin = true; // toggle mode
+
+    toggleLink.addEventListener('click', () => {
+      isLogin = !isLogin;
+      if (isLogin) {
+        formTitle.textContent = 'Sign In to MathauraX';
+        submitBtn.textContent = 'Sign In';
+        toggleLink.textContent = "Don't have an account? Sign Up";
+      } else {
+        formTitle.textContent = 'Create a MathauraX Account';
+        submitBtn.textContent = 'Sign Up';
+        toggleLink.textContent = "Already have an account? Sign In";
+      }
+      errorMsg.style.display = 'none';
+    });
+
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        if (isLogin) {
+          // Sign In
+          const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+          window.location.href = 'home.html';
+        } else {
+          // Sign Up
+          const { data, error } = await supabase.auth.signUp({ email, password });
+          if (error) throw error;
+          alert('Sign up successful! Please check your email for confirmation.');
+          isLogin = true;
+          formTitle.textContent = 'Sign In to MathauraX';
+          submitBtn.textContent = 'Sign In';
+          toggleLink.textContent = "Don't have an account? Sign Up";
+          authForm.reset();
+        }
+      } catch (err) {
+        errorMsg.textContent = err.message;
+        errorMsg.style.display = 'block';
+      }
+    });
+
+    // Optional: Check if already logged in, redirect to home
+    window.onload = async () => {
+      const user = supabase.auth.getUser();
+      if ((await user).data.user) {
+        window.location.href = 'home.html';
+      }
+    };
+  </script>
+</body>
+</html>

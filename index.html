@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="assets/logo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MathauraX - Your Mathematical Journey</title>
+  <link rel="stylesheet" href="styles/landing.css" />
+  <style>
+    /* Loading container styles - hidden initially */
+    #loading-container {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #ffffff;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    /* Loading logo base */
+    #loading-logo {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      z-index: 1;
+      background: url('assets/logo.svg') no-repeat center / contain;
+      filter: drop-shadow(0 0 10px #0088ff);
+    }
+
+    /* Blue flame shimmer effect on loading container */
+
+    @keyframes shimmer {
+      0% {
+        left: -50%;
+      }
+      100% {
+        left: 150%;
+      }
+    }
+
+
+
+
+    .form button:hover {
+      background: #0077cc;
+    }
+    .error-message {
+      color: #ff5555;
+      font-size: 0.85rem;
+      min-height: 1.2em;
+    }
+
+    .start-button:hover {
+      background: #0077cc;
+      color: #fff;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Landing Section -->
+  <div id="landing-container" class="landing-container" style="margin-bottom: 40px;">
+    <div class="logo"><img src="assets/logo.svg" alt="MathauraX Logo" /></div>
+    <h1>Welcome to MathauraX</h1>
+    <p>Your comprehensive mathematics learning platform</p>
+    <div class="start-button" id="startBtn">Start Now</div>
+  </div>
+
+  <!-- Modal for Authentication -->
+  <div id="auth-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <div class="modal-header">
+        <div class="modal-tab active" id="signUpTab">Sign Up</div>
+        <div class="modal-tab" id="signInTab">Sign In</div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <form id="signUpForm" class="form">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" required placeholder="Enter your email" />
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" required placeholder="Create a password" />
+        <button type="submit">Sign Up</button>
+        <div class="error-message" id="signUpError"></div>
+      </form>
+
+      <!-- Sign In Form -->
+      <form id="signInForm" class="form" style="display: none;">
+        <label for="signin-email">Email</label>
+        <input type="email" id="signin-email" required placeholder="Enter your email" />
+        <label for="signin-password">Password</label>
+        <input type="password" id="signin-password" required placeholder="Enter your password" />
+        <button type="submit">Sign In</button>
+        <div class="error-message" id="signInError"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section id="about-section" class="about-section">
+    <div class="about-container">
+      <h2>About MathauraX</h2>
+      <p style="text-align: center;" class="paragraph">
+        MathauraX is an educational platform crafted to make mathematics easier, clearer, and more engaging for students of all levels. From foundational arithmetic to advanced calculus and logic, MathauraX offers topic-based learning with in-depth explanations, interactive practice problems, and step-by-step solutions — all in a clean, distraction-free layout.<br /><br />
+        Built with dedication and clarity in mind, each topic page is hand-curated to help learners grasp concepts intuitively and confidently.<br /><br />
+        Created by: <b>Yadhav Sreekanth</b><br />
+        Frontend developer & mathematics enthusiast<br />
+        Driven to make math accessible and enjoyable for everyone.
+      </p>
+    </div>
+  </section>
+
+  <!-- Loading Container (hidden initially) -->
+  <div id="loading-container">
+    <div id="loading-logo"></div>
+  </div>
+<footer>
+  
+  &copy; 2025 MathauraX. All rights reserved.
+</footer>
+
+  <!-- Supabase JS -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabase = createClient(
+      'https://kijgvbrjjofvtswqkyyj.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtpamd2YnJqam9mdnRzd3FreXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MTM0MDUsImV4cCI6MjA2NDI4OTQwNX0.CGx5yeAXYHoeB8NK5qh7FT-3j2I5TvxNCLEfWW0X6xg'
+    );
+
+    // Modal Elements
+    const authModal = document.getElementById('auth-modal');
+    const startBtn = document.getElementById('startBtn');
+    const closeModal = document.getElementById('closeModal');
+    const signInTab = document.getElementById('signInTab');
+    const signUpTab = document.getElementById('signUpTab');
+    const signInForm = document.getElementById('signInForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const signInError = document.getElementById('signInError');
+    const signUpError = document.getElementById('signUpError');
+    const loadingContainer = document.getElementById('loading-container');
+
+    // Show modal on Start Now click
+    startBtn.addEventListener('click', () => {
+      authModal.classList.add('active');
+      signUpTab.classList.add('active');
+      signInTab.classList.remove('active');
+      signUpForm.style.display = 'block';
+      signInForm.style.display = 'none';
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      authModal.classList.remove('active');
+    });
+
+    // Tab toggles
+    signUpTab.addEventListener('click', () => {
+      signUpTab.classList.add('active');
+      signInTab.classList.remove('active');
+      signUpForm.style.display = 'block';
+      signInForm.style.display = 'none';
+    });
+
+    signInTab.addEventListener('click', () => {
+      signInTab.classList.add('active');
+      signUpTab.classList.remove('active');
+      signInForm.style.display = 'block';
+      signUpForm.style.display = 'none';
+    });
+
+    // Sign Up
+    signUpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      signUpError.textContent = '';
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+
+      const { error } = await supabase.auth.signUp({ email, password });
+      if (error) {
+        signUpError.textContent = error.message;
+      } else {
+        alert('Signup successful! Please check your email.');
+        signInTab.click();
+      }
+    });
+
+    // Sign In
+    signInForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      signInError.textContent = '';
+      const email = document.getElementById('signin-email').value;
+      const password = document.getElementById('signin-password').value;
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        signInError.textContent = error.message;
+      } else {
+        // Hide main page content and modal
+        document.getElementById('landing-container').style.display = 'none';
+        authModal.classList.remove('active');
+        authModal.style.display = 'none';
+        document.getElementById('about-section').style.display = 'none';
+
+        // Show loading container with shimmer effect
+        loadingContainer.style.display = 'flex';
+
+        // Redirect after 3 seconds
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>
+

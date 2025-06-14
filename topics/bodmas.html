@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BODMAS - MathauraX</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+    <style>
+        /* Reset & Global */
+        * {
+          margin: 0; padding: 0; box-sizing: border-box;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+          scroll-behavior: smooth;
+        }
+        body {
+          background-color: #f9f9f9;
+          color: #333;
+          line-height: 1.6;
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 20px;
+        }
+        header {
+          background: #fff;
+          padding: 1rem 2rem;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+        .logo img {
+          height: 50px;
+        }
+        nav ul {
+          display: flex;
+          list-style: none;
+        }
+        nav ul li {
+          margin-left: 2rem;
+        }
+        nav ul li a {
+          color: #333;
+          font-weight: 600;
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+        nav ul li a:hover {
+          color: #6e8efb;
+        }
+      
+        /* Main Layout */
+        main {
+          display: flex;
+          gap: 2rem;
+          margin-top: 2rem;
+        }
+        article {
+          flex: 1;
+          background: #fff;
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        aside.topic-nav {
+          width: 260px;
+          background: #fff;
+          padding: 1.5rem;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          position: sticky;
+          top: 80px;
+          height: fit-content;
+        }
+        aside.topic-nav h3 {
+          color: #6e8efb;
+          margin-bottom: 1rem;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 0.3rem;
+        }
+        aside.topic-nav ul {
+          list-style: none;
+        }
+        aside.topic-nav li {
+          margin-bottom: 0.6rem;
+        }
+        aside.topic-nav a {
+          color: #555;
+          text-decoration: none;
+          font-weight: 500;
+          display: block;
+          padding: 0.3rem 0;
+          transition: color 0.3s;
+        }
+        aside.topic-nav a:hover,
+        aside.topic-nav a.active {
+          color: #6e8efb;
+          font-weight: 600;
+        }
+      
+        /* Headings */
+        h1 {
+          font-size: 2.8rem;
+          margin-bottom: 1rem;
+          color: #6e8efb;
+        }
+        h2 {
+          margin: 2rem 0 1rem;
+          border-bottom: 2px solid #eee;
+          padding-bottom: 0.3rem;
+          color: #444;
+        }
+        h3 {
+          margin-bottom: 1rem;
+          color: #6e8efb;
+        }
+      
+        /* Text & paragraphs */
+        p {
+          margin-bottom: 1rem;
+          color: #555;
+          font-size: 1.05rem;
+        }
+      
+        /* Concept Boxes */
+        .concept-box {
+          background: #f8f9fa;
+          padding: 1.5rem;
+          border-radius: 8px;
+          border-left: 5px solid #6e8efb;
+          margin-bottom: 2rem;
+        }
+      
+        /* Math Expressions */
+        .math-expr {
+          font-family: "Cambria Math", serif;
+          font-style: italic;
+          color: #d63384;
+          background-color: #fff0f5;
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+      
+        /* Examples */
+        .example {
+          background: white;
+          border: 1px solid #ddd;
+          padding: 1rem 1.2rem;
+          border-radius: 6px;
+          margin-top: 0.8rem;
+          margin-bottom: 1.5rem;
+        }
+        .example p strong {
+          color: #6e8efb;
+        }
+        .example ul {
+          margin-top: 0.5rem;
+          padding-left: 20px;
+          color: #444;
+        }
+      
+        /* Step by Step */
+        .step-by-step {
+          background: #e9f0ff;
+          padding: 1.5rem 1.8rem;
+          border-radius: 8px;
+          margin: 1.5rem 0 2rem;
+          border-left: 6px solid #4a6df7;
+        }
+        .step-by-step ol {
+          padding-left: 1.2rem;
+        }
+        .step-by-step li {
+          margin-bottom: 0.8rem;
+          font-size: 1rem;
+        }
+      
+        /* Practice Section */
+        .practice-section {
+          margin-top: 3rem;
+        }
+        .practice-problem {
+          background: #fff8f0;
+          padding: 1.5rem;
+          border-radius: 8px;
+          border: 1px solid #ffe0b2;
+          margin-bottom: 1.8rem;
+        }
+        .practice-problem p {
+          font-weight: 600;
+          font-size: 1.1rem;
+        }
+      
+        /* Solution Button */
+        .show-solution {
+          background-color: #6e8efb;
+          border: none;
+          color: white;
+          padding: 10px 18px;
+          border-radius: 6px;
+          cursor: pointer;
+          margin-top: 1rem;
+          font-size: 0.95rem;
+          transition: background-color 0.3s;
+        }
+        .show-solution:hover {
+          background-color: #5a7df4;
+        }
+      
+        /* Solution Box */
+        .solution {
+          background: #f5f5f5;
+          border-left: 5px solid #27ae60;
+          padding: 1.2rem 1.5rem;
+          border-radius: 6px;
+          margin-top: 1rem;
+          display: none;
+          color: #444;
+        }
+        .solution strong {
+          color: #27ae60;
+        }
+        .solution p {
+          margin: 0.6rem 0;
+        }
+      
+        /* Responsive */
+        @media (max-width: 900px) {
+          main {
+            flex-direction: column;
+          }
+          aside.topic-nav {
+            width: 100%;
+            position: static;
+            margin-bottom: 2rem;
+            top: auto;
+          }
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            p, li {
+                font-size: 0.9rem;
+            }
+        }
+      </style>
+</head>
+<body>
+    <main>
+        <aside class="topic-nav">
+          <h3>On this page</h3>
+          <ul>
+            <li><a href="#bodmas">What is BODMAS?</a></li>
+            <li><a href="#bodmas-expansion">BODMAS Full Form</a></li>
+            <li><a href="#bodmas-example">Example</a></li>
+            <li><a href="#bodmas-steps">Step-by-Step Solution</a></li>
+            <li><a href="#bodmas-practice">Practice Problem</a></li>
+          </ul>
+        </aside>
+      
+        <article>
+          <h1 id="bodmas">BODMAS </h1>
+          <div class="concept-box">
+            <p><strong>BODMAS</strong> is a helpful rule to remember the order of operations in math. It tells us the correct sequence to solve different operations in an expression.</p>
+          </div>
+      
+          <h2 id="bodmas-expansion">BODMAS Full Form</h2>
+          <ul class="example">
+            <li><strong>B</strong> – Brackets ((), {}, [])</li>
+            <li><strong>O</strong> – Orders (Powers and Square Roots)</li>
+            <li><strong>D</strong> – Division</li>
+            <li><strong>M</strong> – Multiplication</li>
+            <li><strong>A</strong> – Addition</li>
+            <li><strong>S</strong> – Subtraction</li>
+          </ul>
+          <p>Use this rule to avoid mistakes when solving complex expressions.</p>
+      
+          <h2 id="bodmas-example">Example Expression</h2>
+          <div class="example">
+            <p><strong>Expression:</strong> <span class="math-expr">6 + (2 × 3)² ÷ 3 - 4</span></p>
+          </div>
+      
+          <h2 id="bodmas-steps">Step-by-Step Solution</h2>
+          <div class="step-by-step">
+            <ol>
+              <li>First, solve inside brackets: <span class="math-expr">2 × 3 = 6</span></li>
+              <li>Now square the result: <span class="math-expr">6² = 36</span></li>
+              <li>Then divide: <span class="math-expr">36 ÷ 3 = 12</span></li>
+              <li>Now add: <span class="math-expr">6 + 12 = 18</span></li>
+              <li>Finally subtract: <span class="math-expr">18 - 4 = 14</span></li>
+            </ol>
+          </div>
+          <p><strong>Final Answer:</strong> <span class="math-expr">14</span></p>
+      
+          <h2 id="bodmas-practice">Practice Problem</h2>
+          <div class="practice-section">
+            <div class="practice-problem">
+              <p>Solve using BODMAS:</p>
+              <p><span class="math-expr">8 + 12 ÷ (2 × 2) - 3</span></p>
+              <button class="show-solution" onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                Show Solution
+              </button>
+              <div class="solution">
+                <p><strong>Step 1:</strong> Inside brackets: <span class="math-expr">2 × 2 = 4</span></p>
+                <p><strong>Step 2:</strong> Division: <span class="math-expr">12 ÷ 4 = 3</span></p>
+                <p><strong>Step 3:</strong> Addition: <span class="math-expr">8 + 3 = 11</span></p>
+                <p><strong>Step 4:</strong> Subtraction: <span class="math-expr">11 - 3 = 8</span></p>
+                <p><strong>Answer:</strong> <span class="math-expr">8</span></p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </main>
+      
+</body>
+</html>

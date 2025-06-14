@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Statistics - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Chart container */
+  .chart-container {
+    margin: 2rem 0;
+    background: #fafafa;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  canvas {
+    max-width: 100%;
+    height: 300px !important;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+    }
+    p, li {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Statistics</h1>
+    <p><strong>Statistics</strong> is the branch of mathematics dealing with data collection, analysis, interpretation, presentation, and organization.</p>
+
+    <!-- Sections -->
+    <section id="basic-concepts" class="topic-section">
+      <h2>Basic Concepts</h2>
+      <div class="concept-box">
+        <h3>Mean (Average)</h3>
+        <p>The sum of data values divided by the number of values.</p>
+      </div>
+      <div class="concept-box">
+        <h3>Median</h3>
+        <p>The middle value when data is arranged in order.</p>
+      </div>
+      <div class="concept-box">
+        <h3>Mode</h3>
+        <p>The value that appears most frequently in the data set.</p>
+      </div>
+      <div class="concept-box">
+        <h3>Range</h3>
+        <p>Difference between the highest and lowest data values.</p>
+      </div>
+    </section>
+
+    <!-- Graph Examples -->
+    <section id="graph-examples" class="topic-section">
+      <h2>Graph Examples</h2>
+      
+      <div class="example">
+        <p><strong>Bar Chart:</strong> Shows the frequency of categories.</p>
+        <div class="chart-container">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="example">
+        <p><strong>Pie Chart:</strong> Displays proportions of a whole.</p>
+        <div class="chart-container">
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Line Chart:</strong> Shows data trends over time.</p>
+        <div class="chart-container">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step-by-step -->
+    <section id="step-by-step" class="topic-section">
+      <h2>Step-by-Step: Calculating Mean</h2>
+      <div class="step-by-step">
+        <ol>
+          <li>Sum all the data values.</li>
+          <li>Count the number of values.</li>
+          <li>Divide the sum by the count.</li>
+          <li>The result is the mean (average).</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Find the mean of the data set: 3, 7, 7, 10, 12.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution1">Show Solution</button>
+        <div id="solution1" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Sum = 3 + 7 + 7 + 10 + 12 = 39. Number of values = 5. Mean = 39 / 5 = 7.8.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Identify the mode of the data set: 4, 4, 5, 6, 6, 6, 7.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution2">Show Solution</button>
+        <div id="solution2" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Mode is 6 because it appears most frequently.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Calculate the range of the data set: 15, 22, 8, 17, 10.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution3">Show Solution</button>
+        <div id="solution3" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Range = Highest value - Lowest value = 22 - 8 = 14.</p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Topic Navigation">
+    <h3>Statistics Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Basic Concepts</a></li>
+      <li><a href="#graph-examples">Graph Examples</a></li>
+      <li><a href="#step-by-step">Step-by-Step</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Toggle solution visibility
+  document.querySelectorAll('.show-solution').forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = button.nextElementSibling;
+      const isVisible = solution.style.display === 'block';
+
+      solution.style.display = isVisible ? 'none' : 'block';
+      button.setAttribute('aria-expanded', !isVisible);
+      solution.setAttribute('aria-hidden', isVisible);
+      button.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+    });
+  });
+
+  // Smooth scroll for topic nav links and active link highlight
+  const navLinks = document.querySelectorAll('.topic-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // Chart.js graphs setup
+  const barCtx = document.getElementById('barChart').getContext('2d');
+  const pieCtx = document.getElementById('pieChart').getContext('2d');
+  const lineCtx = document.getElementById('lineChart').getContext('2d');
+
+  // Bar Chart example
+  new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+      datasets: [{
+        label: 'Votes',
+        data: [12, 19, 7, 5, 9],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.7)',
+          'rgba(54, 162, 235, 0.7)',
+          'rgba(255, 206, 86, 0.7)',
+          'rgba(75, 192, 192, 0.7)',
+          'rgba(153, 102, 255, 0.7)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true },
+        title: { display: true, text: 'Bar Chart Example' }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  // Pie Chart example
+  new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Apples', 'Bananas', 'Cherries', 'Dates'],
+      datasets: [{
+        label: 'Fruits',
+        data: [10, 15, 8, 7],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.7)',
+          'rgba(255, 206, 86, 0.7)',
+          'rgba(54, 162, 235, 0.7)',
+          'rgba(75, 192, 192, 0.7)'
+        ],
+        borderColor: '#fff',
+        borderWidth: 1,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'right' },
+        title: { display: true, text: 'Pie Chart Example' }
+      }
+    }
+  });
+
+  // Line Chart example
+  new Chart(lineCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Visitors',
+        data: [50, 60, 55, 70, 80, 75],
+        borderColor: 'rgba(110, 142, 251, 0.9)',
+        backgroundColor: 'rgba(110, 142, 251, 0.3)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true },
+        title: { display: true, text: 'Line Chart Example' }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

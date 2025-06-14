@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../assets/logo.svg" type="image/x-icon">
+  <title>MathauraX - Class 10 Maths NCERT Solutions</title>
+</head>
+<body>
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+  padding: 0;
+  background: #f5f5fa;
+  color: #222;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.6rem !important;  /* override 50px */
+  }
+  h3 {
+    font-size: 1.3rem !important;  /* override 40px */
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.4rem !important;
+  }
+  h3 {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* Make sure margins and paddings scale nicely */
+@media (max-width: 768px) {
+  body {
+    margin: 10px !important;
+  }
+  .question, .answer {
+    padding: 12px 10px !important;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    margin: 8px !important;
+  }
+  .question, .answer {
+    padding: 10px 8px !important;
+  }
+}
+h1 {
+  font-size: 2.5rem;
+  color: #2a3eb1;
+}
+
+h2 {
+  background: #dce1f1;
+  padding: 10px;
+  border-left: 6px solid #2a3eb1;
+  margin-top: 40px;
+  font-size: 30px;
+}
+
+h3 {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #1a237e;
+  text-align: center;
+  background-color: #04ff00;
+}
+
+.question {
+  background: #fff;
+  padding: 15px;
+  border-left: 4px solid #64b5f6;
+  margin-bottom: 15px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+.chapter-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 20px;
+  list-style-type: none;
+  justify-content: center;
+}
+
+.chapter-nav li {
+  background-color: #f0f0f0;
+  border: 2px solid #0077cc;
+  border-radius: 10px;
+  padding: 10px 15px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.chapter-nav li a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.chapter-nav li:hover {
+  background-color: #e0f4ff;
+  transform: scale(1.05);
+}
+.step {
+     margin-left: 1.2rem;
+     margin-top: 0.8rem;
+   }
+   .math {
+     font-family: "Courier New", Courier, monospace;
+     background: #e6f0ff;
+     padding: 0.3rem 0.6rem;
+     border-radius: 4px;
+     display: inline-block;
+     margin: 0.2rem 0;
+   }
+   .verified {
+     color: green;
+     font-weight: bold;
+     margin-left: 0.5rem;
+   }
+   body {
+         font-family: Arial, sans-serif;
+         max-width: 800px;
+         margin: 20px auto;
+         padding: 10px;
+         line-height: 1.6;
+         color: #333;
+       }
+       h2 {
+         text-align: center;
+         margin-bottom: 25px;
+       }
+       .question {
+         font-weight: bold;
+         margin-bottom: 15px;
+         font-size: 1.1rem;
+       }
+       .image-container {
+         width: 100%;
+         height: 350px;
+         margin-bottom: 20px;
+         border: 2px solid #ccc;
+         background-color: #f9f9f9;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color: #999;
+         font-style: italic;
+         font-size: 1.2rem;
+       }
+       .answer {
+         margin-bottom: 30px;
+         background: #eef4ff;
+         border-left: 5px solid #3a6efc;
+         padding: 15px 20px;
+         border-radius: 5px;
+       }
+       .answer strong {
+         color: #003399;
+       }
+       .question {
+ background-color: #f9f9f9;
+ border-left: 5px solid #0057b7; /* Blue highlight */
+ padding: 15px 20px;
+ margin-bottom: 20px;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ line-height: 1.6;
+ color: #333;
+ box-shadow: 0 2px 6px rgba(0, 87, 183, 0.1);
+}
+
+.question p {
+ margin: 8px 0;
+}
+
+.question strong {
+ color: #003d80; /* Darker blue for emphasis */
+}
+
+.question p:nth-child(2) {
+ font-weight: 600;
+ margin-bottom: 12px;
+ color: #004aad;
+}
+
+.question code, 
+.question pre {
+ background-color: #e0ebff;
+ padding: 2px 6px;
+ border-radius: 4px;
+ font-family: 'Courier New', Courier, monospace;
+ font-size: 0.95em;
+ color: #002766;
+}
+
+
+    </style>
+           <style>
+            body {
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              max-width: 700px;
+              margin: 30px auto;
+              padding: 20px;
+              background: #f7f9ff;
+              color: #222;
+              line-height: 1.6;
+            }
+            h3 {
+              text-align: center;
+              color: #1a237e;
+              margin-bottom: 30px;
+            }
+            .question {
+              font-weight: 600;
+              font-size: 1.1rem;
+              margin-top: 25px;
+              color: #0d47a1;
+            }
+            .answer {
+              background-color: #e1eaff;
+              border-left: 5px solid #3949ab;
+              padding: 15px 20px;
+              border-radius: 4px;
+              font-size: 1rem;
+              white-space: pre-line;
+              margin-top: 8px;
+            }
+          </style>
+           <h2 id="chapter-4">Chapter 4: Quadratic Equations</h2>
+
+           <h3>Exercise 4.1</h3>
+       
+           <div class="question">
+           1. Check whether the following are quadratic equations:
+             <p>(i) (x + 1)² = 2(x – 3)</p>
+             <p>(ii) x² – 2x = (–2)(3 – x)</p>
+             <p>(iii) (x – 2)(x + 1) = (x – 1)(x + 3)</p>
+             <p>(iv) (x – 3)(2x + 1) = x(x + 5)</p>
+             <p>(v) (2x – 1)(x – 3) = (x + 5)(x – 1)</p>
+             <p>(vi) x² + 3x + 1 = (x – 2)²</p>
+             <p>(vii) (x + 2)³ = 2x(x² – 1)</p>
+             <p>(viii) x³ – 4x² – x + 1 = (x – 2)³</p>
+           </div>
+           <div class="answer">
+           <p>(i) Simplifies to: x² + 7 = 0 — Quadratic</p>
+           <p>(ii) Simplifies to: x² – 4x + 6 = 0 — Quadratic</p>
+           <p>(iii) Simplifies to: –3x + 1 = 0 — Linear, not quadratic</p>
+           <p>(iv) Simplifies to: x² – 10x – 3 = 0 — Quadratic</p>
+           <p>(v) Simplifies to: x² – 11x + 8 = 0 — Quadratic</p>
+           <p>(vi) Simplifies to: 7x – 3 = 0 — Linear, not quadratic</p>
+           <p>(vii) Simplifies to: –x³ + 6x² + 14x + 8 = 0 — Cubic, not quadratic</p>
+           <p>(viii) Simplifies to: 2x² – 13x + 9 = 0 — Quadratic</p>
+           </div>
+           
+           <div class="question">
+           2. Represent the following situations in the form of quadratic equations:
+             <p>(i) The area of a rectangular plot is 528 m². The length (L) is one more than twice the breadth (B). Find the quadratic equation.</p>
+             <p>(ii) The product of two consecutive positive integers is 306. Find the quadratic equation.</p>
+             <p>(iii) Rohan’s mother is 26 years older than him. The product of their ages 3 years from now will be 360. Find the quadratic equation.</p>
+             <p>(iv) A train travels 480 km at uniform speed. If speed was 8 km/h less, it would take 3 hours more. Find the quadratic equation.</p>
+           </div>
+           <div class="answer">
+           <p>(i) Let breadth = x meters, length = 2x + 1 meters.</p>
+           <p>Area = length × breadth → x(2x + 1) = 528</p>
+           <p>2x² + x – 528 = 0</p>
+           <p>This is the quadratic equation.</p>
+           
+           <p>(ii) Let the first integer = x, second integer = x + 1.</p>
+           <p>Product = x(x + 1) = 306</p>
+           <p>x² + x – 306 = 0</p>
+           <p>This is the quadratic equation.</p>
+           
+           <p>(iii) Let Rohan’s age = x years.</p>
+           <p>Mother’s age = x + 26 years.</p>
+           <p>Three years later:</p>
+           <p>(x + 3)(x + 26 + 3) = 360</p>
+           <p>(x + 3)(x + 29) = 360</p>
+           <p>Expanding: x² + 32x + 87 = 360</p>
+           <p>x² + 32x + 87 – 360 = 0 → x² + 32x – 273 = 0</p>
+           <p>This is the quadratic equation.</p>
+           
+           <p>(iv) Let speed = x km/h.</p>
+           <p>Time taken = distance / speed = 480 / x hours.</p>
+           <p>If speed reduced by 8 km/h, time taken = 480 / (x – 8) hours.</p>
+           <p>According to problem:</p>
+           <p>480/(x – 8) – 480/x = 3</p>
+           <p>Multiply through by x(x – 8):</p>
+           <p>480x – 480(x – 8) = 3x(x – 8)</p>
+           <p>480x – 480x + 3840 = 3x² – 24x</p>
+           <p>3840 = 3x² – 24x</p>
+           <p>3x² – 24x – 3840 = 0</p>
+           <p>Divide entire equation by 3:</p>
+           <p>x² – 8x – 1280 = 0</p>
+           <p>This is the quadratic equation.</p>
+           </div>
+       
+           <h3>Exercise 4.2</h3>
+       
+       <div class="question">
+       1. Find the roots of the following quadratic equations by factorisation:
+         <p>(i) x² – 3x – 10 = 0</p>
+         <p>(ii) 2x² + x – 6 = 0</p>
+         <p>(iii) 2x² + 7x + 5 = 0</p>
+         <p>(iv) 2x² – x + 1/8 = 0</p>
+         <p>(v) 100x² – 20x + 1 = 0</p>
+       </div>
+       <div class="answer">
+       <p>(i) x² – 3x – 10 = 0</p>
+       <p>Factors of -10 with sum -3: -5 and 2</p>
+       <p>(x - 5)(x + 2) = 0 → Roots: x = 5, x = -2</p>
+       
+       <p>(ii) 2x² + x – 6 = 0</p>
+       <p>Multiply a*c = 2 * (-6) = -12</p>
+       <p>Find factors of -12 that add to b=1: 4 and -3</p>
+       <p>Rewrite: 2x² + 4x - 3x - 6 = 0</p>
+       <p>Group: 2x(x + 2) - 3(x + 2) = 0</p>
+       <p>(2x - 3)(x + 2) = 0 → Roots: x = 3/2, x = -2</p>
+       
+       <p>(iii) 2x² + 7x + 5 = 0</p>
+       <p>Multiply a*c = 2*5=10</p>
+       <p>Factors of 10 that add to 7: 5 and 2</p>
+       <p>Rewrite: 2x² + 5x + 2x + 5 = 0</p>
+       <p>Group: x(2x + 5) + 1(2x + 5) = 0</p>
+       <p>(x + 1)(2x + 5) = 0 → Roots: x = -1, x = -5/2</p>
+       
+       <p>(iv) 2x² – x + 1/8 = 0</p>
+       <p>Multiply entire equation by 8 to clear fraction:</p>
+       <p>16x² – 8x + 1 = 0</p>
+       <p>Try to factor or use quadratic formula (factorisation is tough here)</p>
+       <p>Roots by formula: x = [8 ± √(64 – 64)] / 32 = 8/32 = 1/4 (double root)</p>
+       
+       <p>(v) 100x² – 20x + 1 = 0</p>
+       <p>Try factorisation:</p>
+       <p>Rewrite as (10x – 1)² = 0 → Roots: x = 1/10 (double root)</p>
+       </div>
+       
+       <div class="question">
+       2. Solve the problems given in Example 1.
+       </div>
+       <div class="answer">
+       <p>(Refer to your textbook for Example 1 solutions.)</p>
+       </div>
+       
+       <div class="question">
+       3. Find two numbers whose sum is 27 and product is 182.
+       </div>
+       <div class="answer">
+       <p>Let numbers be x and y.</p>
+       <p>x + y = 27</p>
+       <p>xy = 182</p>
+       <p>Form quadratic: t² – (sum)t + product = 0</p>
+       <p>t² – 27t + 182 = 0</p>
+       <p>Factor: 182 factors that add to 27 → 13 and 14</p>
+       <p>(t – 13)(t – 14) = 0 → Numbers: 13, 14</p>
+       </div>
+       
+       <div class="question">
+       4. Find two consecutive positive integers, sum of whose squares is 365.
+       </div>
+       <div class="answer">
+       <p>Let first integer be x, second = x + 1.</p>
+       <p>x² + (x + 1)² = 365</p>
+       <p>x² + x² + 2x + 1 = 365</p>
+       <p>2x² + 2x + 1 = 365</p>
+       <p>2x² + 2x – 364 = 0</p>
+       <p>x² + x – 182 = 0</p>
+       <p>Factor: (x + 14)(x – 13) = 0</p>
+       <p>Positive integer: x = 13, next integer = 14</p>
+       </div>
+       
+       <div class="question">
+       5. The altitude of a right triangle is 7 cm less than its base. If the hypotenuse is 13 cm, find the other two sides.
+       </div>
+       <div class="answer">
+       <p>Let base = x cm, altitude = x – 7 cm.</p>
+       <p>Hypotenuse = 13 cm.</p>
+       <p>By Pythagoras: x² + (x – 7)² = 13²</p>
+       <p>x² + x² – 14x + 49 = 169</p>
+       <p>2x² – 14x + 49 = 169</p>
+       <p>2x² – 14x – 120 = 0</p>
+       <p>Divide by 2: x² – 7x – 60 = 0</p>
+       <p>Factor: (x – 12)(x + 5) = 0</p>
+       <p>Positive side: x = 12 cm</p>
+       <p>Altitude = 12 – 7 = 5 cm</p>
+       </div>
+       
+       <div class="question">
+       6. A cottage industry produces a certain number of pottery articles in a day. It was observed on a particular day that the cost of production of each article (in rupees) was 3 more than twice the number of articles produced on that day. If the total cost of production on that day was ₹ 90, find the number of articles produced and the cost of each article.
+       </div>
+       <div class="answer">
+       <p>Let the number of articles produced = x.</p>
+       <p>Cost per article = 2x + 3 rupees.</p>
+       <p>Total cost = number × cost per article = x(2x + 3) = 90</p>
+       <p>2x² + 3x – 90 = 0</p>
+       <p>Factorise:</p>
+       <p>Multiply a*c = 2 * (-90) = -180</p>
+       <p>Factors of -180 adding to 3: 15 and -12</p>
+       <p>Rewrite: 2x² + 15x – 12x – 90 = 0</p>
+       <p>Group: x(2x + 15) – 6(2x + 15) = 0</p>
+       <p>(2x + 15)(x – 6) = 0</p>
+       <p>Possible x: –15/2 (ignore, negative) or 6</p>
+       <p>Number of articles = 6</p>
+       <p>Cost per article = 2(6) + 3 = 12 + 3 = ₹ 15</p>
+       </div>
+       <h3>Exercise 4.3</h3>
+       
+       <div class="question">
+       1. Find the nature of the roots of the following quadratic equations. If the real roots exist, find them:
+         <p>(i) 2x² – 3x + 5 = 0</p>
+         <p>(ii) 3x² – 4√3 x + 4 = 0</p>
+         <p>(iii) 2x² – 6x + 3 = 0</p>
+       </div>
+       <div class="answer">
+       <p>For quadratic ax² + bx + c = 0, discriminant Δ = b² – 4ac.</p>
+       
+       <p>(i) 2x² – 3x + 5 = 0</p>
+       <p>a=2, b=-3, c=5</p>
+       <p>Δ = (-3)² – 4×2×5 = 9 – 40 = -31 &lt; 0</p>
+       <p>Roots are complex (no real roots).</p>
+       
+       <p>(ii) 3x² – 4√3 x + 4 = 0</p>
+       <p>a=3, b=–4√3, c=4</p>
+       <p>Δ = (–4√3)² – 4×3×4 = 16×3 – 48 = 48 – 48 = 0</p>
+       <p>Roots are real and equal.</p>
+       <p>Root = –b/2a = 4√3 / (2×3) = 2√3/3</p>
+       
+       <p>(iii) 2x² – 6x + 3 = 0</p>
+       <p>a=2, b=–6, c=3</p>
+       <p>Δ = (–6)² – 4×2×3 = 36 – 24 = 12 &gt; 0</p>
+       <p>Roots are real and unequal.</p>
+       <p>Roots = [6 ± √12]/(2×2) = [6 ± 2√3]/4 = (3 ± √3)/2</p>
+       </div>
+       
+       <div class="question">
+       2. Find the values of k for each of the following quadratic equations, so that they have two equal roots:
+         <p>(i) 2x² + kx + 3 = 0</p>
+         <p>(ii) kx(x – 2) + 6 = 0</p>
+       </div>
+       <div class="answer">
+       <p>For equal roots, discriminant Δ = 0.</p>
+       
+       <p>(i) 2x² + kx + 3 = 0</p>
+       <p>a=2, b=k, c=3</p>
+       <p>Δ = k² – 4×2×3 = k² – 24 = 0</p>
+       <p>k² = 24 → k = ±2√6</p>
+       
+       <p>(ii) kx(x – 2) + 6 = 0</p>
+       <p>Rewrite: kx² – 2kx + 6 = 0</p>
+       <p>a = k, b = –2k, c = 6</p>
+       <p>Δ = (–2k)² – 4×k×6 = 4k² – 24k = 0</p>
+       <p>4k² – 24k = 0 → 4k(k – 6) = 0</p>
+       <p>k = 0 or k = 6</p>
+       </div>
+       
+       <div class="question">
+       3. Is it possible to design a rectangular mango grove whose length is twice its breadth, and the area is 800 m²? If so, find its length and breadth.
+       </div>
+       <div class="answer">
+       <p>Let breadth = x m, length = 2x m.</p>
+       <p>Area = length × breadth = 2x × x = 2x² = 800</p>
+       <p>2x² = 800 → x² = 400 → x = 20 m (breadth)</p>
+       <p>Length = 2×20 = 40 m</p>
+       <p>Yes, it is possible.</p>
+       </div>
+       
+       <div class="question">
+       4. Is the following situation possible? If so, determine their present ages. The sum of the ages of two friends is 20 years. Four years ago, the product of their ages in years was 48.
+       </div>
+       <div class="answer">
+       <p>Let their present ages be x and y.</p>
+       <p>x + y = 20 → y = 20 – x</p>
+       <p>Four years ago, ages: x – 4 and y – 4</p>
+       <p>Product: (x – 4)(y – 4) = 48</p>
+       <p>Substitute y:</p>
+       <p>(x – 4)(20 – x – 4) = 48</p>
+       <p>(x – 4)(16 – x) = 48</p>
+       <p>Expand: 16x – x² – 64 + 4x = 48</p>
+       <p>–x² + 20x – 64 = 48</p>
+       <p>–x² + 20x – 112 = 0</p>
+       <p>Multiply by –1: x² – 20x + 112 = 0</p>
+       <p>Discriminant Δ = 400 – 448 = –48 &lt; 0</p>
+       <p>No real roots → Situation not possible.</p>
+       </div>
+       
+       <div class="question">
+       5. Is it possible to design a rectangular park of perimeter 80 m and area 400 m²? If so, find its length and breadth.
+       </div>
+       <div class="answer">
+       <p>Let length = l, breadth = b.</p>
+       <p>Perimeter P = 2(l + b) = 80 → l + b = 40 → l = 40 – b</p>
+       <p>Area A = l × b = 400</p>
+       <p>Substitute l:</p>
+       <p>b(40 – b) = 400</p>
+       <p>40b – b² = 400</p>
+       <p>Rearranged: b² – 40b + 400 = 0</p>
+       <p>Discriminant Δ = 1600 – 1600 = 0</p>
+       <p>Roots are equal → b = 40/2 = 20 m</p>
+       <p>Length = 40 – 20 = 20 m</p>
+       <p>Yes, possible. The park is a square 20 m × 20 m.</p>
+       </div>
+       
+        </body>
+        </html>

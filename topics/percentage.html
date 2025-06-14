@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Percentage - MathauraX</title>
+<style>
+  /* Your provided CSS */
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="../assets/logo.svg " alt="MathauraX Logo" /></div>
+ 
+</header>
+
+<main>
+  <article>
+    <h1>Percentage</h1>
+    
+    <!-- Percentage Basics -->
+    <section id="percentage-basics">
+      <h2>Percentage Basics</h2>
+      <p>A <strong>percentage</strong> represents a part out of 100. The symbol <span class="math-expr">%</span> means "per hundred". For example, 45% means 45 out of 100.</p>
+      <div class="concept-box">
+        <p>Percentage formula:</p>
+        <p><span class="math-expr">Percentage = (Part / Whole) × 100</span></p>
+      </div>
+      <div class="example">
+        <p><strong>Example:</strong> If 25 students passed out of 40, what percentage passed?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Part = 25, Whole = 40</li>
+            <li>Percentage = (25 / 40) × 100 = 0.625 × 100 = 62.5%</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Percentage Increase and Decrease -->
+    <section id="percentage-increase-decrease">
+      <h2>Percentage Increase and Decrease</h2>
+      <p>Percentage increase or decrease shows how much a quantity has grown or shrunk in relation to its original amount.</p>
+      <div class="concept-box">
+        <p><strong>Percentage Increase:</strong></p>
+        <p><span class="math-expr">= ((New Value - Original Value) / Original Value) × 100</span></p>
+        <p><strong>Percentage Decrease:</strong></p>
+        <p><span class="math-expr">= ((Original Value - New Value) / Original Value) × 100</span></p>
+      </div>
+      <div class="example">
+        <p><strong>Example (Increase):</strong> A jacket price increased from $40 to $50. Find the percentage increase.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Original Value = 40, New Value = 50</li>
+            <li>Increase = 50 - 40 = 10</li>
+            <li>Percentage Increase = (10 / 40) × 100 = 25%</li>
+          </ol>
+        </div>
+      </div>
+      <div class="example">
+        <p><strong>Example (Decrease):</strong> A phone price dropped from $500 to $450. Find the percentage decrease.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Original Value = 500, New Value = 450</li>
+            <li>Decrease = 500 - 450 = 50</li>
+            <li>Percentage Decrease = (50 / 500) × 100 = 10%</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Converting Percentages to Fractions and Decimals -->
+    <section id="convert-percent-fractions-decimals">
+      <h2>Converting Percentages to Fractions and Decimals</h2>
+      <p>To convert a percentage to a fraction, write the percentage as a fraction with denominator 100 and simplify if possible.</p>
+      <p>To convert a percentage to a decimal, divide the percentage by 100.</p>
+      <div class="example">
+        <p><strong>Example:</strong> Convert 75% to fraction and decimal.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Fraction: 75% = <span class="math-expr">75/100</span> = <span class="math-expr">3/4</span></li>
+            <li>Decimal: 75% = <span class="math-expr">75 ÷ 100 = 0.75</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Finding Percentage of a Number -->
+    <section id="percentage-of-number">
+      <h2>Finding the Percentage of a Number</h2>
+      <p>To find a percentage of a number, multiply the number by the percentage (as a decimal).</p>
+      <p>Formula: <span class="math-expr">Percentage\ of\ Number = Number × (Percentage ÷ 100)</span></p>
+      <div class="example">
+        <p><strong>Example:</strong> Find 20% of 150.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Convert 20% to decimal: <span class="math-expr">20 ÷ 100 = 0.2</span></li>
+            <li>Multiply: <span class="math-expr">150 × 0.2 = 30</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Word Problems on Percentage -->
+    <section id="percentage-word-problems">
+      <h2>Word Problems on Percentage</h2>
+      <p>Percentage word problems often involve finding parts, totals, or changes expressed as percentages.</p>
+      <div class="example">
+        <p><strong>Example:</strong> A shop offers a 15% discount on a $120 jacket. What is the sale price?</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Find discount amount: <span class="math-expr">120 × (15 ÷ 100) = 18</span></li>
+            <li>Sale price = Original price - Discount = <span class="math-expr">120 - 18 = 102</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Discounts, Profit & Loss -->
+    <section id="discounts-profit-loss">
+      <h2>Discounts, Profit & Loss</h2>
+      <p><strong>Discount:</strong> The reduction in price offered on the original price (marked price).</p>
+      <p><strong>Profit:</strong> When selling price is more than cost price.</p>
+      <p><strong>Loss:</strong> When selling price is less than cost price.</p>
+      <div class="concept-box">
+        <p><strong>Formulas:</strong></p>
+        <ul>
+          <li>Discount = Marked Price - Selling Price</li>
+          <li>Profit = Selling Price - Cost Price</li>
+          <li>Loss = Cost Price - Selling Price</li>
+          <li>Profit % = (Profit / Cost Price) × 100</li>
+          <li>Loss % = (Loss / Cost Price) × 100</li>
+          <li>Discount % = (Discount / Marked Price) × 100</li>
+        </ul>
+      </div>
+      <div class="example">
+        <p><strong>Example:</strong> An item costs $200 and is sold for $250. Find the profit percentage.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Profit = 250 - 200 = 50</li>
+            <li>Profit % = (50 / 200) × 100 = 25%</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simple Interest -->
+    <section id="simple-interest">
+      <h2>Simple Interest</h2>
+      <p>Simple interest is interest calculated only on the principal amount.</p>
+      <div class="concept-box">
+        <p>Simple Interest Formula:</p>
+        <p><span class="math-expr">SI = (P × R × T) / 100</span></p>
+        <p>Where:</p>
+        <ul>
+          <li><strong>P</strong> = Principal amount</li>
+          <li><strong>R</strong> = Rate of interest per annum (%)</li>
+          <li><strong>T</strong> = Time in years</li>
+        </ul>
+      </div>
+      <div class="example">
+        <p><strong>Example:</strong> Calculate simple interest on $1000 at 5% per annum for 3 years.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>SI = (1000 × 5 × 3) / 100 = 150</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compound Interest -->
+    <section id="compound-interest">
+      <h2>Compound Interest</h2>
+      <p>Compound interest is calculated on the principal plus the interest earned so far.</p>
+      <div class="concept-box">
+        <p>Compound Interest Formula:</p>
+        <p><span class="math-expr">A = P \times \left(1 + \frac{R}{100}\right)^T</span></p>
+        <p><span class="math-expr">CI = A - P</span></p>
+        <p>Where:</p>
+        <ul>
+          <li><strong>A</strong> = Amount after interest</li>
+          <li><strong>P</strong> = Principal</li>
+          <li><strong>R</strong> = Rate of interest per annum (%)</li>
+          <li><strong>T</strong> = Time in years</li>
+        </ul>
+      </div>
+      <div class="example">
+        <p><strong>Example:</strong> Calculate compound interest on $1000 at 5% per annum for 2 years.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>A = 1000 × (1 + 5/100)^2 = 1000 × (1.05)^2 = 1000 × 1.1025 = 1102.5</li>
+            <li>CI = 1102.5 - 1000 = 102.5</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section class="practice-section">
+      <h2>Practice Problems</h2>
+      <div class="practice-problem">
+        <p>1. What is 15% of 200?</p>
+        <button class="show-solution" onclick="toggleSolution(1)">Show Solution</button>
+        <div class="solution" id="solution1">
+          <p><strong>Solution:</strong></p>
+          <p>15% of 200 = (15/100) × 200 = 0.15 × 200 = 30</p>
+        </div>
+      </div>
+      <div class="practice-problem">
+        <p>2. The price of a book increased from $120 to $138. Find the percentage increase.</p>
+        <button class="show-solution" onclick="toggleSolution(2)">Show Solution</button>
+        <div class="solution" id="solution2">
+          <p><strong>Solution:</strong></p>
+          <p>Increase = 138 - 120 = 18</p>
+          <p>Percentage increase = (18 / 120) × 100 = 15%</p>
+        </div>
+      </div>
+      <div class="practice-problem">
+        <p>3. A laptop originally priced at $900 is sold for $765. Find the discount percentage.</p>
+        <button class="show-solution" onclick="toggleSolution(3)">Show Solution</button>
+        <div class="solution" id="solution3">
+          <p><strong>Solution:</strong></p>
+          <p>Discount = 900 - 765 = 135</p>
+          <p>Discount % = (135 / 900) × 100 = 15%</p>
+        </div>
+      </div>
+      <div class="practice-problem">
+        <p>4. Calculate the simple interest on $5000 for 4 years at 6% per annum.</p>
+        <button class="show-solution" onclick="toggleSolution(4)">Show Solution</button>
+        <div class="solution" id="solution4">
+          <p><strong>Solution:</strong></p>
+          <p>SI = (5000 × 6 × 4) / 100 = 1200</p>
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <aside class="topic-nav">
+    <h3>Topics</h3>
+    <ul>
+      <li><a href="#percentage-basics">Percentage Basics</a></li>
+      <li><a href="#percentage-increase-decrease">Percentage Increase/Decrease</a></li>
+      <li><a href="#convert-percent-fractions-decimals">Convert % to Fractions & Decimals</a></li>
+      <li><a href="#percentage-of-number">Finding Percentage of Number</a></li>
+      <li><a href="#percentage-word-problems">Word Problems</a></li>
+      <li><a href="#discounts-profit-loss">Discounts, Profit & Loss</a></li>
+      <li><a href="#simple-interest">Simple Interest</a></li>
+      <li><a href="#compound-interest">Compound Interest</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+function toggleSolution(id) {
+  const sol = document.getElementById('solution' + id);
+  if(sol.style.display === 'block') {
+    sol.style.display = 'none';
+  } else {
+    sol.style.display = 'block';
+  }
+}
+
+// Highlight active nav link on scroll (optional)
+document.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('article section');
+  const scrollPos = window.scrollY + 100;
+  let currentId = '';
+  sections.forEach(section => {
+    if(scrollPos >= section.offsetTop) {
+      currentId = section.id;
+    }
+  });
+  document.querySelectorAll('aside.topic-nav a').forEach(link => {
+    link.classList.remove('active');
+    if(link.getAttribute('href') === '#' + currentId) {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

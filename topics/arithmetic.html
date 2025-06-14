@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arithmetic - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 280px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+    }
+    p, li {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Arithmetic Fundamentals</h1>
+    <p>Arithmetic is the branch of mathematics dealing with numbers and the basic operations on them: addition, subtraction, multiplication, and division. It forms the foundation for all other areas of math.</p>
+
+    <!-- Basic Concepts -->
+    <section id="basic-operations" class="topic-section">
+      <h2>Basic Arithmetic Operations</h2>
+
+      <div class="concept-box">
+        <h3>Addition (+)</h3>
+        <p>Addition is the process of combining two or more numbers to get a total sum.</p>
+        <p>Example: <span class="math-expr">3 + 5 = 8</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Subtraction (−)</h3>
+        <p>Subtraction is the process of finding the difference between two numbers by removing the value of one from the other.</p>
+        <p>Example: <span class="math-expr">9 - 4 = 5</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Multiplication (×)</h3>
+        <p>Multiplication is repeated addition of the same number.</p>
+        <p>Example: <span class="math-expr">4 \times 6 = 24</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Division (÷)</h3>
+        <p>Division splits a number into equal parts or groups.</p>
+        <p>Example: <span class="math-expr">20 ÷ 4 = 5</span></p>
+      </div>
+    </section>
+
+    <!-- Properties -->
+    <section id="properties" class="topic-section">
+      <h2>Properties of Arithmetic Operations</h2>
+
+      <div class="concept-box">
+        <h3>Commutative Property</h3>
+        <p>This property states that changing the order of numbers does not change the result for addition and multiplication.</p>
+        <p>Examples:</p>
+        <ul>
+          <li><span class="math-expr">a + b = b + a</span></li>
+          <li><span class="math-expr">a \times b = b \times a</span></li>
+        </ul>
+      </div>
+
+      <div class="concept-box">
+        <h3>Associative Property</h3>
+        <p>This property states that how numbers are grouped does not change the sum or product.</p>
+        <p>Examples:</p>
+        <ul>
+          <li><span class="math-expr">(a + b) + c = a + (b + c)</span></li>
+          <li><span class="math-expr">(a \times b) \times c = a \times (b \times c)</span></li>
+        </ul>
+      </div>
+
+      <div class="concept-box">
+        <h3>Distributive Property</h3>
+        <p>This property connects multiplication and addition/subtraction.</p>
+        <p>Example:</p>
+        <p><span class="math-expr">a \times (b + c) = a \times b + a \times c</span></p>
+      </div>
+    </section>
+
+    <!-- Number Types -->
+    <section id="number-types" class="topic-section">
+      <h2>Number Types</h2>
+      <p>Understanding different types of numbers is essential for arithmetic.</p>
+
+      <div class="concept-box">
+        <h3>Natural Numbers (ℕ)</h3>
+        <p>Counting numbers starting from 1: <span class="math-expr">1, 2, 3, 4, ...</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Whole Numbers</h3>
+        <p>Natural numbers including zero: <span class="math-expr">0, 1, 2, 3, ...</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Integers (ℤ)</h3>
+        <p>Whole numbers including negatives: <span class="math-expr">..., -3, -2, -1, 0, 1, 2, 3, ...</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Rational Numbers (ℚ)</h3>
+        <p>Numbers that can be expressed as fractions: <span class="math-expr">a/b</span> where <span>a</span> and <span>b</span> are integers and <span>b \neq 0</span>.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Irrational Numbers</h3>
+        <p>Numbers that cannot be expressed as a fraction of two integers, e.g., <span class="math-expr">\pi</span>, <span>\sqrt{2}</span>.</p>
+      </div>
+    </section>
+
+    <!-- Order of Operations -->
+    <section id="order-of-operations" class="topic-section">
+      <h2>Order of Operations</h2>
+      <p>When multiple operations appear in an expression, the order to solve them is crucial.</p>
+      <p>The commonly used acronym is <strong>PEMDAS</strong> or <strong>BODMAS</strong>:</p>
+      <ul>
+        <li><strong>P/B</strong> - Parentheses/Brackets</li>
+        <li><strong>E/O</strong> - Exponents/Orders</li>
+        <li><strong>MD</strong> - Multiplication and Division (left to right)</li>
+        <li><strong>AS</strong> - Addition and Subtraction (left to right)</li>
+      </ul>
+
+      <div class="example">
+        <p><strong>Example:</strong> Evaluate <span class="math-expr">3 + 6 \times (5 + 4) ÷ 3 - 7</span></p>
+        <div class="step-by-step">
+          <ol>
+            <li>Solve inside parentheses: <span class="math-expr">(5 + 4) = 9</span></li>
+            <li>Multiply: <span class="math-expr">6 \times 9 = 54</span></li>
+            <li>Divide: <span class="math-expr">54 ÷ 3 = 18</span></li>
+            <li>Add and subtract left to right: <span class="math-expr">3 + 18 - 7 = 14</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fractions -->
+    <section id="fractions" class="topic-section">
+      <h2>Fractions</h2>
+      <p>A fraction represents a part of a whole, written as <span class="math-expr">a/b</span>, where <span>a</span> is numerator and <span>b</span> is denominator.</p>
+
+      <div class="concept-box">
+        <h3>Types of Fractions</h3>
+        <ul>
+          <li>Proper Fraction: numerator < denominator (e.g., <span class="math-expr">3/4</span>)</li>
+          <li>Improper Fraction: numerator ≥ denominator (e.g., <span class="math-expr">7/4</span>)</li>
+          <li>Mixed Number: whole number + proper fraction (e.g., <span class="math-expr">1 \frac{3}{4}</span>)</li>
+        </ul>
+      </div>
+
+      <div class="concept-box">
+        <h3>Operations with Fractions</h3>
+        <p><strong>Addition/Subtraction:</strong> Make denominators same, then add/subtract numerators.</p>
+        <p><strong>Multiplication:</strong> Multiply numerators, multiply denominators.</p>
+        <p><strong>Division:</strong> Multiply by reciprocal.</p>
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Add <span class="math-expr">1/3 + 2/5</span></p>
+        <div class="step-by-step">
+          <ol>
+            <li>Find common denominator: <span class="math-expr">15</span></li>
+            <li>Convert fractions: <span class="math-expr">1/3 = 5/15, \quad 2/5 = 6/15</span></li>
+            <li>Add numerators: <span class="math-expr">5 + 6 = 11</span></li>
+            <li>Result: <span class="math-expr">11/15</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Decimals -->
+    <section id="decimals" class="topic-section">
+      <h2>Decimals</h2>
+      <p>Decimals are an alternative way of representing fractions using powers of ten.</p>
+
+      <div class="concept-box">
+        <h3>Reading Decimals</h3>
+        <p>Digits to the right of the decimal point represent tenths, hundredths, thousandths, etc.</p>
+        <p>Example: <span class="math-expr">3.45 = 3 + \frac{4}{10} + \frac{5}{100}</span></p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Operations with Decimals</h3>
+        <ul>
+          <li>Addition/Subtraction: align decimal points before operating.</li>
+          <li>Multiplication: multiply as whole numbers then place decimal.</li>
+          <li>Division: move decimal points to make divisor whole, then divide.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Percentages -->
+    <section id="percentages" class="topic-section">
+      <h2>Percentages</h2>
+      <p>Percentage means "per hundred" and is a way to express fractions with denominator 100.</p>
+      <p>Example: <span class="math-expr">45\% = \frac{45}{100} = 0.45</span></p>
+
+      <div class="concept-box">
+        <h3>Calculating Percentage</h3>
+        <p>To find <span class="math-expr">p\%</span> of a number <span class="math-expr">N</span>, use:</p>
+        <p><span class="math-expr">\frac{p}{100} \times N</span></p>
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Find 20% of 150.</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Convert percentage to decimal: <span class="math-expr">20\% = 0.20</span></li>
+            <li>Multiply: <span class="math-expr">0.20 \times 150 = 30</span></li>
+            <li>Result: <span class="math-expr">30</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practice Section -->
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Calculate: <span class="math-expr">7 + 15 - 9 \times 2</span></p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>Follow order of operations:</p>
+          <ol>
+            <li>Multiply first: <span class="math-expr">9 \times 2 = 18</span></li>
+            <li>Add and subtract left to right: <span class="math-expr">7 + 15 - 18 = 4</span></li>
+          </ol>
+          <p><strong>Answer:</strong> 4</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Simplify: <span class="math-expr">\frac{3}{4} + \frac{2}{5}</span></p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <ol>
+            <li>Common denominator: 20</li>
+            <li>Convert fractions: <span class="math-expr">\frac{3}{4} = \frac{15}{20}, \quad \frac{2}{5} = \frac{8}{20}</span></li>
+            <li>Add numerators: <span class="math-expr">15 + 8 = 23</span></li>
+            <li>Result: <span class="math-expr">\frac{23}{20} = 1 \frac{3}{20}</span></li>
+          </ol>
+          <p><strong>Answer:</strong> <span class="math-expr">1 \frac{3}{20}</span></p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Find 15% of 240.</p>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <ol>
+            <li>Convert percentage: <span class="math-expr">15\% = 0.15</span></li>
+            <li>Multiply: <span class="math-expr">0.15 \times 240 = 36</span></li>
+          </ol>
+          <p><strong>Answer:</strong> 36</p>
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <aside class="topic-nav" aria-label="Topic Navigation">
+    <h3>Topics</h3>
+    <ul>
+      <li><a href="#basic-operations">Basic Operations</a></li>
+      <li><a href="#properties">Properties</a></li>
+      <li><a href="#number-types">Number Types</a></li>
+      <li><a href="#order-of-operations">Order of Operations</a></li>
+      <li><a href="#fractions">Fractions</a></li>
+      <li><a href="#decimals">Decimals</a></li>
+      <li><a href="#percentages">Percentages</a></li>
+      <li><a href="#practice">Practice</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Highlight current nav on scroll
+  const sections = document.querySelectorAll('.topic-section');
+  const navLinks = document.querySelectorAll('.topic-nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').substring(1) === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Toggle solution visibility
+  document.querySelectorAll('.show-solution').forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = button.nextElementSibling;
+      if (solution.style.display === 'block') {
+        solution.style.display = 'none';
+        button.textContent = 'Show Solution';
+      } else {
+        solution.style.display = 'block';
+        button.textContent = 'Hide Solution';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Decimals - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  html {
+      scroll-behavior: smooth;
+    }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Decimals</h1>
+    <p><strong>Decimals</strong> are numbers expressed in the base-10 system with a decimal point separating the integer part from the fractional part.</p>
+
+    <section id="basic-concepts" class="topic-section">
+      <h2>Basic Concepts</h2>
+      <div class="concept-box">
+        <h3>Decimal Point</h3>
+        <p>The dot (.) that separates the whole number part from the fractional part of a decimal number.</p>
+      </div>
+      <div class="concept-box">
+        <h3>Place Value</h3>
+        <p>Each digit after the decimal point represents a fractional part: tenths, hundredths, thousandths, etc.</p>
+      </div>
+      <div class="concept-box">
+        <h3>Types of Decimals</h3>
+        <p>Decimals can be terminating (finite digits) or repeating (infinite repeating digits).</p>
+      </div>
+    </section>
+
+    <section id="operations" class="topic-section">
+      <h2>Operations with Decimals</h2>
+
+      <div class="example">
+        <p><strong>Addition:</strong> Align decimal points and add as usual.</p>
+        <ul>
+          <li>Example: 3.75 + 2.4 = 6.15</li>
+        </ul>
+      </div>
+
+      <div class="example">
+        <p><strong>Subtraction:</strong> Align decimal points and subtract.</p>
+        <ul>
+          <li>Example: 5.6 − 3.25 = 2.35</li>
+        </ul>
+      </div>
+
+      <div class="example">
+        <p><strong>Multiplication:</strong> Multiply as whole numbers ignoring the decimal, then place decimal in result.</p>
+        <ul>
+          <li>Example: 1.2 × 3.4 = 4.08</li>
+        </ul>
+      </div>
+
+      <div class="example">
+        <p><strong>Division:</strong> Make divisor a whole number by multiplying numerator and denominator by the same power of 10, then divide.</p>
+        <ul>
+          <li>Example: 4.5 ÷ 1.5 = 3</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="step-by-step" class="topic-section">
+      <h2>Step-by-Step: Multiplying Decimals</h2>
+      <div class="step-by-step">
+        <ol>
+          <li>Ignore decimal points and multiply as whole numbers.</li>
+          <li>Count total decimal places in both numbers.</li>
+          <li>Place decimal point in product so that it has the total decimal places counted.</li>
+          <li>Write the final product.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Add: 5.75 + 3.4</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution1">Show Solution</button>
+        <div id="solution1" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Align decimals: 5.75 + 3.40 = 9.15</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Subtract: 7.2 − 4.85</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution2">Show Solution</button>
+        <div id="solution2" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Align decimals: 7.20 − 4.85 = 2.35</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Multiply: 2.3 × 4.5</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution3">Show Solution</button>
+        <div id="solution3" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Ignore decimals: 23 × 45 = 1035</p>
+          <p>Count decimal places: 1 + 1 = 2</p>
+          <p>Place decimal: 10.35</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>4. Divide: 6.4 ÷ 0.8</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution4">Show Solution</button>
+        <div id="solution4" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>Multiply numerator and denominator by 10: 64 ÷ 8 = 8</p>
+        </div>
+      </div>
+
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Decimal topic navigation">
+    <h3>Decimal Topics</h3>
+    <ul>
+      <li><a href="#basic-concepts" class="active">Basic Concepts</a></li>
+      <li><a href="#operations">Operations</a></li>
+      <li><a href="#step-by-step">Step-by-Step</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Navigation active link toggle
+  document.querySelectorAll('.topic-nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      document.querySelectorAll('.topic-nav a').forEach(a => a.classList.remove('active'));
+      e.target.classList.add('active');
+    });
+  });
+
+  // Show/hide solutions
+  document.querySelectorAll('.show-solution').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const solution = btn.nextElementSibling;
+      const isVisible = solution.style.display === 'block';
+      solution.style.display = isVisible ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', !isVisible);
+      solution.setAttribute('aria-hidden', isVisible);
+    });
+  });
+</script>
+
+</body>
+</html>

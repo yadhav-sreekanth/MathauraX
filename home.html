@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathauraX - Explore Mathematics</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/logo.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="styles/home.css">
+    <style>
+        /* Navigation and Kid Mode Button styles */
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 3.5rem;
+        }
+
+        .nav-menu li {
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: inherit;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #195acd;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+        }
+
+        .kid-mode-button {
+            background: linear-gradient(45deg, #FF9A8B, #FF6B95, #FF8E53);
+            color: white !important;
+            border: none;
+            padding: 8px 16px !important;
+            border-radius: 25px !important;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            display: inline-flex;
+            align-items: center;
+            font-size: 1rem;
+            text-decoration: none;
+            margin: 0 !important;
+        }
+
+        .kid-mode-button:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #FF8E53, #FF6B95, #FF9A8B);
+        }
+
+        /* Logo animations */
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .logo-text {
+            animation: colorChange 5s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { color: rgba(25, 90, 202, 0.815); }
+            50% { color: #195acd; }
+            100% { color: rgba(25, 90, 202, 0.815); }
+        }
+
+        /* Topic card animations */
+        .topic-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .topic-card:hover::before {
+            left: 100%;
+        }
+
+        .topic-card h3 {
+            transition: transform 0.3s ease;
+        }
+
+        .topic-card:hover h3 {
+            transform: scale(1.1);
+        }
+
+        /* Search section animations */
+        .search-section {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #searchInput {
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(25, 90, 202, 0.2);
+        }
+
+        #searchButton {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #searchButton:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(25, 90, 202, 0.3);
+        }
+
+        /* Section animations */
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Contact section animations */
+        #contact nav a {
+            transition: all 0.3s ease;
+        }
+
+        #contact nav a:hover {
+            transform: translateY(-5px);
+            color: #195acd !important;
+        }
+
+        #contact nav a i {
+            transition: transform 0.3s ease;
+        }
+
+        #contact nav a:hover i {
+            transform: scale(1.2);
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 880px) {
+            .logo-text {
+                display: none;
+            }
+
+            .nav-menu {
+                visibility: hidden;
+                opacity: 0;
+                position: fixed;
+                top: 80px;
+                right: 0;
+                width: 250px;
+                min-width: 200px;
+                height: auto;
+                background: white;
+                padding: 0.5rem;
+                box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+                z-index: 1000;
+                transition: all 0.3s ease;
+                transform: translateX(10px);
+                border-radius: 0 0 0 10px;
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .nav-menu.open {
+                visibility: visible !important;
+                opacity: 1 !important;
+                transform: translateX(0) !important;
+                animation: slideIn 0.3s ease-out;
+            }
+
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+                padding: 0.3rem 0;
+            }
+
+            .nav-menu li a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                font-size: 0.95rem;
+                padding: 0.3rem 1rem;
+            }
+
+            .nav-toggle {
+                display: block !important;
+                z-index: 1001;
+                cursor: pointer;
+            }
+
+            .nav-toggle-img {
+                transition: transform 0.3s ease;
+            }
+
+            .nav-toggle:hover .nav-toggle-img {
+                transform: rotate(90deg);
+            }
+
+            .settings-dropdown {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                margin-top: 0.3rem;
+            }
+
+            .settings-dropdown.show {
+                display: block;
+                animation: fadeIn 0.3s ease-out;
+            }
+        }
+
+        /* Base styles for nav elements */
+        .nav-toggle {
+            display: none;
+        }
+
+        /* Settings icon specific styles */
+        .settings-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-menu i {
+            padding: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .settings-menu i:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Add these new animations to the existing styles */
+        
+        /* 3D Flip effect for topic cards */
+        .topic-card {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px) scale(1.02) rotateX(5deg);
+        }
+
+        /* Glowing effect for search button */
+        #searchButton {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #searchButton::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease-out;
+        }
+
+        #searchButton:hover::before {
+            transform: scale(1);
+        }
+
+        /* Typing animation for search placeholder */
+        #searchInput::placeholder {
+            animation: typing 3s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        @keyframes typing {
+            0% { content: "Search for topics..."; }
+            50% { content: "Explore mathematics..."; }
+            100% { content: "Search for topics..."; }
+        }
+
+        /* Floating animation for social icons */
+        #contact nav a {
+            animation: floatIcon 3s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.2s);
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Gradient border animation for topic cards */
+        .topic-card {
+            position: relative;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .topic-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #195acd, #FF6B95, #FF8E53, #195acd);
+            background-size: 400% 400%;
+            z-index: -1;
+            border-radius: 12px;
+            animation: gradientBorder 3s ease infinite;
+        }
+
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Shake animation for kid mode button */
+        .kid-mode-button {
+            animation: shake 2s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* Pulse animation for section titles */
+        h2 {
+            position: relative;
+        }
+
+        /* Scroll reveal animation for sections */
+        section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover effect for navigation links */
+        .nav-menu li a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .nav-menu li a:hover::before {
+            left: 100%;
+        }
+
+        /* Rotating background for kid mode button */
+        .kid-mode-button {
+            background-size: 200% 200%;
+            animation: gradientBG 3s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Bounce animation for search results */
+        #searchResults {
+            animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Glowing effect for footer */
+        footer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(25,90,202,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9;
+            position: relative;
+        }
+
+        body::before {
+            content: '+ - ÷ ×';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 200px;
+            color: rgba(25, 90, 205, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <header style="position: fixed; top: 0; right: 0; width: 100%; z-index: 1000; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background: white; display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo" style="display: flex; align-items: center;">
+            <img src="assets/logo.svg" alt="MathauraX Logo" style="height: 40px;">
+            <h1 style="font-size: 2rem; font-weight: bold; color: rgba(25, 90, 202, 0.815); margin-left: 1rem;" class="logo-text">MathauraX</h1>
+        </div>
+        
+        <nav>
+            <div class="nav-toggle" id="navToggle">
+                <img class="nav-toggle-img" src="assets/nav.png" alt="Menu" style="width:24px; height:24px; cursor: pointer;"/>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#topics">Topics</a></li>
+                <li>
+                    <a href="kidmode/kid.html" class="kid-mode-button">
+                        <i class="fas fa-child"></i> &nbsp; Kid Mode
+                    </a>
+                </li>
+                <li><a href="#contact">Help</a></li>
+                <li class="settings-menu">
+                    <i id="settingsIcon" class="fas fa-cog" style="cursor: pointer; font-size: 1.4rem; color: #000;"></i>
+                    <ul id="settingsDropdown" class="settings-dropdown">
+                        <li><a href="#" id="logoutLink">Logout</a></li>
+                        <li><a href="https://yadhav-sreekanth.github.io/Yadhav-Portfolio/" target="_blank">Developer</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <h2>Find Mathematical Concepts</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for topics...">
+                <button id="searchButton">Search</button>
+            </div>
+            <div id="searchResults"></div>
+        </section>
+
+        <section class="recommended-topics" id="topics">
+            <h2>Recommended Topics</h2>
+            <div class="topic-grid">
+                <a href="topics/algebra.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Algebra</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Equations, polynomials, and algebraic structures</p>
+                </a>
+                <a href="topics/geometry.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Geometry</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Shapes, angles, and spatial reasoning</p>
+                </a>
+                <a href="topics/calculus.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Calculus</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Limits, derivatives, and integrals</p>
+                </a>
+                <a href="topics/trigonometry.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Trigonometry</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Angles, sine, cosine, and triangle relationships</p>
+                </a>
+                <a href="topics/statistics.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Statistics</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Data interpretation, averages, and distributions</p>
+                </a>
+                <a href="topics/probability.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Probability</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Chance, events, and statistical outcomes</p>
+                </a>
+                <a href="topics/linear-algebra.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Linear Algebra</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Vectors, matrices, and systems of equations</p>
+                </a>
+                <a href="topics/differential-equations.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Differential Equations</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Solving equations involving derivatives</p>
+                </a>
+                <a href="topics/numbertheory.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Number Theory</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Prime numbers, divisibility, and modular arithmetic</p>
+                </a>
+                <a href="topics/logic.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Logic</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Reasoning, propositions, and truth tables</p>
+                </a>
+                <a href="topics/mathematical-physics.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Mathematical Physics</h3>
+                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Math applied to physical problems and systems</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="recommended-topics" id="topics">
+            <h2>NCERT Solutions CBSE 2025-2026  Class 10 </h2>
+            <div class="topic-grid" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <a href="class10/class-10.html" class="topic-card">
+                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Standard 10</h3>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <section id="contact" style="background-color: #050558; padding: 3rem 1rem; color: #eee; text-align: center;">
+        <h2 style="color: #0a74da; font-size: 2.2rem; margin-bottom: 1rem;">Contact MathauraX</h2>
+        <p style="max-width: 600px; margin: 0 auto 2rem; color: #bbb; font-size: 1rem;">
+            Connect with us and explore the world of mathematics through MathauraX.
+        </p>
+        <nav aria-label="Social media and contact links" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <a href="https://github.com/yadhav-sreekanth" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-github"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">GitHub</div>
+            </a>
+            <a href="https://www.linkedin.com/in/yadhav-sreekanth-b4522635a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-linkedin"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">LinkedIn</div>
+            </a>
+            <a href="https://wa.me/9633588111" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-whatsapp"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">WhatsApp</div>
+            </a>
+            <a href="https://instagram.com/yadhav_sreekanth" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-instagram"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Instagram</div>
+            </a>
+            <a href="mailto:mathaurax@gmail.com" aria-label="Email" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fas fa-envelope"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Email</div>
+            </a>
+        </nav>
+    </section>
+
+    <footer>
+        <p>&copy;<img src="assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/search.js"></script>
+    
+    <script>
+        // Intersection Observer for section animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const settingsIcon = document.getElementById('settingsIcon');
+            const settingsDropdown = document.getElementById('settingsDropdown');
+            const body = document.body;
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navMenu.classList.toggle('open');
+                    body.classList.toggle('menu-open');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                        navMenu.classList.remove('open');
+                        body.classList.remove('menu-open');
+                    }
+                });
+
+                let resizeTimer;
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(function() {
+                        if (window.innerWidth > 880) {
+                            navMenu.classList.remove('open');
+                            body.classList.remove('menu-open');
+                        }
+                    }, 250);
+                });
+            }
+
+            if (settingsIcon && settingsDropdown) {
+                settingsIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    settingsDropdown.classList.toggle('show');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!settingsIcon.contains(e.target) && !settingsDropdown.contains(e.target)) {
+                        settingsDropdown.classList.remove('show');
+                    }
+                });
+            }
+        });
+
+        // Add this to your existing script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation delay to social icons
+            document.querySelectorAll('#contact nav a').forEach((icon, index) => {
+                icon.style.setProperty('--i', index);
+            });
+
+            // Enhanced scroll reveal
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Add staggered animation to child elements
+                        if (entry.target.querySelector('.topic-grid')) {
+                            entry.target.querySelectorAll('.topic-card').forEach((card, index) => {
+                                card.style.transitionDelay = `${index * 0.1}s`;
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Add hover effect to topic cards
+            document.querySelectorAll('.topic-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02) rotateX(5deg)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1) rotateX(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

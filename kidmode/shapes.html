@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn Shapes - Kid Mode</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #ffe0f0);
+      font-family: Comic Sans MS, cursive, sans-serif;
+      color: #333;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ff4081;
+      margin-bottom: 20px;
+      animation: pop 1.5s infinite alternate;
+    }
+
+    section {
+      margin-bottom: 60px;
+    }
+
+    .shapes-list, .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .shape-card, .option-btn {
+      background: #ffffffcc;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 1.4rem;
+      width: 150px;
+      transition: transform 0.2s, background 0.3s;
+      cursor: default;
+    }
+
+    .shape-card span {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .option-btn {
+      cursor: pointer;
+      font-size: 2rem;
+      padding: 20px;
+    }
+
+    .option-btn:hover {
+      background: #fff176;
+      transform: scale(1.1);
+    }
+
+    .question {
+      font-size: 1.8rem;
+      color: #6a1b9a;
+      margin-bottom: 25px;
+    }
+
+    #result {
+      font-size: 1.3rem;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .refresh-text {
+      margin-top: 25px;
+      color: #00796b;
+      font-size: 1.1rem;
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 Learn and Guess Shapes!</h1>
+
+  <!-- Section 1: Learn Shapes -->
+  <section>
+    <h2>🧠 Learn the Shapes</h2>
+    <div class="shapes-list">
+      <div class="shape-card"><span>⚪️</span>Circle</div>
+      <div class="shape-card"><span>🟥</span>Square</div>
+      <div class="shape-card"><span>🔺</span>Triangle</div>
+      <div class="shape-card"><span>⭐️</span>Star</div>
+      <div class="shape-card"><span>❤️</span>Heart</div>
+      <div class="shape-card"><span>🔷</span>Diamond</div>
+      <div class="shape-card"><span>⬡</span>Hexagon</div>
+    </div>
+  </section>
+
+  <!-- Section 2: Guess the Shape -->
+  <section>
+    <h2>❓ Guess the Shape</h2>
+    <div class="question" id="shape-question">Which one is 🔷?</div>
+    <div class="options" id="shape-options">
+      <!-- Options inserted via JS -->
+    </div>
+    <div id="result"></div>
+    <p class="refresh-text">🔄 Refresh the page for a new question!</p>
+  </section>
+
+  <script>
+    const shapes = [
+      { name: "Circle", emoji: "⚪️" },
+      { name: "Square", emoji: "🟥" },
+      { name: "Triangle", emoji: "🔺" },
+      { name: "Star", emoji: "⭐️" },
+      { name: "Heart", emoji: "❤️" },
+      { name: "Diamond", emoji: "🔷" },
+    ];
+
+    const questionElement = document.getElementById("shape-question");
+    const optionsContainer = document.getElementById("shape-options");
+    const resultElement = document.getElementById("result");
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function generateShapeQuiz() {
+      const shuffled = shuffle([...shapes]);
+      const correct = shuffled[Math.floor(Math.random() * shuffled.length)];
+      questionElement.textContent = `Which one is ${correct.emoji}?`;
+
+      optionsContainer.innerHTML = '';
+      shuffled.forEach(shape => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = shape.emoji;
+        btn.onclick = () => {
+          if (shape.name === correct.name) {
+            resultElement.textContent = "✅ Correct! You got it!";
+            resultElement.style.color = "green";
+          } else {
+            resultElement.textContent = "❌ Try again!";
+            resultElement.style.color = "red";
+          }
+        };
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    generateShapeQuiz();
+  </script>
+
+</body>
+</html>

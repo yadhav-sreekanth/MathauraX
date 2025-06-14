@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famous Mathematicians - MathauraX</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+    <style>
+        *{
+           font-family: 'Poppins', sans-serif;
+        }
+        .mathematician-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .mathematician-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .mathematician-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .mathematician-card h3 {
+            color: #195acd;
+            margin-bottom: 0.5rem;
+        }
+
+        .time-period {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .contributions {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .search-container {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        #searchInput {
+            padding: 0.5rem 1rem;
+            width: 300px;
+            border: 2px solid #195acd;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .category-title {
+            grid-column: 1 / -1;
+            color: #195acd;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            padding-left: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            h2.category-title {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            .contributions {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header style="display: flex; justify-content: center; align-items: center; padding: 1rem ;">
+        <div class="logo" >
+            <img src="../assets/logo.svg" alt="MathauraX Logo" style="height: 100px;">
+        </div>
+    </header>
+
+    <main style="margin-top: 100px;">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search mathematicians...">
+            <button style="background-color: #195acd; color: white; border: none; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer;" id="searchButton">Search</button>
+        </div>
+
+        <div class="mathematician-grid">
+            <h2 class="category-title">Ancient Mathematicians</h2>
+            
+            <div class="mathematician-card">
+                <h3>Euclid</h3>
+                <div class="time-period">c. 300 BCE</div>
+                <div class="contributions">
+                    Known as the "Father of Geometry." Wrote "Elements," the most influential mathematical work of all time. Established the foundations of geometry and number theory.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Archimedes</h3>
+                <div class="time-period">c. 287-212 BCE</div>
+                <div class="contributions">
+                    Made significant contributions to geometry, calculus, and physics. Discovered principles of buoyancy and developed methods for calculating areas and volumes.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Pythagoras</h3>
+                <div class="time-period">c. 570-495 BCE</div>
+                <div class="contributions">
+                    Famous for the Pythagorean theorem. Founded a school of mathematics and philosophy. Made important contributions to number theory and geometry.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Thales of Miletus</h3>
+                <div class="time-period">c. 624-546 BCE</div>
+                <div class="contributions">
+                    One of the first known mathematicians. Proved geometric theorems and introduced deductive reasoning to mathematics.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Diophantus</h3>
+                <div class="time-period">c. 200-284 CE</div>
+                <div class="contributions">
+                    Known as the "Father of Algebra." Wrote "Arithmetica," which introduced algebraic notation and methods.
+                </div>
+            </div>
+
+            <h2 class="category-title">Medieval Mathematicians</h2>
+
+            <div class="mathematician-card">
+                <h3>Al-Khwarizmi</h3>
+                <div class="time-period">c. 780-850 CE</div>
+                <div class="contributions">
+                    Known as the "Father of Algebra." Introduced the decimal system to the Western world. Wrote the first book on algebra.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Fibonacci</h3>
+                <div class="time-period">c. 1170-1250</div>
+                <div class="contributions">
+                    Introduced the Fibonacci sequence to Western mathematics. Popularized the Hindu-Arabic numeral system in Europe.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Omar Khayyam</h3>
+                <div class="time-period">1048-1131</div>
+                <div class="contributions">
+                    Made significant contributions to algebra and geometry. Solved cubic equations and wrote influential works on mathematics.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Brahmagupta</h3>
+                <div class="time-period">598-668 CE</div>
+                <div class="contributions">
+                    Introduced the concept of zero and negative numbers. Made fundamental contributions to algebra and astronomy.
+                </div>
+            </div>
+
+            <h2 class="category-title">Renaissance and Early Modern Mathematicians</h2>
+
+            <div class="mathematician-card">
+                <h3>Leonardo da Vinci</h3>
+                <div class="time-period">1452-1519</div>
+                <div class="contributions">
+                    Applied mathematics to art and engineering. Made significant contributions to geometry and perspective.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>René Descartes</h3>
+                <div class="time-period">1596-1650</div>
+                <div class="contributions">
+                    Developed Cartesian geometry. Created the coordinate system. Made fundamental contributions to algebra and geometry.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Pierre de Fermat</h3>
+                <div class="time-period">1607-1665</div>
+                <div class="contributions">
+                    Founded number theory. Known for Fermat's Last Theorem. Made significant contributions to probability theory.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Blaise Pascal</h3>
+                <div class="time-period">1623-1662</div>
+                <div class="contributions">
+                    Made fundamental contributions to probability theory. Invented the mechanical calculator. Developed Pascal's triangle.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Isaac Newton</h3>
+                <div class="time-period">1643-1727</div>
+                <div class="contributions">
+                    Co-inventor of calculus. Made fundamental contributions to physics and mathematics. Developed the binomial theorem.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Gottfried Leibniz</h3>
+                <div class="time-period">1646-1716</div>
+                <div class="contributions">
+                    Co-inventor of calculus. Developed the binary number system. Made significant contributions to logic and mathematics.
+                </div>
+            </div>
+
+            <h2 class="category-title">18th Century Mathematicians</h2>
+
+            <div class="mathematician-card">
+                <h3>Leonhard Euler</h3>
+                <div class="time-period">1707-1783</div>
+                <div class="contributions">
+                    One of the greatest mathematicians of all time. Made fundamental contributions to calculus, graph theory, and number theory.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Joseph-Louis Lagrange</h3>
+                <div class="time-period">1736-1813</div>
+                <div class="contributions">
+                    Made significant contributions to calculus, number theory, and mechanics. Developed Lagrangian mechanics.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Pierre-Simon Laplace</h3>
+                <div class="time-period">1749-1827</div>
+                <div class="contributions">
+                    Made fundamental contributions to probability theory and celestial mechanics. Developed Laplace transforms.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Adrien-Marie Legendre</h3>
+                <div class="time-period">1752-1833</div>
+                <div class="contributions">
+                    Made significant contributions to number theory and elliptic functions. Developed Legendre polynomials.
+                </div>
+            </div>
+
+            <h2 class="category-title">19th Century Mathematicians</h2>
+
+            <div class="mathematician-card">
+                <h3>Carl Friedrich Gauss</h3>
+                <div class="time-period">1777-1855</div>
+                <div class="contributions">
+                    Known as the "Prince of Mathematicians." Made fundamental contributions to number theory, algebra, and statistics.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Évariste Galois</h3>
+                <div class="time-period">1811-1832</div>
+                <div class="contributions">
+                    Founded group theory. Made fundamental contributions to abstract algebra. Solved the problem of solvability of polynomial equations.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Bernhard Riemann</h3>
+                <div class="time-period">1826-1866</div>
+                <div class="contributions">
+                    Developed Riemannian geometry. Made fundamental contributions to analysis and number theory. Formulated the Riemann hypothesis.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Augustin-Louis Cauchy</h3>
+                <div class="time-period">1789-1857</div>
+                <div class="contributions">
+                    Made fundamental contributions to analysis and complex analysis. Developed the Cauchy integral theorem.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Niels Henrik Abel</h3>
+                <div class="time-period">1802-1829</div>
+                <div class="contributions">
+                    Made fundamental contributions to algebra and analysis. Proved the impossibility of solving quintic equations by radicals.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Sophie Germain</h3>
+                <div class="time-period">1776-1831</div>
+                <div class="contributions">
+                    Made significant contributions to number theory and elasticity theory. Worked on Fermat's Last Theorem.
+                </div>
+            </div>
+
+            <h2 class="category-title">20th Century Mathematicians</h2>
+
+            <div class="mathematician-card">
+                <h3>David Hilbert</h3>
+                <div class="time-period">1862-1943</div>
+                <div class="contributions">
+                    One of the most influential mathematicians. Formulated 23 problems that shaped 20th-century mathematics.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Henri Poincaré</h3>
+                <div class="time-period">1854-1912</div>
+                <div class="contributions">
+                    Made fundamental contributions to topology, celestial mechanics, and relativity theory.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>John von Neumann</h3>
+                <div class="time-period">1903-1957</div>
+                <div class="contributions">
+                    Made fundamental contributions to game theory, quantum mechanics, and computer science.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Alan Turing</h3>
+                <div class="time-period">1912-1954</div>
+                <div class="contributions">
+                    Father of theoretical computer science. Made fundamental contributions to cryptography and artificial intelligence.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Kurt Gödel</h3>
+                <div class="time-period">1906-1978</div>
+                <div class="contributions">
+                    Proved the incompleteness theorems. Made fundamental contributions to mathematical logic.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Emmy Noether</h3>
+                <div class="time-period">1882-1935</div>
+                <div class="contributions">
+                    Made fundamental contributions to abstract algebra and theoretical physics. Developed Noether's theorem.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Alexander Grothendieck</h3>
+                <div class="time-period">1928-2014</div>
+                <div class="contributions">
+                    Revolutionized algebraic geometry. Made fundamental contributions to category theory and topology.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Paul Erdős</h3>
+                <div class="time-period">1913-1996</div>
+                <div class="contributions">
+                    One of the most prolific mathematicians. Made fundamental contributions to number theory and combinatorics.
+                </div>
+            </div>
+
+            <h2 class="category-title">Contemporary Mathematicians</h2>
+
+            <div class="mathematician-card">
+                <h3>Andrew Wiles</h3>
+                <div class="time-period">1953-present</div>
+                <div class="contributions">
+                    Proved Fermat's Last Theorem. Made fundamental contributions to number theory.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Grigori Perelman</h3>
+                <div class="time-period">1966-present</div>
+                <div class="contributions">
+                    Proved the Poincaré conjecture. Made fundamental contributions to topology and geometry.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Terence Tao</h3>
+                <div class="time-period">1975-present</div>
+                <div class="contributions">
+                    Fields Medal winner. Made fundamental contributions to harmonic analysis, partial differential equations, and number theory.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Maryam Mirzakhani</h3>
+                <div class="time-period">1977-2017</div>
+                <div class="contributions">
+                    First woman to win the Fields Medal. Made fundamental contributions to geometry and dynamical systems.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Cédric Villani</h3>
+                <div class="time-period">1973-present</div>
+                <div class="contributions">
+                    Fields Medal winner. Made fundamental contributions to partial differential equations and optimal transport theory.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Manjul Bhargava</h3>
+                <div class="time-period">1974-present</div>
+                <div class="contributions">
+                    Fields Medal winner. Made fundamental contributions to number theory and algebraic geometry.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Aryabhata</h3>
+                <div class="time-period">476-550 CE</div>
+                <div class="contributions">
+                    Ancient Indian mathematician and astronomer. Made significant contributions to algebra, trigonometry, and astronomy.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Srinivasa Ramanujan</h3>
+                <div class="time-period">1887-1920</div>
+                <div class="contributions">
+                    Self-taught mathematical genius. Made extraordinary contributions to number theory, infinite series, and continued fractions.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Nikolai Lobachevsky</h3>
+                <div class="time-period">1792-1856</div>
+                <div class="contributions">
+                    Developed non-Euclidean geometry. Made fundamental contributions to hyperbolic geometry.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Georg Cantor</h3>
+                <div class="time-period">1845-1918</div>
+                <div class="contributions">
+                    Created set theory. Made fundamental contributions to the theory of infinite numbers.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Richard Feynman</h3>
+                <div class="time-period">1918-1988</div>
+                <div class="contributions">
+                    Nobel laureate in physics. Made significant contributions to quantum mechanics and mathematical physics.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Paul Dirac</h3>
+                <div class="time-period">1902-1984</div>
+                <div class="contributions">
+                    Nobel laureate in physics. Made fundamental contributions to quantum mechanics and mathematical physics.
+                </div>
+            </div>
+
+            <div class="mathematician-card">
+                <h3>Niels Bohr</h3>
+                <div class="time-period">1885-1962</div>
+                <div class="contributions">
+                    Nobel laureate in physics. Made fundamental contributions to quantum theory and atomic structure.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.mathematician-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

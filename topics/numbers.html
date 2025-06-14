@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Numbers - MathauraX</title>
+<style>
+  /* Reset & Global */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  header {
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo img {
+    height: 50px;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+  nav ul li {
+    margin-left: 2rem;
+  }
+  nav ul li a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul li a:hover {
+    color: #6e8efb;
+  }
+
+  /* Main Layout */
+  main {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  article {
+    flex: 1;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  aside.topic-nav {
+    width: 260px;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  aside.topic-nav h3 {
+    color: #6e8efb;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.3rem;
+  }
+  aside.topic-nav ul {
+    list-style: none;
+  }
+  aside.topic-nav li {
+    margin-bottom: 0.6rem;
+  }
+  aside.topic-nav a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 0.3rem 0;
+    transition: color 0.3s;
+  }
+  aside.topic-nav a:hover,
+  aside.topic-nav a.active {
+    color: #6e8efb;
+    font-weight: 600;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+  h2 {
+    margin: 2rem 0 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+    color: #444;
+  }
+  h3 {
+    margin-bottom: 1rem;
+    color: #6e8efb;
+  }
+
+  /* Text & paragraphs */
+  p {
+    margin-bottom: 1rem;
+    color: #555;
+    font-size: 1.05rem;
+  }
+
+  /* Concept Boxes */
+  .concept-box {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #6e8efb;
+    margin-bottom: 2rem;
+  }
+
+  /* Math Expressions */
+  .math-expr {
+    font-family: "Cambria Math", serif;
+    font-style: italic;
+    color: #d63384;
+    background-color: #fff0f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* Examples */
+  .example {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .example p strong {
+    color: #6e8efb;
+  }
+  .example ul {
+    margin-top: 0.5rem;
+    padding-left: 20px;
+    color: #444;
+  }
+
+  /* Step by Step */
+  .step-by-step {
+    background: #e9f0ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 8px;
+    margin: 1.5rem 0 2rem;
+    border-left: 6px solid #4a6df7;
+  }
+  .step-by-step ol {
+    padding-left: 1.2rem;
+  }
+  .step-by-step li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  /* Practice Section */
+  .practice-section {
+    margin-top: 3rem;
+  }
+  .practice-problem {
+    background: #fff8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 1.8rem;
+  }
+  .practice-problem p {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Solution Button */
+  .show-solution {
+    background-color: #6e8efb;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+  }
+  .show-solution:hover {
+    background-color: #5a7df4;
+  }
+
+  /* Solution Box */
+  .solution {
+    background: #f5f5f5;
+    border-left: 5px solid #27ae60;
+    padding: 1.2rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    display: none;
+    color: #444;
+  }
+  .solution strong {
+    color: #27ae60;
+  }
+  .solution p {
+    margin: 0.6rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    main {
+      flex-direction: column;
+    }
+    aside.topic-nav {
+      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+      top: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+</header>
+
+<main>
+  <article>
+    <h1>Numbers</h1>
+    <p><strong>Numbers</strong> are the basic building blocks of mathematics, used to count, measure, and label. They can be classified into various types based on their properties.</p>
+
+    <!-- Number Types -->
+    <section id="number-types" class="topic-section">
+      <h2>Types of Numbers</h2>
+
+      <div class="concept-box">
+        <h3>Natural Numbers</h3>
+        <p>Counting numbers starting from 1, 2, 3, ...</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Whole Numbers</h3>
+        <p>Natural numbers including zero: 0, 1, 2, 3, ...</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Integers</h3>
+        <p>Whole numbers and their negatives: ..., -3, -2, -1, 0, 1, 2, 3, ...</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Rational Numbers</h3>
+        <p>Numbers that can be expressed as a fraction of two integers, e.g., 3/4, -5/2.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Irrational Numbers</h3>
+        <p>Numbers that cannot be expressed as fractions, e.g., π, √2.</p>
+      </div>
+
+      <div class="concept-box">
+        <h3>Real Numbers</h3>
+        <p>All rational and irrational numbers combined.</p>
+      </div>
+    </section>
+
+    <!-- Properties -->
+    <section id="properties" class="topic-section">
+      <h2>Properties of Numbers</h2>
+      <ul>
+        <li><strong>Commutative Property:</strong> a + b = b + a and ab = ba</li>
+        <li><strong>Associative Property:</strong> (a + b) + c = a + (b + c) and (ab)c = a(bc)</li>
+        <li><strong>Distributive Property:</strong> a(b + c) = ab + ac</li>
+        <li><strong>Identity Elements:</strong> 0 for addition, 1 for multiplication</li>
+      </ul>
+    </section>
+
+    <!-- Examples -->
+    <section id="examples" class="topic-section">
+      <h2>Examples</h2>
+      <div class="example">
+        <p><strong>Example 1:</strong> Identify the type of number: -7</p>
+        <p><strong>Solution:</strong> -7 is an integer, but not a natural or whole number.</p>
+      </div>
+      <div class="example">
+        <p><strong>Example 2:</strong> Is 0.75 rational or irrational?</p>
+        <p><strong>Solution:</strong> 0.75 = 3/4, so it is a rational number.</p>
+      </div>
+    </section>
+
+    <!-- Step-by-Step -->
+    <section id="step-by-step" class="topic-section">
+      <h2>Step-by-Step: Classifying Numbers</h2>
+      <div class="step-by-step">
+        <ol>
+          <li>Check if the number is positive and whole (natural number).</li>
+          <li>If zero included, it’s a whole number.</li>
+          <li>If negative whole number, it’s an integer.</li>
+          <li>If decimal or fraction that can be written as ratio of integers, it’s rational.</li>
+          <li>If decimal that cannot be expressed as a ratio, it’s irrational.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Practice Problems -->
+    <section id="practice" class="practice-section">
+      <h2>Practice Problems</h2>
+
+      <div class="practice-problem">
+        <p>1. Classify the number -3.5.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution1">Show Solution</button>
+        <div id="solution1" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>-3.5 is a rational number (expressible as -7/2), but not an integer.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>2. Is √16 a rational or irrational number?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution2">Show Solution</button>
+        <div id="solution2" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>√16 = 4, which is a rational number.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>3. Determine whether π is rational or irrational.</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution3">Show Solution</button>
+        <div id="solution3" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>π is an irrational number since it cannot be expressed as a fraction.</p>
+        </div>
+      </div>
+
+      <div class="practice-problem">
+        <p>4. Is 0 a natural number?</p>
+        <button class="show-solution" aria-expanded="false" aria-controls="solution4">Show Solution</button>
+        <div id="solution4" class="solution" aria-hidden="true">
+          <p><strong>Solution:</strong></p>
+          <p>No, 0 is not considered a natural number, but it is a whole number.</p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <aside class="topic-nav" aria-label="Topic Navigation">
+    <h3>Numbers Topics</h3>
+    <ul>
+      <li><a href="#number-types" class="active">Types of Numbers</a></li>
+      <li><a href="#properties">Properties</a></li>
+      <li><a href="#examples">Examples</a></li>
+      <li><a href="#step-by-step">Step-by-Step</a></li>
+      <li><a href="#practice">Practice Problems</a></li>
+    </ul>
+  </aside>
+</main>
+
+<script>
+  // Toggle solution visibility
+  document.querySelectorAll('.show-solution').forEach(button => {
+    button.addEventListener('click', () => {
+      const solution = button.nextElementSibling;
+      const isVisible = solution.style.display === 'block';
+
+      solution.style.display = isVisible ? 'none' : 'block';
+      button.setAttribute('aria-expanded', !isVisible);
+      solution.setAttribute('aria-hidden', isVisible);
+      button.textContent = isVisible ? 'Show Solution' : 'Hide Solution';
+    });
+  });
+
+  // Smooth scroll for topic nav links and active link highlight
+  const navLinks = document.querySelectorAll('.topic-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

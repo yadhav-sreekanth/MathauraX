@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculus - MathauraX</title>
+  <style>
+    /* Your full CSS from above */
+    /* Reset & Global */  
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background: #fff;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo img {
+      height: 50px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    nav ul li {
+      margin-left: 2rem;
+    }
+    nav ul li a {
+      color: #333;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #6e8efb;
+    }
+
+    /* Main Layout */
+    main {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    article {
+      flex: 1;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    aside.topic-nav {
+      width: 280px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 80px;
+      height: fit-content;
+    }
+    aside.topic-nav h3 {
+      color: #6e8efb;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3rem;
+    }
+    aside.topic-nav ul {
+      list-style: none;
+    }
+    aside.topic-nav li {
+      margin-bottom: 0.6rem;
+    }
+    aside.topic-nav a {
+      color: #555;
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.3rem 0;
+      transition: color 0.3s;
+    }
+    aside.topic-nav a:hover,
+    aside.topic-nav a.active {
+      color: #6e8efb;
+      font-weight: 600;
+    }
+
+    /* Headings */
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      color: #6e8efb;
+    }
+    h2 {
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.3rem;
+      color: #444;
+    }
+    h3 {
+      margin-bottom: 1rem;
+      color: #6e8efb;
+    }
+
+    /* Text & paragraphs */
+    p {
+      margin-bottom: 1rem;
+      color: #555;
+      font-size: 1.05rem;
+    }
+
+    /* Concept Boxes */
+    .concept-box {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 5px solid #6e8efb;
+      margin-bottom: 2rem;
+    }
+
+    /* Math Expressions */
+    .math-expr {
+      font-family: "Cambria Math", serif;
+      font-style: italic;
+      color: #d63384;
+      background-color: #fff0f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Examples */
+    .example {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 1rem 1.2rem;
+      border-radius: 6px;
+      margin-top: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .example p strong {
+      color: #6e8efb;
+    }
+    .example ul {
+      margin-top: 0.5rem;
+      padding-left: 20px;
+      color: #444;
+    }
+
+    /* Step by Step */
+    .step-by-step {
+      background: #e9f0ff;
+      padding: 1.5rem 1.8rem;
+      border-radius: 8px;
+      margin: 1.5rem 0 2rem;
+      border-left: 6px solid #4a6df7;
+    }
+    .step-by-step ol {
+      padding-left: 1.2rem;
+    }
+    .step-by-step li {
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+
+    /* Practice Section */
+    .practice-section {
+      margin-top: 3rem;
+    }
+    .practice-problem {
+      background: #fff8f0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #ffe0b2;
+      margin-bottom: 1.8rem;
+    }
+    .practice-problem p {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* Solution Button */
+    .show-solution {
+      background-color: #6e8efb;
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      transition: background-color 0.3s;
+    }
+    .show-solution:hover {
+      background-color: #5a7df4;
+    }
+
+    /* Solution Box */
+    .solution {
+      background: #f5f5f5;
+      border-left: 5px solid #27ae60;
+      padding: 1.2rem 1.5rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      display: none;
+      color: #444;
+    }
+    .solution strong {
+      color: #27ae60;
+    }
+    .solution p {
+      margin: 0.6rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+      }
+      aside.topic-nav {
+        width: 100%;
+        position: static;
+        margin-bottom: 2rem;
+        top: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 14px;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      h3 {
+        font-size: 1.2rem;
+      }
+      p, li {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="MathauraX Logo" />
+  </div>
+
+</header>
+
+<main>
+  <aside class="topic-nav" aria-label="Calculus Topics Navigation">
+    <h3>Calculus Topics</h3>
+    <ul>
+      <li><a href="#limits">Limits</a></li>
+      <li><a href="#continuity">Continuity</a></li>
+      <li><a href="#derivatives">Derivatives</a></li>
+      <li><a href="#applications-derivatives">Applications of Derivatives</a></li>
+      <li><a href="#integrals">Integrals</a></li>
+      <li><a href="#applications-integrals">Applications of Integrals</a></li>
+      <li><a href="#fundamental-theorem">Fundamental Theorem of Calculus</a></li>
+      <li><a href="#techniques-integration">Techniques of Integration</a></li>
+      <li><a href="#series">Sequences & Series</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Calculus</h1>
+
+    <!-- Limits -->
+    <section id="limits">
+      <h2>Limits</h2>
+      <p>The concept of limits is fundamental in calculus. It describes the value that a function approaches as the input approaches some point.</p>
+
+      <div class="concept-box">
+        <strong>Definition:</strong> For a function \( f(x) \), the limit as \( x \) approaches \( a \) is \( L \) if for every \(\varepsilon > 0\), there exists \(\delta > 0\) such that whenever \( 0 < |x - a| < \delta \), it follows that \( |f(x) - L| < \varepsilon \).
+      </div>
+
+      <p class="math-expr"> \(\displaystyle \lim_{x \to a} f(x) = L \)</p>
+
+      <div class="example">
+        <p><strong>Example 1:</strong> Find \( \lim_{x \to 3} (2x + 1) \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Substitute \( x = 3 \) into the function: \( 2(3) + 1 = 7 \).</li>
+            <li>Since the function is continuous at 3, the limit is simply the function value.</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The limit is \( 7 \) because \( 2x + 1 \) is a polynomial and continuous everywhere.</p>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example 2:</strong> Evaluate \( \lim_{x \to 0} \frac{\sin x}{x} \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Direct substitution gives \( \frac{0}{0} \), which is indeterminate.</li>
+            <li>Use the standard limit \( \lim_{x \to 0} \frac{\sin x}{x} = 1 \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>This is a classic trigonometric limit, which evaluates to 1.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Continuity -->
+    <section id="continuity">
+      <h2>Continuity</h2>
+      <p>A function \( f(x) \) is continuous at a point \( a \) if the following three conditions hold:</p>
+      <ul>
+        <li>\( f(a) \) is defined.</li>
+        <li>\( \lim_{x \to a} f(x) \) exists.</li>
+        <li>\( \lim_{x \to a} f(x) = f(a) \).</li>
+      </ul>
+
+      <div class="concept-box">
+        Continuity means no breaks, jumps, or holes at the point \( a \).
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Show that \( f(x) = x^2 \) is continuous at \( x = 2 \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Calculate \( f(2) = 4 \).</li>
+            <li>Calculate \( \lim_{x \to 2} x^2 = 4 \).</li>
+            <li>Since the limit equals the function value, \( f \) is continuous at 2.</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The function \( x^2 \) is continuous everywhere because it's a polynomial.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Derivatives -->
+    <section id="derivatives">
+      <h2>Derivatives</h2>
+      <p>The derivative of a function measures the rate at which the function value changes as its input changes. It is defined as the limit:</p>
+      <p class="math-expr"> \(\displaystyle f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \)</p>
+
+      <div class="concept-box">
+        The derivative represents the slope of the tangent line to the graph of \( f \) at point \( x \).
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Find the derivative of \( f(x) = x^3 \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Use the definition: \( f'(x) = \lim_{h \to 0} \frac{(x+h)^3 - x^3}{h} \).</li>
+            <li>Expand numerator: \( (x^3 + 3x^2h + 3xh^2 + h^3) - x^3 = 3x^2h + 3xh^2 + h^3 \).</li>
+            <li>Divide by \( h \): \( 3x^2 + 3xh + h^2 \).</li>
+            <li>Take the limit as \( h \to 0 \): \( 3x^2 \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The derivative is \( f'(x) = 3x^2 \).</p>
+        </div>
+      </div>
+
+      <h3>Basic Derivative Rules</h3>
+      <ul>
+        <li>Power Rule: \( \frac{d}{dx} x^n = nx^{n-1} \)</li>
+        <li>Sum Rule: \( \frac{d}{dx} [f(x) + g(x)] = f'(x) + g'(x) \)</li>
+        <li>Product Rule: \( \frac{d}{dx} [f(x)g(x)] = f'(x)g(x) + f(x)g'(x) \)</li>
+        <li>Quotient Rule: \( \frac{d}{dx} \frac{f(x)}{g(x)} = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2} \)</li>
+        <li>Chain Rule: \( \frac{d}{dx} f(g(x)) = f'(g(x)) \cdot g'(x) \)</li>
+      </ul>
+    </section>
+
+    <!-- Applications of Derivatives -->
+    <section id="applications-derivatives">
+      <h2>Applications of Derivatives</h2>
+      <p>Derivatives are used to find maxima, minima, and points of inflection of functions.</p>
+
+      <div class="concept-box">
+        Critical points occur where \( f'(x) = 0 \) or \( f'(x) \) is undefined.
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Find critical points and determine maxima or minima for \( f(x) = x^3 - 3x^2 + 4 \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Find derivative: \( f'(x) = 3x^2 - 6x \).</li>
+            <li>Set \( f'(x) = 0 \): \( 3x^2 - 6x = 0 \Rightarrow 3x(x - 2) = 0 \Rightarrow x = 0, 2 \).</li>
+            <li>Use second derivative test: \( f''(x) = 6x - 6 \).</li>
+            <li>At \( x=0 \), \( f''(0) = -6 < 0 \) → local maximum.</li>
+            <li>At \( x=2 \), \( f''(2) = 6 > 0 \) → local minimum.</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>Critical points at \( x=0 \) (max) and \( x=2 \) (min).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integrals -->
+    <!-- Integrals -->
+    <section id="integrals">
+      <h2>Integrals</h2>
+      <p>Integration is the inverse process of differentiation. It is used to calculate areas, volumes, and accumulations.</p>
+
+      <p class="math-expr"> \(\displaystyle \int f(x) \, dx \)</p>
+
+      <div class="concept-box">
+        <strong>Indefinite Integral:</strong> The collection of all antiderivatives of \( f(x) \), plus a constant \( C \).
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Find \( \int 3x^2 \, dx \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Use the power rule for integration: \( \int x^n dx = \frac{x^{n+1}}{n+1} + C \).</li>
+            <li>Here, \( n = 2 \), so \( \int 3x^2 dx = 3 \times \frac{x^{3}}{3} + C = x^3 + C \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The integral is \( x^3 + C \), where \( C \) is the constant of integration.</p>
+        </div>
+      </div>
+
+      <div class="concept-box">
+        <strong>Definite Integral:</strong> Represents the signed area under \( f(x) \) between limits \( a \) and \( b \):
+        \[
+          \int_a^b f(x) \, dx = F(b) - F(a)
+        \]
+        where \( F(x) \) is any antiderivative of \( f(x) \).
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Calculate \( \int_1^4 (2x) \, dx \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Find the antiderivative of \( 2x \): \( F(x) = x^2 \).</li>
+            <li>Evaluate \( F(4) - F(1) = 16 - 1 = 15 \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The definite integral equals 15, which is the area under the curve from 1 to 4.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Applications of Integrals -->
+    <section id="applications-integrals">
+      <h2>Applications of Integrals</h2>
+      <p>Integrals are used to find areas, volumes, work done, and many physical quantities.</p>
+
+      <div class="concept-box">
+        Common applications include:
+        <ul>
+          <li>Area between curves</li>
+          <li>Volume of solids of revolution</li>
+          <li>Average value of a function</li>
+          <li>Work done by a variable force</li>
+        </ul>
+      </div>
+
+      <div class="example">
+        <p><strong>Example:</strong> Find the area between \( y = x^2 \) and \( y = x + 2 \) from \( x=0 \) to \( x=2 \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Find points of intersection: solve \( x^2 = x + 2 \).</li>
+            <li>At \( x=0 \), \( y = 0 \) and \( y=2 \), so from 0 to 2, \( x + 2 \) is above \( x^2 \).</li>
+            <li>Area = \( \int_0^2 [(x + 2) - x^2] dx \).</li>
+            <li>Calculate integral: \( \int_0^2 (x + 2 - x^2) dx = \left[ \frac{x^2}{2} + 2x - \frac{x^3}{3} \right]_0^2 = \left(2 + 4 - \frac{8}{3}\right) - 0 = \frac{10}{3} \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The area between the curves is \( \frac{10}{3} \) square units.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fundamental Theorem of Calculus -->
+    <section id="fundamental-theorem">
+      <h2>Fundamental Theorem of Calculus</h2>
+      <p>This theorem connects differentiation and integration, showing they are inverse processes.</p>
+
+      <ol>
+        <li>If \( F \) is an antiderivative of \( f \), then
+          \[
+            \int_a^b f(x) dx = F(b) - F(a)
+          \]
+        </li>
+        <li>If
+          \[
+            g(x) = \int_a^x f(t) dt,
+          \]
+          then \( g'(x) = f(x) \).
+        </li>
+      </ol>
+
+      <div class="example">
+        <p><strong>Example:</strong> If \( F'(x) = f(x) = 3x^2 \), evaluate \( \int_1^3 3x^2 dx \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Find antiderivative \( F(x) = x^3 + C \).</li>
+            <li>Evaluate \( F(3) - F(1) = 27 - 1 = 26 \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The definite integral equals 26 by the Fundamental Theorem of Calculus.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Techniques of Integration -->
+    <section id="techniques-integration">
+      <h2>Techniques of Integration</h2>
+      <p>Various methods are used to solve integrals that are not straightforward:</p>
+      <ul>
+        <li><strong>Substitution:</strong> Change of variables to simplify integral.</li>
+        <li><strong>Integration by Parts:</strong> Based on the product rule of differentiation.</li>
+        <li><strong>Partial Fractions:</strong> Decompose rational functions into simpler fractions.</li>
+        <li><strong>Trigonometric Integrals:</strong> Use identities to simplify.</li>
+      </ul>
+
+      <div class="example">
+        <p><strong>Example (Substitution):</strong> Evaluate \( \int 2x \cos(x^2) dx \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Let \( u = x^2 \), so \( du = 2x dx \).</li>
+            <li>Integral becomes \( \int \cos(u) du = \sin(u) + C \).</li>
+            <li>Substitute back: \( \sin(x^2) + C \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The integral evaluates to \( \sin(x^2) + C \).</p>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example (Integration by Parts):</strong> Evaluate \( \int x e^x dx \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Let \( u = x \), so \( du = dx \).</li>
+            <li>Let \( dv = e^x dx \), so \( v = e^x \).</li>
+            <li>Use formula: \( \int u dv = uv - \int v du = x e^x - \int e^x dx = x e^x - e^x + C \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The integral equals \( e^x (x - 1) + C \).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sequences & Series -->
+    <section id="series">
+      <h2>Sequences & Series</h2>
+      <p>A <em>sequence</em> is an ordered list of numbers. A <em>series</em> is the sum of the terms of a sequence.</p>
+
+      <div class="concept-box">
+        <strong>Arithmetic Sequence:</strong> Terms increase by a constant difference \( d \).
+        \[
+          a_n = a_1 + (n-1)d
+        \]
+      </div>
+
+      <div class="concept-box">
+        <strong>Geometric Sequence:</strong> Terms multiply by a constant ratio \( r \).
+        \[
+          a_n = a_1 r^{n-1}
+        \]
+      </div>
+
+      <div class="example">
+        <p><strong>Example (Arithmetic):</strong> Find the 10th term of the sequence where \( a_1=3 \), \( d=5 \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Use formula: \( a_{10} = 3 + (10-1) \times 5 = 3 + 45 = 48 \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The 10th term is 48.</p>
+        </div>
+      </div>
+
+      <div class="example">
+        <p><strong>Example (Geometric):</strong> Find the sum of the first 5 terms with \( a_1=2 \), \( r=3 \).</p>
+        <div class="step-by-step">
+          <ol>
+            <li>Sum of first \( n \) terms: \( S_n = a_1 \frac{r^n - 1}{r - 1} \).</li>
+            <li>\( S_5 = 2 \times \frac{3^5 - 1}{3 - 1} = 2 \times \frac{243 - 1}{2} = 2 \times 121 = 242 \).</li>
+          </ol>
+        </div>
+        <button class="show-solution">Show Solution</button>
+        <div class="solution">
+          <p>The sum of the first 5 terms is 242.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Toggle solution visibility
+    document.querySelectorAll('.show-solution').forEach(button => {
+      button.addEventListener('click', () => {
+        const solution = button.nextElementSibling;
+        if (solution.style.display === 'block') {
+          solution.style.display = 'none';
+          button.textContent = 'Show Solution';
+        } else {
+          solution.style.display = 'block';
+          button.textContent = 'Hide Solution';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
