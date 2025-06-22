@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MathauraX - Explore Mathematics</title>
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="icon" type="image/x-icon" href="assets/logo.svg">
+    <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="styles/home.css">
     <style>
@@ -261,11 +261,38 @@
                 width: 100%;
                 box-shadow: none;
                 margin-top: 0.3rem;
+                display: none;
+                flex-direction: column;
+                background: #fff;
+                padding: 0.5em 0;
+                border-radius: 8px;
+                min-width: 120px;
+                z-index: 1002;
             }
 
             .settings-dropdown.show {
-                display: block;
+                display: flex;
                 animation: fadeIn 0.3s ease-out;
+            }
+
+            .settings-dropdown li {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 0.3em 1em;
+            }
+
+            .settings-dropdown li a {
+                display: block;
+                width: 100%;
+                padding: 0.3em 0;
+                color: #222;
+                text-decoration: none;
+            }
+
+            .settings-dropdown li a:hover {
+                background: #f0f4ff;
+                color: #195acd;
             }
         }
 
@@ -493,13 +520,301 @@
             pointer-events: none;
             z-index: -1;
         }
+
+        /* Loading animations for AI Assistant */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: scale(0.9); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from { 
+                opacity: 0; 
+                transform: translateX(-20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        #aiChatHistory {
+            background: #f4f8ff;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            min-height: 60px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .chat-bubble {
+            margin-bottom: 1rem;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            animation: fadeInScale 0.5s;
+        }
+        .chat-bubble.user {
+            background: #e3f0ff;
+            text-align: right;
+        }
+        .chat-bubble.ai {
+            background: #fff;
+            border-left: 4px solid #007bff;
+            text-align: left;
+        }
+        .user-label, .ai-label {
+            font-weight: bold;
+            color: #007bff;
+            margin-right: 0.5em;
+        }
+        .copy-btn {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.3em 0.7em;
+            margin-top: 0.5em;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover {
+            background: #0056b3;
+        }
+        .ai-loading-spinner {
+            border: 4px solid #e3f0ff;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        /* Modern Chat App Card */
+        .ai-assistant-section.chat-app-card {
+            width: 100vw;
+            max-width: 100vw;
+            margin: 2rem 0 2rem 0;
+            border-radius: 0;
+            display: flex;  
+            flex-direction: column;
+            min-height: 520px;
+            position: relative;
+            padding-left: 200px; 
+            padding-right: 200px;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 18px 18px 0 0;
+            padding: 1rem 1.2rem 1rem 1rem;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            position: relative;
+        }
+        .ai-avatar {
+            width: 38px;
+            height: 38px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            margin-right: 0.7rem;
+            box-shadow: 0 2px 8px rgba(25,90,205,0.10);
+        }
+        .ai-title {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .clear-chat-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-left: 0.7rem;
+            transition: color 0.2s;
+            border-radius: 6px;
+            padding: 0.2em 0.5em;
+        }
+        .clear-chat-btn:hover {
+            background: #f8d7da;
+            color: #dc3545;
+        }
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.2rem 1rem 1rem 1rem;
+            background: #f7f9fc;
+            min-height: 180px;
+            max-height: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            border-bottom: 1px solid #e3e8f0;
+        }
+        .chat-bubble {
+            max-width: 80%;
+            padding: 0.8em 1.1em;
+            border-radius: 16px;
+            font-size: 1rem;
+            line-height: 1.6;
+            box-shadow: 0 1px 4px rgba(25,90,205,0.04);
+            position: relative;
+            word-break: break-word;
+            margin-bottom: 0.1em;
+            animation: fadeInScale 0.5s;
+        }
+        .chat-bubble.user {
+            background: linear-gradient(90deg, #e3f0ff 0%, #cbe3ff 100%);
+            color: #195acd;
+            align-self: flex-end;
+            border-bottom-right-radius: 6px;
+            text-align: right;
+        }
+        .chat-bubble.ai {
+            background: #fff;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 6px;
+            border-left: 4px solid #667eea;
+            text-align: left;
+        }
+        .user-label, .ai-label {
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-bottom: 0.2em;
+            display: block;
+        }
+        .copy-btn {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.3em 0.7em;
+            margin-top: 0.5em;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover {
+            background: #0056b3;
+        }
+        .ai-loading-spinner {
+            border: 4px solid #e3f0ff;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        .chat-input-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 1rem 1rem 1.1rem 1rem;
+            background: #fff;
+            border-radius: 0 0 18px 18px;
+            border-top: 1px solid #e3e8f0;
+            position: relative;
+        }
+        .chat-input-bar input[type="text"] {
+            flex: 1;
+            padding: 0.8em 1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.2s;
+            background: #f7f9fc;
+        }
+        .chat-input-bar input[type="text"]:focus {
+            border: 2px solid #667eea;
+            background: #fff;
+        }
+        .send-btn {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7em 1.3em;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(25,90,205,0.07);
+        }
+        .send-btn:hover {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+        }
+        #aiQuery{
+            font-size: 15px;
+            font-weight: 600;
+            background: transparent;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+        }
+        @media (max-width: 600px) {
+            .ai-assistant-section.chat-app-card {
+                width: 100vw;
+                max-width: 98vw;
+                min-width: 0;
+                border-radius: 10px;
+            }
+            .chat-header, .chat-input-bar {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .chat-history {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <header style="position: fixed; top: 0; right: 0; width: 100%; z-index: 1000; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background: white; display: flex; justify-content: space-between; align-items: center;">
         <div class="logo" style="display: flex; align-items: center;">
-            <img src="assets/logo.svg" alt="MathauraX Logo" style="height: 40px;">
-            <h1 style="font-size: 2rem; font-weight: bold; color: rgba(25, 90, 202, 0.815); margin-left: 1rem;" class="logo-text">MathauraX</h1>
+            <img src="assets/logo.svg" alt="MathauraX Logo" style="height: 40px; filter: drop-shadow(0 0 1px #007bff);">
+            <h1 style="font-size: 2rem; font-weight: bold; color: rgba(25, 90, 202, 0.815); margin-left: 1rem; font-family: 'Poppins', sans-serif;" class="logo-text">MathauraX</h1>
         </div>
         
         <nav>
@@ -536,65 +851,80 @@
             <div id="searchResults"></div>
         </section>
 
-        <section class="recommended-topics" id="topics">
-            <h2>Recommended Topics</h2>
-            <div class="topic-grid">
-                <a href="topics/algebra.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Algebra</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Equations, polynomials, and algebraic structures</p>
-                </a>
-                <a href="topics/geometry.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Geometry</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Shapes, angles, and spatial reasoning</p>
-                </a>
-                <a href="topics/calculus.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Calculus</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Limits, derivatives, and integrals</p>
-                </a>
-                <a href="topics/trigonometry.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Trigonometry</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Angles, sine, cosine, and triangle relationships</p>
-                </a>
-                <a href="topics/statistics.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Statistics</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Data interpretation, averages, and distributions</p>
-                </a>
-                <a href="topics/probability.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Probability</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Chance, events, and statistical outcomes</p>
-                </a>
-                <a href="topics/linear-algebra.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Linear Algebra</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Vectors, matrices, and systems of equations</p>
-                </a>
-                <a href="topics/differential-equations.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Differential Equations</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Solving equations involving derivatives</p>
-                </a>
-                <a href="topics/numbertheory.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Number Theory</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Prime numbers, divisibility, and modular arithmetic</p>
-                </a>
-                <a href="topics/logic.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Logic</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Reasoning, propositions, and truth tables</p>
-                </a>
-                <a href="topics/mathematical-physics.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Mathematical Physics</h3>
-                    <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Math applied to physical problems and systems</p>
-                </a>
-            </div>
-        </section>
 
-        <section class="recommended-topics" id="topics">
-            <h2>NCERT Solutions CBSE 2025-2026  Class 10 </h2>
-            <div class="topic-grid" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                <a href="class10/class-10.html" class="topic-card">
-                    <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Standard 10</h3>
-                </a>
-            </div>
-        </section>
     </main>
+
+    <section class="recommended-topics" id="topics">
+        <h2>Recommended Topics</h2>
+        <div class="topic-grid">
+            <a href="topics/algebra.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Algebra</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Equations, polynomials, and algebraic structures</p>
+            </a>
+            <a href="topics/geometry.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Geometry</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Shapes, angles, and spatial reasoning</p>
+            </a>
+            <a href="topics/calculus.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Calculus</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Limits, derivatives, and integrals</p>
+            </a>
+            <a href="topics/trigonometry.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Trigonometry</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Angles, sine, cosine, and triangle relationships</p>
+            </a>
+            <a href="topics/statistics.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Statistics</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Data interpretation, averages, and distributions</p>
+            </a>
+            <a href="topics/probability.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Probability</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Chance, events, and statistical outcomes</p>
+            </a>
+            <a href="topics/linear-algebra.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Linear Algebra</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Vectors, matrices, and systems of equations</p>
+            </a>
+            <a href="topics/differential-equations.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Differential Equations</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Solving equations involving derivatives</p>
+            </a>
+            <a href="topics/numbertheory.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Number Theory</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Prime numbers, divisibility, and modular arithmetic</p>
+            </a>
+            <a href="topics/logic.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Logic</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Reasoning, propositions, and truth tables</p>
+            </a>
+            <a href="topics/mathematical-physics.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Mathematical Physics</h3>
+                <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Math applied to physical problems and systems</p>
+            </a>
+        </div>
+    </section>
+    <section class="ai-assistant-section chat-app-card">
+        <div class="chat-header">
+            <div class="ai-avatar"><span>🤖</span></div>
+            <div class="ai-title">MathauraX AI Assistant</div>
+            <button id="clearChatBtn" class="clear-chat-btn" title="Clear Chat">🗑️</button>
+        </div>
+        <div id="aiChatHistory" class="chat-history"></div>
+        <form class="chat-input-bar" onsubmit="event.preventDefault(); askAI();">
+            <input type="text" id="aiQuery" placeholder="Solve your math problem or Ask anything about math " autocomplete="off" />
+            <button type="submit" class="send-btn">Send</button>
+        </form>
+        <div id="aiResponse" style="display:none;"></div>
+    </section>
+
+    <section class="recommended-topics" id="topics">
+        <h2>NCERT Solutions CBSE 2025-2026  Class 10 </h2>
+        <div class="topic-grid" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <a href="class10/class-10.html" class="topic-card">
+                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Standard 10</h3>
+            </a>
+        </div>
+    </section>
 
     <section id="contact" style="background-color: #050558; padding: 3rem 1rem; color: #eee; text-align: center;">
         <h2 style="color: #0a74da; font-size: 2.2rem; margin-bottom: 1rem;">Contact MathauraX</h2>
@@ -626,13 +956,367 @@
     </section>
 
     <footer>
-        <p>&copy;<img src="assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
+        <p>&copy;<img src="../assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <script src="https://unpkg.com/mathsteps@0.4.3/dist/mathsteps.min.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/search.js"></script>
     
     <script>
+        // AI Assistant functionality using only JavaScript (no backend)
+        function saveChatHistory() {
+            const chatHistory = document.getElementById('aiChatHistory').innerHTML;
+            localStorage.setItem('mathauraX_chat', chatHistory);
+        }
+        function loadChatHistory() {
+            const chatHistory = localStorage.getItem('mathauraX_chat');
+            if (chatHistory) {
+                document.getElementById('aiChatHistory').innerHTML = chatHistory;
+                // Scroll to bottom
+                const chatDiv = document.getElementById('aiChatHistory');
+                chatDiv.scrollTop = chatDiv.scrollHeight;
+            }
+        }
+        function clearChatHistory() {
+            localStorage.removeItem('mathauraX_chat');
+            document.getElementById('aiChatHistory').innerHTML = '';
+        }
+        function askAI() {
+            const query = document.getElementById('aiQuery').value.trim();
+            const responseDiv = document.getElementById('aiResponse');
+            const chatHistory = document.getElementById('aiChatHistory');
+            if (!query) {
+                return;
+            }
+            // Show animated spinner as a chat bubble
+            const spinnerBubble = `<div class="chat-bubble ai"><span class="ai-label">AI:</span><div><div class='ai-loading-spinner' aria-label='AI is thinking...'></div></div></div>`;
+            chatHistory.innerHTML += `<div class="chat-bubble user"><span class="user-label">You:</span> ${query}</div>` + spinnerBubble;
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            document.getElementById('aiQuery').value = '';
+            saveChatHistory();
+            setTimeout(() => {
+                // Remove spinner
+                chatHistory.removeChild(chatHistory.lastElementChild);
+                const response = generateAIResponse(query);
+                const aiBubble = `
+                    <div class="chat-bubble ai">
+                        <span class="ai-label">AI:</span>
+                        <div>
+                            <h3 style="color:#007bff;">AI RESPONSE</h3>
+                            <p><strong>Result:</strong> ${response.result}</p>
+                            <p><strong>Explanation:</strong> ${response.explanation}</p>
+                            <button class="copy-btn" onclick="copyAIResponse(this)">📋 Copy</button>
+                        </div>
+                    </div>
+                `;
+                chatHistory.innerHTML += aiBubble;
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+                saveChatHistory();
+            }, 1000);
+        }
+        function copyAIResponse(btn) {
+            const text = btn.parentElement.innerText;
+            navigator.clipboard.writeText(text);
+            btn.innerText = "✅ Copied!";
+            setTimeout(() => { btn.innerText = "📋 Copy"; }, 1500);
+        }
+        // Enhanced generateAIResponse using math.js and mathsteps
+        function generateAIResponse(query) {
+            let queryLower = query.toLowerCase().trim();
+            // Natural language parsing for squares, cubes, and roots
+            let parsed = null;
+            let detailedSteps = '';
+            // Square
+            let squareMatch = queryLower.match(/^(square of |)([\d.]+) ?(squared)?$/) || queryLower.match(/^([\d.]+) squared$/);
+            if (squareMatch) {
+                let num = squareMatch[2] || squareMatch[1];
+                parsed = `${num}^2`;
+                detailedSteps = `<ol style='margin-left:1.2em;'>
+                    <li><b>Restate the problem:</b> Find the square of <b>${num}</b> (that is, multiply ${num} by itself).</li>
+                    <li><b>Translate to math expression:</b> <code>${num}^2 = ${num} × ${num}</code></li>
+                    <li><b>Calculate:</b> <code>${num} × ${num} = ${math.evaluate(parsed)}</code></li>
+                    <li><b>Interpretation:</b> The square of <b>${num}</b> is <b>${math.evaluate(parsed)}</b>.</li>
+                </ol>`;
+            }
+            // Cube
+            let cubeMatch = queryLower.match(/^(cube of |)([\d.]+) ?(cubed)?$/) || queryLower.match(/^([\d.]+) cubed$/);
+            if (cubeMatch) {
+                let num = cubeMatch[2] || cubeMatch[1];
+                parsed = `${num}^3`;
+                detailedSteps = `<ol style='margin-left:1.2em;'>
+                    <li><b>Restate the problem:</b> Find the cube of <b>${num}</b> (that is, multiply ${num} by itself three times).</li>
+                    <li><b>Translate to math expression:</b> <code>${num}^3 = ${num} × ${num} × ${num}</code></li>
+                    <li><b>Calculate:</b> <code>${num} × ${num} × ${num} = ${math.evaluate(parsed)}</code></li>
+                    <li><b>Interpretation:</b> The cube of <b>${num}</b> is <b>${math.evaluate(parsed)}</b>.</li>
+                </ol>`;
+            }
+            // Square root
+            let sqrtMatch = queryLower.match(/^(square root of |root of |sqrt |)([\d.]+)$/);
+            if (sqrtMatch) {
+                let num = sqrtMatch[2];
+                parsed = `sqrt(${num})`;
+                detailedSteps = `<ol style='margin-left:1.2em;'>
+                    <li><b>Restate the problem:</b> Find the square root of <b>${num}</b> (a number which, when multiplied by itself, gives ${num}).</li>
+                    <li><b>Translate to math expression:</b> <code>√${num} = x</code> where <code>x × x = ${num}</code></li>
+                    <li><b>Calculate:</b> <code>√${num} = ${math.evaluate(parsed)}</code></li>
+                    <li><b>Interpretation:</b> The square root of <b>${num}</b> is <b>${math.evaluate(parsed)}</b> because <b>${math.evaluate(parsed)} × ${math.evaluate(parsed)} = ${num}</b>.</li>
+                </ol>`;
+            }
+            // Cube root
+            let cbrtMatch = queryLower.match(/^(cube root of |cbrt |)([\d.]+)$/);
+            if (cbrtMatch) {
+                let num = cbrtMatch[2];
+                parsed = `cbrt(${num})`;
+                detailedSteps = `<ol style='margin-left:1.2em;'>
+                    <li><b>Restate the problem:</b> Find the cube root of <b>${num}</b> (a number which, when multiplied by itself three times, gives ${num}).</li>
+                    <li><b>Translate to math expression:</b> <code>∛${num} = x</code> where <code>x × x × x = ${num}</code></li>
+                    <li><b>Calculate:</b> <code>∛${num} = ${math.evaluate(parsed)}</code></li>
+                    <li><b>Interpretation:</b> The cube root of <b>${num}</b> is <b>${math.evaluate(parsed)}</b> because <b>${math.evaluate(parsed)} × ${math.evaluate(parsed)} × ${math.evaluate(parsed)} = ${num}</b>.</li>
+                </ol>`;
+            }
+            // If parsed, use math.js to evaluate
+            if (parsed) {
+                try {
+                    let result = math.evaluate(parsed);
+                    return {
+                        result: result,
+                        explanation: detailedSteps
+                    };
+                } catch (e) {
+                    // fallback to static logic
+                }
+            }
+            // Try to evaluate as a math expression using math.js
+            try {
+                // Try to solve equations with '=' using mathsteps
+                if (typeof mathsteps !== 'undefined' && query.includes('=')) {
+                    const steps = mathsteps.solveEquation(query);
+                    if (steps && steps.length > 0) {
+                        let explanation = '<ol style="margin-left:1.2em;">';
+                        steps.forEach(step => {
+                            explanation += `<li>${step.changeType.replace(/_/g, ' ')}:<br><code>${step.oldEquation.ascii()}</code> → <code>${step.newEquation.ascii()}</code></li>`;
+                        });
+                        explanation += '</ol>';
+                        return {
+                            result: steps[steps.length-1].newEquation.ascii(),
+                            explanation: explanation
+                        };
+                    }
+                }
+                // Try to simplify or evaluate using math.js
+                if (typeof math !== 'undefined') {
+                    let result = math.evaluate(query);
+                    // If result is an object (like a matrix), convert to string
+                    if (typeof result === 'object') result = result.toString();
+                    // Try to get steps for simplification
+                    let stepsHtml = '';
+                    if (math.simplify) {
+                        const simplified = math.simplify(query);
+                        if (simplified && simplified.toString() !== query) {
+                            stepsHtml = `<b>Simplified:</b> ${simplified.toString()}`;
+                        }
+                    }
+                    return {
+                        result: result,
+                        explanation: stepsHtml ? stepsHtml : 'Calculated using math.js.'
+                    };
+                }
+            } catch (e) {
+                // Fallback to static logic below
+            }
+            // Study tips and problem-solving strategies
+            if (queryLower.includes('study tips') || queryLower.includes('problem-solving') || queryLower.includes('strategy')) {
+                return {
+                    result: `<div style="background: linear-gradient(135deg, #f8fafc 0%, #e3f0ff 100%); border-left: 6px solid #007bff; padding: 18px 22px; border-radius: 12px; margin: 10px 0 15px 0; box-shadow: 0 4px 16px rgba(0,123,255,0.07);">
+                        <h4 style='color:#007bff; margin-top:0; margin-bottom:10px; font-size:1.2rem; display:flex; align-items:center; gap:8px;'><span style='font-size:1.3rem;'>💡</span> Study Tips & Problem-Solving Strategies</h4>
+                        <ul style='padding-left: 1.2em; margin:0; color:#222; font-size:1rem; line-height:1.7;'>
+                            <li><b>Understand the problem:</b> Read carefully and identify what is being asked.</li>
+                            <li><b>Break it down:</b> Divide complex problems into smaller, manageable parts.</li>
+                            <li><b>Practice regularly:</b> Consistent practice helps reinforce concepts.</li>
+                            <li><b>Review mistakes:</b> Learn from errors to avoid repeating them.</li>
+                            <li><b>Use diagrams:</b> Visual aids can clarify difficult concepts.</li>
+                            <li><b>Check your work:</b> Always review your solution for accuracy.</li>
+                        </ul>
+                    </div>`,
+                    explanation: "These strategies can help you become a more effective math learner and problem solver!"
+                };
+            }
+            // Greetings and small talk
+            if (/^(hi|hello|hey|how are you|good morning|good afternoon|good evening)[!. ]*$/i.test(queryLower.trim())) {
+                // Get current hour for time-based greeting
+                const hour = new Date().getHours();
+                let greeting = "Hello!";
+                if (queryLower.includes('how are you')) {
+                    greeting = "I'm just a math AI, but I'm here and ready to help you! 😊";
+                } else if (queryLower.includes('good morning') || (hour >= 5 && hour < 12 && /morning/.test(queryLower))) {
+                    greeting = "Good morning! Ready to solve some math? ☀️";
+                } else if (queryLower.includes('good afternoon') || (hour >= 12 && hour < 17 && /afternoon/.test(queryLower))) {
+                    greeting = "Good afternoon! How can I help you with math today? 🌞";
+                } else if (queryLower.includes('good evening') || (hour >= 17 && hour < 22 && /evening/.test(queryLower))) {
+                    greeting = "Good evening! Let's tackle some math together! 🌙";
+                } else if (/hi|hello|hey/.test(queryLower)) {
+                    greeting = "Hi there! 👋 How can I help you with math today?";
+                }
+                return {
+                    result: greeting,
+                    explanation: ""
+                };
+            }
+            // Time, date, day, year queries (flexible, matches single words or phrases)
+            const now = new Date();
+            let matched = false;
+            let timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            let dateString = now.toLocaleDateString();
+            let dayString = now.toLocaleDateString(undefined, { weekday: 'long' });
+            let yearString = now.getFullYear();
+            let resultParts = [];
+            if (/\btime\b/.test(queryLower)) {
+                resultParts.push(`The current time is <b>${timeString}</b>.`);
+                matched = true;
+            }
+            if (/\bdate\b/.test(queryLower)) {
+                resultParts.push(`Today's date is <b>${dateString}</b>.`);
+                matched = true;
+            }
+            if (/\bday\b/.test(queryLower)) {
+                resultParts.push(`Today is <b>${dayString}</b>.`);
+                matched = true;
+            }
+            if (/\byear\b/.test(queryLower)) {
+                resultParts.push(`The current year is <b>${yearString}</b>.`);
+                matched = true;
+            }
+            if (matched) {
+                return {
+                    result: resultParts.join(' '),
+                    explanation: ""
+                };
+            }
+            // Algebra
+            // Basic calculations
+            if (/^[\d+\-*/().\s]+$/.test(query)) {
+                try {
+                    let cleanQuery = query.replace(/×/g, '*').replace(/÷/g, '/');
+                    const result = eval(cleanQuery);
+                    if (isFinite(result)) {
+                        return {
+                            result: `${query} = <b>${result}</b>`,
+                            explanation: "I calculated this mathematical expression step by step."
+                        };
+                    } else {
+                        return {
+                            result: "The result is undefined or infinite.",
+                            explanation: "This might be due to division by zero or other mathematical errors."
+                        };
+                    }
+                } catch (e) {
+                    return {
+                        result: "I couldn't calculate that expression.",
+                        explanation: "Make sure to use valid mathematical operators (+, -, *, /, parentheses)."
+                    };
+                }
+            }
+            // Equation solving (simple demo)
+            if (queryLower.includes('solve') || (queryLower.includes('=') && queryLower.includes('x'))) {
+                let equation = query.replace(/solve\s+/i, '').trim();
+                if (equation === '2x + 5 = 15') {
+                    return {
+                        result: `2x + 5 = 15<br>2x = 10<br>x = 5`,
+                        explanation: "I solved this linear equation by isolating x."
+                    };
+                }
+                return {
+                    result: `Equation solving is available for simple demo cases only.<br>Try: solve 2x + 5 = 15` ,
+                    explanation: "Full equation solving is not available in the static version."
+                };
+            }
+            // Derivatives (simple demo)
+            if (queryLower.includes('derivative') || queryLower.includes('differentiate')) {
+                if (queryLower.includes('x^2') || queryLower.includes('x²')) {
+                    return {
+                        result: `The derivative of x² is 2x.`,
+                        explanation: "I used the power rule for differentiation."
+                    };
+                }
+                return {
+                    result: `Please specify a function to differentiate (e.g., derivative of x²).`,
+                    explanation: "This static demo only supports simple cases."
+                };
+            }
+            // Integrals (simple demo)
+            if (queryLower.includes('integral') || queryLower.includes('integrate')) {
+                if (queryLower.includes('x^2') || queryLower.includes('x²')) {
+                    return {
+                        result: `The integral of x² is (1/3)x³ + C.`,
+                        explanation: "I used the power rule for integration."
+                    };
+                }
+                return {
+                    result: `Please specify a function to integrate (e.g., integral of x²).`,
+                    explanation: "This static demo only supports simple cases."
+                };
+            }
+            // Topic explanations
+            if (queryLower.includes('calculus')) {
+                return {
+                    result: `Calculus studies change (derivatives) and accumulation (integrals).` ,
+                    explanation: "Calculus is fundamental for understanding change and motion."
+                };
+            }
+            if (queryLower.includes('algebra')) {
+                return {
+                    result: `Algebra deals with equations, variables, and expressions.` ,
+                    explanation: "Algebra is the foundation for advanced mathematics."
+                };
+            }
+            if (queryLower.includes('geometry')) {
+                return {
+                    result: `Geometry studies shapes, sizes, and properties of space.` ,
+                    explanation: "Geometry helps us understand space and shape."
+                };
+            }
+            if (queryLower.includes('trigonometry')) {
+                return {
+                    result: `Trigonometry studies relationships between angles and sides in triangles.` ,
+                    explanation: "Remember SOH-CAH-TOA for basic trig ratios!"
+                };
+            }
+            if (queryLower.includes('statistics')) {
+                return {
+                    result: `Statistics is about collecting, analyzing, and interpreting data.` ,
+                    explanation: "Statistics helps us make sense of data."
+                };
+            }
+            // Default response
+            return {
+                result: `I understand you're asking about: <b>\"${query}\"</b>`,
+                explanation: "I'm here to help you understand mathematics better. Try asking about calculations, equations, derivatives, or integrals!"
+            };
+        }
+        function scanEquation() {
+            const responseDiv = document.getElementById('aiResponse');
+            responseDiv.innerHTML = '<p style="color: #dc3545;">Image scanning is not available in the static version. Please use the text box above.</p>';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChatHistory();
+            const aiQuery = document.getElementById('aiQuery');
+            if (aiQuery) {
+                aiQuery.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        askAI();
+                    }
+                });
+            }
+            const clearBtn = document.getElementById('clearChatBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    clearChatHistory();
+                });
+            }
+        });
+
         // Intersection Observer for section animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
