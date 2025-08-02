@@ -21,7 +21,177 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: 20px;
+    transition: background 0.3s ease, color 0.3s ease;
   }
+
+  /* -------------------- DARK MODE START -------------------- */
+  body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+
+  body.dark-mode header {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+  }
+
+  body.dark-mode nav ul li a {
+    color: #eee !important;
+  }
+
+  body.dark-mode nav ul li a:hover {
+    color: #4c9aff !important;
+  }
+
+  body.dark-mode article {
+    background-color: #1f1f1f;
+    color: #ddd;
+    border: 1px solid #333;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  }
+
+  body.dark-mode aside.topic-nav {
+    background-color: #1f1f1f;
+    color: #ddd;
+    border: 1px solid #333;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  }
+
+  body.dark-mode aside.topic-nav h3 {
+    color: #4c9aff;
+    border-bottom: 1px solid #444;
+  }
+
+  body.dark-mode aside.topic-nav a {
+    color: #ccc !important;
+  }
+
+  body.dark-mode aside.topic-nav a:hover,
+  body.dark-mode aside.topic-nav a.active {
+    color: #4c9aff !important;
+  }
+
+  body.dark-mode .math-expr {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode .example-box {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode .formula-box {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode .practice-problem {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode .solution {
+    background-color: #1a1a1a;
+    color: #ddd;
+    border: 1px solid #333;
+  }
+
+  body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+    color: #fff;
+  }
+
+  body.dark-mode p {
+    color: #ddd;
+  }
+
+  body.dark-mode code {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode pre {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode table {
+    background-color: #1f1f1f;
+    color: #ddd;
+  }
+
+  body.dark-mode th {
+    background-color: #2a2a2a;
+    color: #fff;
+  }
+
+  body.dark-mode td {
+    border: 1px solid #444;
+  }
+
+  body.dark-mode blockquote {
+    background-color: #2a2a2a;
+    color: #ddd;
+    border-left: 4px solid #4c9aff;
+  }
+
+  body.dark-mode .highlight {
+    background-color: #3a3a3a;
+    color: #fff;
+  }
+
+  body.dark-mode .note {
+    background-color: #2a2a2a;
+    color: #ddd;
+    border: 1px solid #444;
+  }
+
+  body.dark-mode .warning {
+    background-color: #3a2a2a;
+    color: #ffcccb;
+    border: 1px solid #664444;
+  }
+
+  body.dark-mode .tip {
+    background-color: #2a3a2a;
+    color: #ccffcc;
+    border: 1px solid #446644;
+  }
+
+  /* Dark mode toggle button */
+  #darkModeToggle {
+    background: #222;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-left: 1rem;
+  }
+
+  #darkModeToggle:hover {
+    background: #444;
+    transform: scale(1.05);
+  }
+
+  body.dark-mode #darkModeToggle {
+    background: #444;
+    color: #fff;
+  }
+
+  body.dark-mode #darkModeToggle:hover {
+    background: #666;
+  }
+  /* -------------------- DARK MODE END -------------------- */
   header {
     background: #fff;
     padding: 1rem 2rem;

@@ -2,69 +2,337 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/x-icon" href="assets/logo.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MathauraX - Your Mathematical Journey</title>
-  <link rel="stylesheet" href="styles/landing.css" />
+  <link rel="icon" type="image/x-icon" href="assets/logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+<script src="https://unpkg.com/mathsteps/lib/browser.js"></script>
+<script src="js/math-api.js"></script> <!-- Your local file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<header>
+    <ul>
+    <li><a href="#landing-container">Home</a></li>
+    <li><a href="#about-section">About</a></li></li>
+    <li class="a"><a href="#contact">Contact</a></li>
+    </ul>
+</header1>
   <style>
-    /* Loading container styles - hidden initially */
-    #loading-container {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #ffffff;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      overflow: hidden;
+    *{
+      scroll-behavior: smooth;
     }
+    header  ul {
+      display: flex;
+      justify-content: right;
+      gap: 30px;
+      list-style: none;
+      padding: 0;
+      margin-top: 50px;
+      font-size: 19px;
 
-    /* Loading logo base */
-    #loading-logo {
-      width: 150px;
-      height: 150px;
-      position: relative;
-      z-index: 1;
-      background: url('assets/logo.svg') no-repeat center / contain;
-      filter: drop-shadow(0 0 10px #0088ff);
     }
-
-    /* Blue flame shimmer effect on loading container */
-
-    @keyframes shimmer {
-      0% {
-        left: -50%;
-      }
-      100% {
-        left: 150%;
-      }
+    header ul li a{
+      color: #a8b2d1;
+      text-decoration: none;
     }
-
-
-
-
-    .form button:hover {
-      background: #0077cc;
+    header ul li a:hover{
+      color:#ff4d4d ;
+      transform: rotateY('56');
+      
     }
-    .error-message {
-      color: #ff5555;
-      font-size: 0.85rem;
-      min-height: 1.2em;
+    li.a{
+      margin-right: 20px;
+
     }
+:root {
+  --primary-color: #0a192f;
+  --secondary-color: #112240;
+  --accent-color: #00bfff;
+  --text-light: #ccd6f6;
+  --error-color: #ff4d4d;
+  --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --glow: rgba(0, 191, 255, 0.6);
+}
 
-    .start-button:hover {
-      background: #0077cc;
-      color: #fff;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-main);
+}
 
+body {
+  background: var(--primary-color);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
 
+.landing-container {
+  text-align: center;
+  padding: 100px 20px;
+  animation: fadeInUp 1.5s ease;
+}
+
+.logo img {
+  width: 140px;
+  animation: popIn 1.5s ease forwards;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: 20px;
+  background: linear-gradient(to right, #00bfff, #1e90ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textPulse 3s ease-in-out infinite alternate;
+}
+
+p {
+  margin: 20px auto;
+  max-width: 720px;
+  font-size: 1.1rem;
+  color: #a8b2d1;
+  line-height: 1.6;
+}
+
+.start-button {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 14px 36px;
+  background: var(--accent-color);
+  border-radius: 30px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px var(--glow);
+}
+
+.start-button:hover {
+  transform: scale(1.05);
+  background: #009adc;
+  box-shadow: 0 0 20px var(--glow);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--secondary-color);
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(0, 191, 255, 0.3);
+  position: relative;
+  animation: slideIn 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #8892b0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-tab.active {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.form label {
+  font-size: 1rem;
+  color: #a8b2d1;
+  margin-bottom: 4px;
+  margin-top: 8px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.form input {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #233554;
+  color: var(--text-light);
+  font-size: 1rem;
+  transition: 0.3s ease;
+  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form input:focus {
+  outline: 2px solid var(--accent-color);
+  background: #2c3e55;
+}
+
+.form button {
+  padding: 12px;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: center;
+  min-width: 140px;
+  margin-top: 10px;
+}
+
+.form button:hover {
+  background: #0088cc;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px var(--glow);
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  min-height: 1em;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.close-btn:hover {
+  color: white;
+}
+
+/* Loading */
+#loading-container {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(white, rgb(122, 125, 122) );
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#loading-logo {
+  width: 150px;
+  height: 150px;
+  background: url('assets/logo.svg') no-repeat center / contain;
+  animation: loadingPulse 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 16px #00bfff);
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #0b1d34;
+  color: #8892b0;
+  font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes textPulse {
+  from { text-shadow: 0 0 2px #00bfff; }
+  to { text-shadow: 0 0 5px #1e90ff; }
+}
+
+@keyframes loadingPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.form-btn-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.logo img{
+    box-shadow: 0 2px 2px 4px rgb(155, 247, 255);
+    border-radius: 100px;
+  }
   </style>
 </head>
 <body>
-
+<br/>
+<br/>
   <!-- Landing Section -->
   <div id="landing-container" class="landing-container" style="margin-bottom: 40px;">
-    <div class="logo"><img src="assets/logo.svg" alt="MathauraX Logo" /></div>
+    <div class="logo"><img src="assets/logo.svg" alt="MathauraX Logo" style="box-shadow: #ffffff;" /></div>
     <h1>Welcome to MathauraX</h1>
     <p>Your comprehensive mathematics learning platform</p>
     <div class="start-button" id="startBtn">Start Now</div>
@@ -75,7 +343,11 @@
     <div class="modal-content">
       <span class="close-btn" id="closeModal">&times;</span>
       <div class="modal-header">
-        <div class="modal-tab active" id="signUpTab">Sign Up</div>
+        <div class="modal-tab active" id="signUpTab">SignUp</div>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;  
         <div class="modal-tab" id="signInTab">Sign In</div>
       </div>
 
@@ -85,7 +357,9 @@
         <input type="email" id="signup-email" required placeholder="Enter your email" />
         <label for="signup-password">Password</label>
         <input type="password" id="signup-password" required placeholder="Create a password" />
-        <button type="submit">Sign Up</button>
+        <div class="form-btn-row">
+          <button type="submit">Sign Up</button>
+        </div>
         <div class="error-message" id="signUpError"></div>
       </form>
 
@@ -95,16 +369,20 @@
         <input type="email" id="signin-email" required placeholder="Enter your email" />
         <label for="signin-password">Password</label>
         <input type="password" id="signin-password" required placeholder="Enter your password" />
-        <button type="submit">Sign In</button>
+        <div class="form-btn-row">
+          <button type="submit">Sign In</button>
+        </div>
         <div class="error-message" id="signInError"></div>
       </form>
     </div>
   </div>
-
+<br/>
+<br/>
+<br/> <br/> <br/>
   <!-- About Section -->
   <section id="about-section" class="about-section">
     <div class="about-container">
-      <h2>About MathauraX</h2>
+      <h2 style="text-align: center;color: rgb(135, 190, 108); font-weight: 700; font-size: 36px;">About MathauraX</h2>
       <p style="text-align: center;" class="paragraph">
         MathauraX is an educational platform crafted to make mathematics easier, clearer, and more engaging for students of all levels. From foundational arithmetic to advanced calculus and logic, MathauraX offers topic-based learning with in-depth explanations, interactive practice problems, and step-by-step solutions — all in a clean, distraction-free layout.<br /><br />
         Built with dedication and clarity in mind, each topic page is hand-curated to help learners grasp concepts intuitively and confidently.<br /><br />
@@ -114,7 +392,69 @@
       </p>
     </div>
   </section>
+<br/><br/><br/><br/><br/>
+<br/> <br/> <br/>
+<style>
+    #contact {
+      position: relative;
+      overflow: hidden;
+    }
 
+    #contact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-20deg);
+      animation: shine 2.5s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0% {
+        left: -60%;
+      }
+      100% {
+        left: 160%;
+      }
+    }
+</style>
+ <section id="contact" style="background-color: #050523; padding: 3rem 1rem; color: #eee; text-align: center;">
+        <h2 style="color: #1ac5ce; font-family: Arial, Helvetica, sans-serif; font-size: 2.2rem; margin-bottom: 1rem;">Contact MathauraX</h2>
+        <p style="max-width: 600px; margin: 0 auto 2rem; color: #bbb; font-size: 1rem;">
+            Connect with us and explore the world of mathematics through MathauraX.
+        </p>
+        <nav aria-label="Social media and contact links" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <a href="https://github.com/yadhav-sreekanth" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-github"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">GitHub</div>
+            </a>
+            <a href="https://www.linkedin.com/in/yadhav-sreekanth-b4522635a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-linkedin"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">LinkedIn</div>
+            </a>
+            <a href="https://wa.me/9633588111" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-whatsapp"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">WhatsApp</div>
+            </a>
+            <a href="https://instagram.com/yadhav_sreekanth" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fab fa-instagram"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Instagram</div>
+            </a>
+            <a href="mailto:mathaurax@gmail.com?subject=Hello&body=I%20want%20to%20contact%20you." aria-label="Email" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
+                <i class="fas fa-envelope"></i>
+                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Email</div>
+            </a>
+        </nav>
+    </section>
   <!-- Loading Container (hidden initially) -->
   <div id="loading-container">
     <div id="loading-logo"></div>
@@ -219,4 +559,3 @@
   </script>
 </body>
 </html>
-

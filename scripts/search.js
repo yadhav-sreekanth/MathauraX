@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchResults = document.getElementById('searchResults');
 
     const mathTopics = [
-        { title: "Algebra Basics", url: "topics/algebra.html", description: "Introduction to algebraic expressions and equations", subtopics: ["Expressions", "Equations", "Inequalities", "Factoring", ] },
+        { title: "Algebra Basics", url: "topics/algebra.html", description: "Introduction to algebraic expressions and equations", subtopics: ["Expressions", "Equations", "Inequalities", "Factoring"] },
         { title: "Geometry Fundamentals", url: "topics/geometry.html", description: "Basic concepts of points, lines, and angles", subtopics: ["Lines", "Angles", "Shapes", "Area", "Volume"] },
         { title: "Calculus: Derivatives", url: "topics/calculus.html", description: "Understanding rates of change and differentiation", subtopics: ["Limits", "Derivatives", "Chain Rule", "Applications"] },
         { title: "Probability Theory", url: "topics/probability.html", description: "Fundamentals of probability and statistics", subtopics: ["Combinations", "Events", "Bayes Theorem", "Experiments"] },
@@ -26,69 +26,93 @@ document.addEventListener('DOMContentLoaded', function () {
         { title: "Measurement", url: "topics/measurement.html", description: "Learn basic measurement operations", subtopics: ["Length", "Area", "Volume", "Temperature"] },
         { title: "Order of Operations", url: "topics/order-of-operations.html", description: "Learn basic order of operations", subtopics: ["PEMDAS", "BODMAS", "Parentheses"] },
         { title: "Postulates and Axioms", url: "topics/postulates-axioms.html", description: "Learn basic postulates and axioms", subtopics: ["Euclidean Geometry", "Non-Euclidean Geometry", "Hilbert's Axioms", "Euclidean Axioms"] },
-        { title: "Linear Algebra", url: "topics/linear-algebra.html", description: "Learn basic linear algebra operations", subtopics: ["Vectors", "Matrices", "Systems of Equations", "Eigenvalues", "Eigenvectors", "Linear Transformations", "Linear Independence", "Linear Dependence", "Linear Transformation", "Linear Operator", "Linear Function", "Linear Equation", "Linear Inequality", "Linear System", "Linear Space", "Linear Subspace", "Linear Transformation Matrix", "Linear Transformation Vector", "Linear Transformation Matrix", "Linear Transformation Vector" ]},
-        { title: "Fractions", url: "topics/fraction.html", description: "Learn basic fractions operations", subtopics: ["Addition", "Subtraction", "Simplifying"] },
-        { title: "BODMAS", url: "topics/bodmas.html", description: "Learn basic bodmas operations", subtopics: ["BODMAS", "PEMDAS", "Parentheses"] },
-        {
-            title: "Famous Mathematicians",
-            url: "topics/famous-mathemethicians.html",
-            subtopics: [
-              "Euclid", "Pythagoras", "Archimedes", "Aryabhata", "Srinivasa Ramanujan", "Carl Friedrich Gauss",
-              "Isaac Newton", "Leonhard Euler", "Nikolai Lobachevsky", "Georg Cantor", "Alan Turing", "John von Neumann",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac", "Niels Bohr",
-              "Richard Feynman", "Paul Dirac", "Niels Bohr", "Richard Feynman", "Paul Dirac"
-            ]
-          }
+        { title: "Linear Algebra", url: "topics/linear-algebra.html", description: "Learn basic linear algebra operations", subtopics: ["Vectors", "Matrices", "Systems of Equations", "Eigenvalues", "Eigenvectors", "Linear Transformations", "Linear Independence", "Linear Dependence", "Linear Operator", "Linear Function", "Linear Equation", "Linear Inequality", "Linear System", "Linear Space", "Linear Subspace", "Linear Transformation Matrix", "Linear Transformation Vector"]},
+        { title: "Bodmas", url: "topics/bodmas.html", description: "Learn basic bodmas operations", subtopics: ["BODMAS", "PEMDAS", "Parentheses"] },
+    
     ];
 
+  // Trigger searchFunction when Enter is pressed in the input
+  document.getElementById("searchInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // optional: prevents default form submission
+      searchFunction();
+    }
+  });
+
+  function searchFunction() {
+    let query = document.getElementById("searchInput").value;
+    alert("Searching for: " + query); // Replace this with real search logic
+  }
+
+    // Initially hide search results
+    searchResults.style.display = 'none';
+
     searchButton.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') performSearch();
-    });
+    
+    // Remove the input event listener to only search on button click
+    // searchInput.addEventListener('input', performSearch);
 
     function performSearch() {
         const query = searchInput.value.trim().toLowerCase();
         if (!query) {
             searchResults.innerHTML = '<p>Please enter a search term</p>';
+            searchResults.style.display = 'block';
             return;
         }
 
-        const results = mathTopics.filter(topic =>
-            topic.title.toLowerCase().includes(query) ||
-            topic.description.toLowerCase().includes(query) ||
-            (topic.subtopics && topic.subtopics.some(sub => sub.toLowerCase().includes(query)))
-        );
+        // Get the first letter of the search query
+        const firstLetter = query.charAt(0);
 
-        const resultsHTML = results.map(topic => `
-            <div class="search-result" style="background: #fff; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 4px 16px rgba(25,90,202,0.08); border-left: 5px solid #195acd; transition: box-shadow 0.2s;">
-                <h3 style="margin: 0 0 0.5rem 0; font-size: 1.25rem;">
-                    <a href="${topic.url}" style="color: #195acd; text-decoration: none; font-weight: 700; transition: color 0.2s;" onmouseover="this.style.color='#764ba2'" onmouseout="this.style.color='#195acd'">
-                        ${topic.title}
-                    </a>
-                </h3>
-                <p style="margin: 0 0 0.7rem 0; color: #444; font-size: 1rem;">${topic.description}</p>
-                <div style="margin-top: 0.5rem;">
-                    <strong style="color: #007bff; font-size: 0.95rem;">Subtopics:</strong>
-                    <span style="display: inline-flex; flex-wrap: wrap; gap: 0.4rem; margin-left: 0.5rem;">
-                        ${topic.subtopics.map(sub => `<span style="background: #e3f2fd; color: #1976d2; padding: 0.3rem 0.7rem; border-radius: 12px; font-size: 0.9rem; font-weight: 500;">${sub}</span>`).join('')}
-                    </span>
-                </div>
-            </div>
-        `).join('');
+        const results = mathTopics.filter(topic => {
+            // Check if topic title starts with the first letter
+            const titleStartsWithLetter = topic.title.toLowerCase().startsWith(firstLetter);
+            
+            // Check if any subtopic starts with the first letter
+            const subtopicStartsWithLetter = topic.subtopics && 
+                topic.subtopics.some(sub => sub.toLowerCase().startsWith(firstLetter));
+            
+            // Check if description contains the query
+            const descriptionContainsQuery = topic.description.toLowerCase().includes(query);
+            
+            return titleStartsWithLetter || subtopicStartsWithLetter || descriptionContainsQuery;
+        });
 
-        searchResults.innerHTML = resultsHTML || '<p>No results found. Try a different search term.</p>';
+        // Show search results
+        searchResults.style.display = 'block';
+
+        if (results.length === 0) {
+            searchResults.innerHTML = `
+                <p>No results found starting with "${firstLetter}". Try a different search term.</p>
+                <button id="askAIButton" style="margin-top:1em; padding:0.7em 1.5em; border-radius:10px; background:linear-gradient(90deg,#5A65EA,#9C4BE7);color:#fff;font-weight:600;border:none;cursor:pointer;">Ask MathauraX AI</button>
+            `;
+            document.getElementById('askAIButton').onclick = function() {
+                document.getElementById('aiQuery').value = query;
+                document.getElementById('aiQuery').focus();
+                // Optionally, auto-submit to AI:
+                // askAI();
+            };
+            return;
+        }
+
+const resultsHTML = results.map(topic => `
+    <div class="search-result" style="background: #fff; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 4px 16px rgba(25,90,202,0.08); border-left: 5px solid #195acd; transition: box-shadow 0.2s;">
+        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.25rem;">
+            <a href="${topic.url}" style="color: #195acd; text-decoration: none; font-weight: 700; transition: color 0.2s;" onmouseover="this.style.color='#764ba2'" onmouseout="this.style.color='#195acd'">
+                ${topic.title}
+            </a>
+        </h3>
+        <p style="margin: 0 0 0.7rem 0; color: #444; font-size: 1rem;">${topic.description}</p>
+        <div style="margin-top: 0.5rem;">
+            <strong style="color: #007bff; font-size: 0.95rem;">Subtopics:</strong>
+            <span style="display: inline-flex; flex-wrap: wrap; gap: 0.4rem; margin-left: 0.5rem;">
+                ${topic.subtopics.map(sub => `<span class="subtopic-chip">${sub}</span>`).join('')}
+            </span>
+        </div>
+    </div>
+`).join('');
+
+
+        searchResults.innerHTML = resultsHTML;
     }
 });
 

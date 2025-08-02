@@ -6,9 +6,448 @@
     <title>MathauraX - Explore Mathematics</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    
     <link rel="stylesheet" href="styles/home.css">
+    
     <style>
+      
+  /* -------------------- DARK MODE START -------------------- */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode header {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .nav-menu li a {
+  color: #eee !important;
+}
+
+body.dark-mode .nav-menu li a::after {
+  background: #4c9aff;
+}
+
+body.dark-mode .logo-text {
+  color: #66aaff;
+}
+
+body.dark-mode .kid-mode-button {
+  background: linear-gradient(45deg, #e96443, #904e95);
+  color: #fff !important;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .kid-mode-button:hover {
+  background: linear-gradient(45deg, #904e95, #e96443);
+}
+
+body.dark-mode .topic-card {
+  background-color: #1f1f1f;
+  color: #ddd;
+  border: 1px solid #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .topic-card h3,
+body.dark-mode .topic-card p {
+  color: #fff !important;
+}
+
+body.dark-mode .topic-card:hover {
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  background-color: #262626;
+}
+
+body.dark-mode .search-section {
+  background: #1b1b1b;
+  border-radius: 10px;
+  padding: 5rem;
+}
+
+body.dark-mode #searchInput {
+  background-color: #2b2b2b;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-mode #searchInput::placeholder {
+  color: #aaa;
+}
+
+body.dark-mode #searchButton {
+  background-color: #333;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-mode #searchButton:hover {
+  background: #555;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+body.dark-mode .chat-window {
+  background-color: #1c1c1c;
+  
+}
+
+body.dark-mode .user-message {
+  background: #31465b;
+  color: #fff;
+}
+
+body.dark-mode .ai-message {
+  background: #292929;
+  color: #ddd;
+}
+
+body.dark-mode .chat-input-container {
+  background-color: #1e1e1e;
+  border-top: 1px solid #333;
+}
+
+body.dark-mode #userInput {
+  background: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark-mode #sendBtn {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+body.dark-mode #sendBtn:hover {
+  background: #4a4a4a;
+}
+
+body.dark-mode footer {
+  background: #0d0d0d;
+  color: #aaa;
+  box-shadow: 0 -2px 10px rgba(255,255,255,0.1);
+}
+
+body.dark-mode #contact {
+  background-color: #101010 !important;
+  color: #ccc;
+}
+
+body.dark-mode #contact nav a {
+  color: #bbb !important;
+}
+
+body.dark-mode #contact nav a:hover {
+  color: #66aaff !important;
+}
+
+body.dark-mode .nav-toggle-img {
+  filter: brightness(5);
+}
+
+body.dark-mode .ai-avatar {
+  background: #333;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .clear-chat-btn {
+  color: #ccc;
+}
+
+body.dark-mode .clear-chat-btn:hover {
+  background: #330000;
+  color: #ff4c4c;
+}
+
+body.dark-mode .chat-bubble {
+  background: #222;
+  color: #eee;
+  box-shadow: 0 1px 3px rgba(255,255,255,0.05);
+}
+
+body.dark-mode .chat-bubble.user {
+  background: linear-gradient(90deg, #1f2f57, #31465b);
+  color: #fff;
+}
+
+body.dark-mode .chat-bubble.ai {
+  background: #292929;
+  color: #eee;
+  border-left: 5px solid #3c6fff;
+}
+
+body.dark-mode .copy-btn {
+  background: #555;
+  color: #eee;
+}
+
+body.dark-mode .copy-btn:hover {
+  background: #777;
+}
+
+body.dark-mode .settings-dropdown {
+  background-color: #222;
+  border: 1px solid #444;
+}
+
+body.dark-mode .settings-dropdown li a {
+  color: #ccc;
+}
+
+body.dark-mode .settings-dropdown li a:hover {
+  background: #333;
+  color: #66aaff;
+}
+
+body.dark-mode .ai-title {
+  color: #4ca3ff;
+}
+
+body.dark-mode .ai-loading-spinner {
+  border-top: 4px solid #66aaff;
+  border-color: #333 #333 #333 #66aaff;
+}
+
+body.dark-mode .recommended-topics h2,
+body.dark-mode .search-section h2,
+body.dark-mode #contact h2 {
+  color: #4ca3ff;
+}
+
+body.dark-mode .topic-card::after {
+  background: linear-gradient(45deg, #0d6efd, #e83e8c, #ff9800, #0d6efd);
+}
+
+body.dark-mode .chat-input-bar input[type="text"] {
+  background-color: #2e2e2e;
+  border-color: #444;
+  color: #eee;
+}
+
+body.dark-mode .chat-input-bar input[type="text"]:focus {
+  background: #1f1f1f;
+  border-color: #66aaff;
+}
+
+body.dark-mode .send-btn {
+  background: #0056b3;
+  color: white;
+}
+
+body.dark-mode .send-btn:hover {
+  background: #007bff;
+}
+
+
+body.dark-mode .chat-header {
+  background: linear-gradient(90deg, #002f4b, #005c97);
+}
+
+body.dark-mode .message {
+  color: #ddd;
+}
+
+body.dark-mode #darkModeToggle {
+  background: #ffffff;
+  color: #ffffff;
+  border: 1px solid #555;
+  transition: 0.3s;
+}
+
+body.dark-mode #darkModeToggle:hover {
+  background: #222;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+body.dark-mode section {
+  background: transparent;
+}
+
+body.dark-mode .ai-label {
+  color: #4ca3ff;
+}
+
+body.dark-mode .user-label {
+  color: #66aaff;
+}
+
+/* Animations for dark mode */
+body.dark-mode .topic-card {
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+body.dark-mode .nav-menu li a::before {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+body.dark-mode .nav-menu li a:hover {
+  color: #66aaff !important;
+}
+
+body.dark-mode ::selection {
+  background: #66aaff;
+  color: #000;
+}
+
+body.dark-mode::-webkit-scrollbar {
+  width: 8px;
+}
+
+body.dark-mode::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+body.dark-mode header {
+  background-color: #0d0d0d !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid #333;
+}
+body.dark-mode .settings-menu i {
+  color: #ccc !important;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .settings-menu i:hover {
+  color: #4ca3ff !important;
+  transform: rotate(180deg);
+}
+/* Fancy fume-to-line nav link effect (dark mode only) */
+body.dark-mode .nav-menu li a {
+  position: relative;
+  color: #e0e0e0;
+  font-weight: 600;
+  transition: color 0.4s ease;
+  z-index: 1;
+}
+
+body.dark-mode .nav-menu li a::before,
+body.dark-mode .nav-menu li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+body.dark-mode .nav-menu li a::before {
+  height: 160%;
+  top: -30%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.08), transparent);
+  filter: blur(10px);
+  opacity: 1;
+  z-index: -1;
+}
+
+body.dark-mode .nav-menu li a::after {
+  background: linear-gradient(to right, #66ccff, #3399ff);
+  height: 2px;
+  z-index: 2;
+}
+
+body.dark-mode .nav-menu li a:hover::before {
+  opacity: 0;
+}
+
+body.dark-mode .nav-menu li a:hover::after {
+  transform: scaleX(1);
+}
+/* Dark mode styles for search bar */
+body.dark-mode #searchInput {
+  background-color: #1e1e1e;
+  color: #eee;
+  border: 1px solid #444;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+}
+
+body.dark-mode #searchInput::placeholder {
+  color: #aaa;
+}
+
+body.dark-mode #searchInput:focus {
+  border-color: #66aaff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(102, 170, 255, 0.3);
+}
+
+/* Search button in dark mode */
+body.dark-mode #searchButton {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode #searchButton:hover {
+  background-color: #444;
+  box-shadow: 0 0 10px rgba(102, 170, 255, 0.4);
+}
+/* Search results container */
+body.dark-mode #searchResults {
+  background: transparent;
+  color: #e0e0e0;
+}
+
+/* Individual result card */
+body.dark-mode .search-result {
+  background: #1e1e1e;
+  border-left: 5px solid #4ca3ff;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+}
+
+/* Title link */
+body.dark-mode .search-result a {
+  color: #66ccff !important;
+}
+
+body.dark-mode .search-result a:hover {
+  color: #9c4be7 !important;
+}
+
+/* Description text */
+body.dark-mode .search-result p {
+  color: #ccc;
+}
+
+/* Subtopic label */
+body.dark-mode .search-result span[style*='background'] {
+  background: #2a2a2a !important;
+  color: #66ccff !important;
+}
+
+/* "Ask AI" button in dark mode */
+body.dark-mode #askAIButton {
+  background: linear-gradient(90deg, #5A65EA, #9C4BE7);
+  color: #fff;
+  border: none;
+}
+
+body.dark-mode #askAIButton:hover {
+  filter: brightness(1.1);
+}
+
+/* -------------------- DARK MODE END -------------------- */
+
+
         /* Navigation and Kid Mode Button styles */
         .nav-menu {
             list-style: none;
@@ -587,8 +1026,32 @@
         }
         .chat-bubble.ai {
             background: #fff;
-            border-left: 4px solid #007bff;
-            text-align: left;
+            color: #23213a;
+            align-self: flex-start;
+            border-radius: 20px;
+            border-left: 6px solid;
+            border-image: linear-gradient(180deg, #5A65EA 0%, #9C4BE7 100%) 1;
+            box-shadow: 0 10px 25px rgba(90,101,234,0.08);
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 1.05rem;
+            padding: 20px 24px;
+            margin-bottom: 0.7em;
+            margin-top: 0.2em;
+            transition: box-shadow 0.2s, transform 0.2s;
+            word-break: break-word;
+            position: relative;
+        }
+        .chat-bubble.ai:hover {
+            box-shadow: 0 16px 32px rgba(90,101,234,0.13);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .ai-label {
+            font-weight: 700;
+            color: #5A65EA;
+            font-size: 1rem;
+            margin-bottom: 0.3em;
+            display: block;
+            letter-spacing: 0.01em;
         }
         .user-label, .ai-label {
             font-weight: bold;
@@ -829,12 +1292,36 @@
                         <i class="fas fa-child"></i> &nbsp; Kid Mode
                     </a>
                 </li>
-                <li><a href="#contact">Help</a></li>
+<li>
+  <a href="#ai-assistant" style="
+    background: linear-gradient(135deg, #1e90ff, #6a5acd);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    margin-top: 3px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(106, 90, 205, 0.6);
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  " 
+  onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 25px rgba(30,144,255,0.9)'"
+  onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 15px rgba(106, 90, 205, 0.6)'">
+    AI
+  </a>
+</li>
+
                 <li class="settings-menu">
                     <i id="settingsIcon" class="fas fa-cog" style="cursor: pointer; font-size: 1.4rem; color: #000;"></i>
                     <ul id="settingsDropdown" class="settings-dropdown">
-                        <li><a href="#" id="logoutLink">Logout</a></li>
-                        <li><a href="https://yadhav-sreekanth.github.io/Yadhav-Portfolio/" target="_blank">Developer</a></li>
+                        <li>
+  <button id="darkModeToggle" title="Toggle Dark Mode" style="background: #222;color: white;border: none;padding: 0.5rem 1rem;border-radius: 505px;cursor: pointer;font-weight: bold;transition: 0.3s;">🌙 Dark Mode</button></li>
+                  <br/>
+                        <li><a href="https://yadhav-sreekanth.github.io/Yadhav-Portfolio/" target="_blank"><b>Developer</b></a></li>
+                        <br/>
+                        <li><a href="#" id="logoutLink"><b>Logout</b></a></li>
                     </ul>
                 </li>
             </ul>
@@ -846,7 +1333,7 @@
             <h2>Find Mathematical Concepts</h2>
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search for topics...">
-                <button id="searchButton">Search</button>
+                <button id="searchButton" onclick="searchFunction()">Search</button>
             </div>
             <div id="searchResults"></div>
         </section>
@@ -861,6 +1348,10 @@
                 <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Algebra</h3>
                 <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Equations, polynomials, and algebraic structures</p>
             </a>
+            <a href="topics/famous-mathemethicians.html" class="topic-card">
+              <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Famous Mathemethicians</h3>
+              <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Some of the famous mathemethicians</p>
+          </a>
             <a href="topics/geometry.html" class="topic-card">
                 <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Geometry</h3>
                 <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Shapes, angles, and spatial reasoning</p>
@@ -893,8 +1384,8 @@
                 <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Number Theory</h3>
                 <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Prime numbers, divisibility, and modular arithmetic</p>
             </a>
-            <a href="topics/logic.html" class="topic-card">
-                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Logic</h3>
+            <a href="topics/logic.html" class="topic-card" >
+                <h3 id="ai-assistant" style="font-size: 1.5rem; font-weight: bold; color: #fff;">Logic</h3>
                 <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Reasoning, propositions, and truth tables</p>
             </a>
             <a href="topics/mathematical-physics.html" class="topic-card">
@@ -902,20 +1393,151 @@
                 <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Math applied to physical problems and systems</p>
             </a>
         </div>
-    </section>
-    <section class="ai-assistant-section chat-app-card">
-        <div class="chat-header">
-            <div class="ai-avatar"><span>🤖</span></div>
-            <div class="ai-title">MathauraX AI Assistant</div>
-            <button id="clearChatBtn" class="clear-chat-btn" title="Clear Chat">🗑️</button>
-        </div>
-        <div id="aiChatHistory" class="chat-history"></div>
-        <form class="chat-input-bar" onsubmit="event.preventDefault(); askAI();">
-            <input type="text" id="aiQuery" placeholder="Solve your math problem or Ask anything about math " autocomplete="off" />
-            <button type="submit" class="send-btn">Send</button>
-        </form>
-        <div id="aiResponse" style="display:none;"></div>
-    </section>
+        <br/>
+        <br/>
+    
+      <!-- 📍 MATH AI ASSISTANT CHAT SECTION -->
+<section  class="ai-assistant-section chat-app-card" style="padding: 0; width: 1070px;">
+  <div class="chat-header">
+    <div class="ai-avatar"><img src="assets/logo.svg" style="width: 43px;"/></div>
+    <div class="ai-title">MathauraX AI Assistant</div>
+    <button id="clearChatBtn" class="clear-chat-btn" title="Clear Chat">🗑️</button>
+  </div>
+
+  <div id="chatWindow" class="chat-window">
+    <div class="message ai-message">Hello! I'm your Math AI. Ask me anything! 😊</div>
+  </div>
+
+  <div class="chat-input-container">
+    <input
+      type="text"
+      id="userInput"
+      placeholder="Type your math question or message..."
+      autocomplete="off"
+    />
+    <button id="sendBtn">➤</button>
+  </div>
+</section>
+
+<style>
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1f2f57;
+    padding: 12px 20px;
+    color: white;
+  }
+
+  .ai-avatar {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+
+  .ai-title {
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .clear-chat-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .chat-window {
+    height: 300px;
+    overflow-y: auto;
+    padding: 20px;
+    background: #ffffff;
+  }
+
+  .message {
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 15px;
+    max-width: 80%;
+    clear: both;
+    word-wrap: break-word;
+  }
+
+  .user-message {
+    background: #d0e8ff;
+    float: right;
+    text-align: right;
+  }
+
+  .ai-message {
+    background: #f0f0f0;
+    float: left;
+  }
+
+  .chat-input-container {
+    display: flex;
+    border-top: 1px solid #ddd;
+    background: #f9f9f9;
+  }
+
+  #userInput {
+    flex-grow: 1;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  #sendBtn {
+    background: #1f2f57;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    
+  }
+
+  #sendBtn:hover {
+    background: #2a3f75;
+  }
+</style>
+<script>
+    const sendBtn = document.getElementById("sendBtn");
+const userInput = document.getElementById("userInput");
+const chatWindow = document.getElementById("chatWindow");
+const clearChatBtn = document.getElementById("clearChatBtn");
+
+sendBtn.addEventListener("click", sendMessage);
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
+clearChatBtn.addEventListener("click", () => {
+  chatWindow.innerHTML = "";
+});
+
+function sendMessage() {
+  const msg = userInput.value.trim();
+  if (msg === "") return;
+
+  appendMessage(msg, "user");
+  userInput.value = "";
+  generateResponse(msg); // this now lives in responses.js
+}
+
+function appendMessage(text, sender) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message", sender === "user" ? "user-message" : "ai-message");
+  messageDiv.innerHTML = text;
+  chatWindow.appendChild(messageDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+</script>
+
 
     <section class="recommended-topics" id="topics">
         <h2>NCERT Solutions CBSE 2025-2026  Class 10 </h2>
@@ -926,37 +1548,9 @@
         </div>
     </section>
 
-    <section id="contact" style="background-color: #050558; padding: 3rem 1rem; color: #eee; text-align: center;">
-        <h2 style="color: #0a74da; font-size: 2.2rem; margin-bottom: 1rem;">Contact MathauraX</h2>
-        <p style="max-width: 600px; margin: 0 auto 2rem; color: #bbb; font-size: 1rem;">
-            Connect with us and explore the world of mathematics through MathauraX.
-        </p>
-        <nav aria-label="Social media and contact links" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-            <a href="https://github.com/yadhav-sreekanth" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
-                <i class="fab fa-github"></i>
-                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">GitHub</div>
-            </a>
-            <a href="https://www.linkedin.com/in/yadhav-sreekanth-b4522635a/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
-                <i class="fab fa-linkedin"></i>
-                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">LinkedIn</div>
-            </a>
-            <a href="https://wa.me/9633588111" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
-                <i class="fab fa-whatsapp"></i>
-                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">WhatsApp</div>
-            </a>
-            <a href="https://instagram.com/yadhav_sreekanth" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
-                <i class="fab fa-instagram"></i>
-                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Instagram</div>
-            </a>
-            <a href="mailto:mathaurax@gmail.com" aria-label="Email" style="color: #eee; font-size: 2rem; text-decoration: none; transition: color 0.3s;">
-                <i class="fas fa-envelope"></i>
-                <div style="font-size: 0.8rem; color: #fff; margin-top: 0.3rem;">Email</div>
-            </a>
-        </nav>
-    </section>
-
+   
     <footer>
-        <p>&copy;<img src="../assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
+        <p>&copy;<img src="assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
@@ -965,357 +1559,6 @@
     <script src="scripts/search.js"></script>
     
     <script>
-        // AI Assistant functionality using only JavaScript (no backend)
-        function saveChatHistory() {
-            const chatHistory = document.getElementById('aiChatHistory').innerHTML;
-            localStorage.setItem('mathauraX_chat', chatHistory);
-        }
-        function loadChatHistory() {
-            const chatHistory = localStorage.getItem('mathauraX_chat');
-            if (chatHistory) {
-                document.getElementById('aiChatHistory').innerHTML = chatHistory;
-                // Scroll to bottom
-                const chatDiv = document.getElementById('aiChatHistory');
-                chatDiv.scrollTop = chatDiv.scrollHeight;
-            }
-        }
-        function clearChatHistory() {
-            localStorage.removeItem('mathauraX_chat');
-            document.getElementById('aiChatHistory').innerHTML = '';
-        }
-        function askAI() {
-            const query = document.getElementById('aiQuery').value.trim();
-            const responseDiv = document.getElementById('aiResponse');
-            const chatHistory = document.getElementById('aiChatHistory');
-            if (!query) {
-                return;
-            }
-            // Show animated spinner as a chat bubble
-            const spinnerBubble = `<div class="chat-bubble ai"><span class="ai-label">AI:</span><div><div class='ai-loading-spinner' aria-label='AI is thinking...'></div></div></div>`;
-            chatHistory.innerHTML += `<div class="chat-bubble user"><span class="user-label">You:</span> ${query}</div>` + spinnerBubble;
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-            document.getElementById('aiQuery').value = '';
-            saveChatHistory();
-            setTimeout(() => {
-                // Remove spinner
-                chatHistory.removeChild(chatHistory.lastElementChild);
-                const response = generateAIResponse(query);
-                const aiBubble = `
-                    <div class="chat-bubble ai">
-                        <span class="ai-label">AI:</span>
-                        <div>
-                            <h3 style="color:#007bff;">AI RESPONSE</h3>
-                            <p><strong>Result:</strong> ${response.result}</p>
-                            <p><strong>Explanation:</strong> ${response.explanation}</p>
-                            <button class="copy-btn" onclick="copyAIResponse(this)">📋 Copy</button>
-                        </div>
-                    </div>
-                `;
-                chatHistory.innerHTML += aiBubble;
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-                saveChatHistory();
-            }, 1000);
-        }
-        function copyAIResponse(btn) {
-            const text = btn.parentElement.innerText;
-            navigator.clipboard.writeText(text);
-            btn.innerText = "✅ Copied!";
-            setTimeout(() => { btn.innerText = "📋 Copy"; }, 1500);
-        }
-        // Enhanced generateAIResponse using math.js and mathsteps
-        function generateAIResponse(query) {
-            let queryLower = query.toLowerCase().trim();
-            // Natural language parsing for squares, cubes, and roots
-            let parsed = null;
-            let detailedSteps = '';
-            // Square
-            let squareMatch = queryLower.match(/^(square of |)([\d.]+) ?(squared)?$/) || queryLower.match(/^([\d.]+) squared$/);
-            if (squareMatch) {
-                let num = squareMatch[2] || squareMatch[1];
-                parsed = `${num}^2`;
-                detailedSteps = `<ol style='margin-left:1.2em;'>
-                    <li><b>Restate the problem:</b> Find the square of <b>${num}</b> (that is, multiply ${num} by itself).</li>
-                    <li><b>Translate to math expression:</b> <code>${num}^2 = ${num} × ${num}</code></li>
-                    <li><b>Calculate:</b> <code>${num} × ${num} = ${math.evaluate(parsed)}</code></li>
-                    <li><b>Interpretation:</b> The square of <b>${num}</b> is <b>${math.evaluate(parsed)}</b>.</li>
-                </ol>`;
-            }
-            // Cube
-            let cubeMatch = queryLower.match(/^(cube of |)([\d.]+) ?(cubed)?$/) || queryLower.match(/^([\d.]+) cubed$/);
-            if (cubeMatch) {
-                let num = cubeMatch[2] || cubeMatch[1];
-                parsed = `${num}^3`;
-                detailedSteps = `<ol style='margin-left:1.2em;'>
-                    <li><b>Restate the problem:</b> Find the cube of <b>${num}</b> (that is, multiply ${num} by itself three times).</li>
-                    <li><b>Translate to math expression:</b> <code>${num}^3 = ${num} × ${num} × ${num}</code></li>
-                    <li><b>Calculate:</b> <code>${num} × ${num} × ${num} = ${math.evaluate(parsed)}</code></li>
-                    <li><b>Interpretation:</b> The cube of <b>${num}</b> is <b>${math.evaluate(parsed)}</b>.</li>
-                </ol>`;
-            }
-            // Square root
-            let sqrtMatch = queryLower.match(/^(square root of |root of |sqrt |)([\d.]+)$/);
-            if (sqrtMatch) {
-                let num = sqrtMatch[2];
-                parsed = `sqrt(${num})`;
-                detailedSteps = `<ol style='margin-left:1.2em;'>
-                    <li><b>Restate the problem:</b> Find the square root of <b>${num}</b> (a number which, when multiplied by itself, gives ${num}).</li>
-                    <li><b>Translate to math expression:</b> <code>√${num} = x</code> where <code>x × x = ${num}</code></li>
-                    <li><b>Calculate:</b> <code>√${num} = ${math.evaluate(parsed)}</code></li>
-                    <li><b>Interpretation:</b> The square root of <b>${num}</b> is <b>${math.evaluate(parsed)}</b> because <b>${math.evaluate(parsed)} × ${math.evaluate(parsed)} = ${num}</b>.</li>
-                </ol>`;
-            }
-            // Cube root
-            let cbrtMatch = queryLower.match(/^(cube root of |cbrt |)([\d.]+)$/);
-            if (cbrtMatch) {
-                let num = cbrtMatch[2];
-                parsed = `cbrt(${num})`;
-                detailedSteps = `<ol style='margin-left:1.2em;'>
-                    <li><b>Restate the problem:</b> Find the cube root of <b>${num}</b> (a number which, when multiplied by itself three times, gives ${num}).</li>
-                    <li><b>Translate to math expression:</b> <code>∛${num} = x</code> where <code>x × x × x = ${num}</code></li>
-                    <li><b>Calculate:</b> <code>∛${num} = ${math.evaluate(parsed)}</code></li>
-                    <li><b>Interpretation:</b> The cube root of <b>${num}</b> is <b>${math.evaluate(parsed)}</b> because <b>${math.evaluate(parsed)} × ${math.evaluate(parsed)} × ${math.evaluate(parsed)} = ${num}</b>.</li>
-                </ol>`;
-            }
-            // If parsed, use math.js to evaluate
-            if (parsed) {
-                try {
-                    let result = math.evaluate(parsed);
-                    return {
-                        result: result,
-                        explanation: detailedSteps
-                    };
-                } catch (e) {
-                    // fallback to static logic
-                }
-            }
-            // Try to evaluate as a math expression using math.js
-            try {
-                // Try to solve equations with '=' using mathsteps
-                if (typeof mathsteps !== 'undefined' && query.includes('=')) {
-                    const steps = mathsteps.solveEquation(query);
-                    if (steps && steps.length > 0) {
-                        let explanation = '<ol style="margin-left:1.2em;">';
-                        steps.forEach(step => {
-                            explanation += `<li>${step.changeType.replace(/_/g, ' ')}:<br><code>${step.oldEquation.ascii()}</code> → <code>${step.newEquation.ascii()}</code></li>`;
-                        });
-                        explanation += '</ol>';
-                        return {
-                            result: steps[steps.length-1].newEquation.ascii(),
-                            explanation: explanation
-                        };
-                    }
-                }
-                // Try to simplify or evaluate using math.js
-                if (typeof math !== 'undefined') {
-                    let result = math.evaluate(query);
-                    // If result is an object (like a matrix), convert to string
-                    if (typeof result === 'object') result = result.toString();
-                    // Try to get steps for simplification
-                    let stepsHtml = '';
-                    if (math.simplify) {
-                        const simplified = math.simplify(query);
-                        if (simplified && simplified.toString() !== query) {
-                            stepsHtml = `<b>Simplified:</b> ${simplified.toString()}`;
-                        }
-                    }
-                    return {
-                        result: result,
-                        explanation: stepsHtml ? stepsHtml : 'Calculated using math.js.'
-                    };
-                }
-            } catch (e) {
-                // Fallback to static logic below
-            }
-            // Study tips and problem-solving strategies
-            if (queryLower.includes('study tips') || queryLower.includes('problem-solving') || queryLower.includes('strategy')) {
-                return {
-                    result: `<div style="background: linear-gradient(135deg, #f8fafc 0%, #e3f0ff 100%); border-left: 6px solid #007bff; padding: 18px 22px; border-radius: 12px; margin: 10px 0 15px 0; box-shadow: 0 4px 16px rgba(0,123,255,0.07);">
-                        <h4 style='color:#007bff; margin-top:0; margin-bottom:10px; font-size:1.2rem; display:flex; align-items:center; gap:8px;'><span style='font-size:1.3rem;'>💡</span> Study Tips & Problem-Solving Strategies</h4>
-                        <ul style='padding-left: 1.2em; margin:0; color:#222; font-size:1rem; line-height:1.7;'>
-                            <li><b>Understand the problem:</b> Read carefully and identify what is being asked.</li>
-                            <li><b>Break it down:</b> Divide complex problems into smaller, manageable parts.</li>
-                            <li><b>Practice regularly:</b> Consistent practice helps reinforce concepts.</li>
-                            <li><b>Review mistakes:</b> Learn from errors to avoid repeating them.</li>
-                            <li><b>Use diagrams:</b> Visual aids can clarify difficult concepts.</li>
-                            <li><b>Check your work:</b> Always review your solution for accuracy.</li>
-                        </ul>
-                    </div>`,
-                    explanation: "These strategies can help you become a more effective math learner and problem solver!"
-                };
-            }
-            // Greetings and small talk
-            if (/^(hi|hello|hey|how are you|good morning|good afternoon|good evening)[!. ]*$/i.test(queryLower.trim())) {
-                // Get current hour for time-based greeting
-                const hour = new Date().getHours();
-                let greeting = "Hello!";
-                if (queryLower.includes('how are you')) {
-                    greeting = "I'm just a math AI, but I'm here and ready to help you! 😊";
-                } else if (queryLower.includes('good morning') || (hour >= 5 && hour < 12 && /morning/.test(queryLower))) {
-                    greeting = "Good morning! Ready to solve some math? ☀️";
-                } else if (queryLower.includes('good afternoon') || (hour >= 12 && hour < 17 && /afternoon/.test(queryLower))) {
-                    greeting = "Good afternoon! How can I help you with math today? 🌞";
-                } else if (queryLower.includes('good evening') || (hour >= 17 && hour < 22 && /evening/.test(queryLower))) {
-                    greeting = "Good evening! Let's tackle some math together! 🌙";
-                } else if (/hi|hello|hey/.test(queryLower)) {
-                    greeting = "Hi there! 👋 How can I help you with math today?";
-                }
-                return {
-                    result: greeting,
-                    explanation: ""
-                };
-            }
-            // Time, date, day, year queries (flexible, matches single words or phrases)
-            const now = new Date();
-            let matched = false;
-            let timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            let dateString = now.toLocaleDateString();
-            let dayString = now.toLocaleDateString(undefined, { weekday: 'long' });
-            let yearString = now.getFullYear();
-            let resultParts = [];
-            if (/\btime\b/.test(queryLower)) {
-                resultParts.push(`The current time is <b>${timeString}</b>.`);
-                matched = true;
-            }
-            if (/\bdate\b/.test(queryLower)) {
-                resultParts.push(`Today's date is <b>${dateString}</b>.`);
-                matched = true;
-            }
-            if (/\bday\b/.test(queryLower)) {
-                resultParts.push(`Today is <b>${dayString}</b>.`);
-                matched = true;
-            }
-            if (/\byear\b/.test(queryLower)) {
-                resultParts.push(`The current year is <b>${yearString}</b>.`);
-                matched = true;
-            }
-            if (matched) {
-                return {
-                    result: resultParts.join(' '),
-                    explanation: ""
-                };
-            }
-            // Algebra
-            // Basic calculations
-            if (/^[\d+\-*/().\s]+$/.test(query)) {
-                try {
-                    let cleanQuery = query.replace(/×/g, '*').replace(/÷/g, '/');
-                    const result = eval(cleanQuery);
-                    if (isFinite(result)) {
-                        return {
-                            result: `${query} = <b>${result}</b>`,
-                            explanation: "I calculated this mathematical expression step by step."
-                        };
-                    } else {
-                        return {
-                            result: "The result is undefined or infinite.",
-                            explanation: "This might be due to division by zero or other mathematical errors."
-                        };
-                    }
-                } catch (e) {
-                    return {
-                        result: "I couldn't calculate that expression.",
-                        explanation: "Make sure to use valid mathematical operators (+, -, *, /, parentheses)."
-                    };
-                }
-            }
-            // Equation solving (simple demo)
-            if (queryLower.includes('solve') || (queryLower.includes('=') && queryLower.includes('x'))) {
-                let equation = query.replace(/solve\s+/i, '').trim();
-                if (equation === '2x + 5 = 15') {
-                    return {
-                        result: `2x + 5 = 15<br>2x = 10<br>x = 5`,
-                        explanation: "I solved this linear equation by isolating x."
-                    };
-                }
-                return {
-                    result: `Equation solving is available for simple demo cases only.<br>Try: solve 2x + 5 = 15` ,
-                    explanation: "Full equation solving is not available in the static version."
-                };
-            }
-            // Derivatives (simple demo)
-            if (queryLower.includes('derivative') || queryLower.includes('differentiate')) {
-                if (queryLower.includes('x^2') || queryLower.includes('x²')) {
-                    return {
-                        result: `The derivative of x² is 2x.`,
-                        explanation: "I used the power rule for differentiation."
-                    };
-                }
-                return {
-                    result: `Please specify a function to differentiate (e.g., derivative of x²).`,
-                    explanation: "This static demo only supports simple cases."
-                };
-            }
-            // Integrals (simple demo)
-            if (queryLower.includes('integral') || queryLower.includes('integrate')) {
-                if (queryLower.includes('x^2') || queryLower.includes('x²')) {
-                    return {
-                        result: `The integral of x² is (1/3)x³ + C.`,
-                        explanation: "I used the power rule for integration."
-                    };
-                }
-                return {
-                    result: `Please specify a function to integrate (e.g., integral of x²).`,
-                    explanation: "This static demo only supports simple cases."
-                };
-            }
-            // Topic explanations
-            if (queryLower.includes('calculus')) {
-                return {
-                    result: `Calculus studies change (derivatives) and accumulation (integrals).` ,
-                    explanation: "Calculus is fundamental for understanding change and motion."
-                };
-            }
-            if (queryLower.includes('algebra')) {
-                return {
-                    result: `Algebra deals with equations, variables, and expressions.` ,
-                    explanation: "Algebra is the foundation for advanced mathematics."
-                };
-            }
-            if (queryLower.includes('geometry')) {
-                return {
-                    result: `Geometry studies shapes, sizes, and properties of space.` ,
-                    explanation: "Geometry helps us understand space and shape."
-                };
-            }
-            if (queryLower.includes('trigonometry')) {
-                return {
-                    result: `Trigonometry studies relationships between angles and sides in triangles.` ,
-                    explanation: "Remember SOH-CAH-TOA for basic trig ratios!"
-                };
-            }
-            if (queryLower.includes('statistics')) {
-                return {
-                    result: `Statistics is about collecting, analyzing, and interpreting data.` ,
-                    explanation: "Statistics helps us make sense of data."
-                };
-            }
-            // Default response
-            return {
-                result: `I understand you're asking about: <b>\"${query}\"</b>`,
-                explanation: "I'm here to help you understand mathematics better. Try asking about calculations, equations, derivatives, or integrals!"
-            };
-        }
-        function scanEquation() {
-            const responseDiv = document.getElementById('aiResponse');
-            responseDiv.innerHTML = '<p style="color: #dc3545;">Image scanning is not available in the static version. Please use the text box above.</p>';
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            loadChatHistory();
-            const aiQuery = document.getElementById('aiQuery');
-            if (aiQuery) {
-                aiQuery.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        askAI();
-                    }
-                });
-            }
-            const clearBtn = document.getElementById('clearChatBtn');
-            if (clearBtn) {
-                clearBtn.addEventListener('click', function() {
-                    clearChatHistory();
-                });
-            }
-        });
 
         // Intersection Observer for section animations
         const observer = new IntersectionObserver((entries) => {
@@ -1424,7 +1667,35 @@
                 });
             });
         });
+        
     </script>
+    <script>
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const currentMode = localStorage.getItem('darkMode');
+
+  if (currentMode === 'enabled') {
+    document.body.classList.add('dark-mode');
+    toggleBtn.textContent = '☀️ Light Mode';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      localStorage.setItem('darkMode', 'enabled');
+      toggleBtn.textContent = '☀️ Light Mode';
+    } else {
+      localStorage.setItem('darkMode', 'disabled');
+      toggleBtn.textContent = '🌙 Dark Mode';
+    }
+  });
+</script>
+
+    <script src="scripts/response.js"></script>
+    <!-- Load MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </body>
 </html>
 
