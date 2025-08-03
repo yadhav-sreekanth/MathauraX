@@ -26,6 +26,7 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 /* Logo */
@@ -37,12 +38,18 @@ header {
 
 .logo img {
     height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.1);
 }
 
 .logo h1 {
     font-size: 2rem;
     font-weight: bold;
     color: rgb(0, 94, 255);
+    transition: color 0.3s ease;
 }
 
 /* Nav container */
@@ -59,6 +66,7 @@ nav {
     flex-direction: row;
     gap: 1.5rem;
     transition: max-height 0.3s ease, opacity 0.3s ease;
+    align-items: center;
 }
 
 .nav-menu li {
@@ -72,6 +80,7 @@ nav {
     padding: 0.5rem 1rem;
     border-radius: 5px;
     transition: 0.3s;
+    position: relative;
 }
 
 .nav-menu a:hover {
@@ -88,18 +97,15 @@ nav {
     cursor: pointer;
     color: #333;
     z-index: 1100;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
-/* Responsive */
-
-/* Optional: Smooth scroll */
-html {
-    scroll-behavior: smooth;
+.nav-toggle:hover {
+    background-color: rgba(0, 94, 255, 0.1);
+    color: rgb(0, 94, 255);
 }
-
-
-
-
 
 /* Settings menu */
 .settings-menu {
@@ -111,6 +117,15 @@ html {
     font-size: 1.4rem;
     color: #000;
     user-select: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.settings-menu i:hover {
+    background-color: rgba(0, 94, 255, 0.1);
+    color: rgb(0, 94, 255);
+    transform: rotate(180deg);
 }
 
 /* Settings dropdown */
@@ -127,7 +142,8 @@ html {
     min-width: 130px;
     display: none;
     z-index: 1001;
-    text-align: center;   
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
 .settings-dropdown li {
@@ -138,18 +154,37 @@ html {
     color: #333;
     text-decoration: none;
     display: block;
+    transition: all 0.3s ease;
 }
 
 .settings-dropdown li a:hover {
     background-color: #f0f0f0;
+    color: rgb(0, 94, 255);
 }
 
 .settings-dropdown li a#logoutLink {
     color: red;
 }
 
+.settings-dropdown li a#logoutLink:hover {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
 .settings-dropdown.show {
     display: block;
+    animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Footer */
@@ -158,10 +193,9 @@ footer {
     padding: 20px 0;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
+    background: #fff;
+    border-top: 1px solid #e3e8f0;
 }
-
-/* Responsive */
-
 
 /* Kid mode button */
 .kid-mode-btn {
@@ -197,6 +231,7 @@ footer {
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
+
 /* Off-canvas menu container */
 .offcanvas-menu {
     position: fixed;
@@ -226,6 +261,12 @@ footer {
     border: none;
     cursor: pointer;
     color: #333;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    color: rgb(0, 94, 255);
+    transform: scale(1.1);
 }
 
 /* Off-canvas nav list */
@@ -245,47 +286,398 @@ footer {
     color: #333;
     font-size: 1.2rem;
     font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .offcanvas-menu a:hover {
     color: rgb(0, 94, 255);
+    padding-left: 10px;
 }
-@media (max-width: 880px) {
+
+/* Comprehensive Responsive Design */
+
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+    header {
+        padding: 1.2rem 3rem;
+    }
+    
+    .logo h1 {
+        font-size: 2.2rem;
+    }
+    
     .nav-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      height: 100vh;
-      width: 250px;
-      background: white;
-      box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: start;
-      justify-content: flex-start;
-      padding: 2rem 1rem;
-      transition: right 0.3s ease;
-      z-index: 1001;
+        gap: 2rem;
     }
-  
-    .nav-menu.open {
-      right: 0;
-    }
-  
-    .nav-menu li {
-      margin: 1rem 0;
-      width: 100%;
-    }
-  
+    
     .nav-menu a {
-      width: 100%;
-      display: block;
-      padding: 0.5rem 0;
-      font-size: 1.1rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 1.1rem;
     }
-  
-    body.menu-open {
-      overflow: hidden;
+}
+
+/* Desktop (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+    header {
+        padding: 1rem 2rem;
     }
-  }
+    
+    .nav-menu {
+        gap: 1.5rem;
+    }
+    
+    .nav-menu a {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+    header {
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.8rem;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+    
+    .nav-menu {
+        gap: 1.2rem;
+    }
+    
+    .nav-menu a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.95rem;
+    }
+    
+    .kid-mode-btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .kid-mode-btn i {
+        font-size: 1rem;
+        margin-right: 6px;
+    }
+}
+
+/* Tablet Portrait (600px - 767px) */
+@media (max-width: 767px) and (min-width: 600px) {
+    header {
+        padding: 0.7rem 1.2rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.6rem;
+    }
+    
+    .logo img {
+        height: 32px;
+    }
+    
+    .nav-menu {
+        gap: 1rem;
+    }
+    
+    .nav-menu a {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .kid-mode-btn {
+        padding: 5px 10px;
+        font-size: 0.85rem;
+    }
+    
+    .kid-mode-btn i {
+        font-size: 0.9rem;
+        margin-right: 5px;
+    }
+}
+
+/* Mobile Large (480px - 599px) */
+@media (max-width: 599px) and (min-width: 480px) {
+    header {
+        padding: 0.6rem 1rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.4rem;
+    }
+    
+    .logo img {
+        height: 30px;
+    }
+    
+    .nav-menu {
+        gap: 0.8rem;
+    }
+    
+    .nav-menu a {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .kid-mode-btn {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .kid-mode-btn i {
+        font-size: 0.8rem;
+        margin-right: 4px;
+    }
+}
+
+/* Mobile Small (320px - 479px) */
+@media (max-width: 479px) {
+    header {
+        padding: 0.5rem 0.8rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+    
+    .logo img {
+        height: 28px;
+    }
+    
+    .nav-menu {
+        gap: 0.6rem;
+    }
+    
+    .nav-menu a {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .kid-mode-btn {
+        padding: 3px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .kid-mode-btn i {
+        font-size: 0.75rem;
+        margin-right: 3px;
+    }
+    
+    .settings-menu i {
+        font-size: 1.2rem;
+        padding: 0.3rem;
+    }
+}
+
+/* Extra Small Mobile (below 320px) */
+@media (max-width: 319px) {
+    header {
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .logo h1 {
+        font-size: 1rem;
+    }
+    
+    .logo img {
+        height: 24px;
+    }
+    
+    .nav-menu {
+        gap: 0.4rem;
+    }
+    
+    .nav-menu a {
+        padding: 0.15rem 0.4rem;
+        font-size: 0.75rem;
+    }
+    
+    .kid-mode-btn {
+        padding: 2px 4px;
+        font-size: 0.7rem;
+    }
+    
+    .kid-mode-btn i {
+        font-size: 0.7rem;
+        margin-right: 2px;
+    }
+    
+    .settings-menu i {
+        font-size: 1rem;
+        padding: 0.2rem;
+    }
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 880px) {
+    .logo-text {
+        display: none;
+    }
+
+    .nav-menu {
+        visibility: hidden;
+        opacity: 0;
+        position: fixed;
+        top: 80px;
+        right: 0;
+        width: 250px;
+        min-width: 200px;
+        height: auto;
+        background: white;
+        padding: 0.5rem;
+        box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: all 0.3s ease;
+        transform: translateX(10px);
+        border-radius: 0 0 0 10px;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .nav-menu.open {
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        padding: 0.3rem 0;
+    }
+
+    .nav-menu li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 0.3rem 1rem;
+    }
+
+    .nav-toggle {
+        display: block !important;
+        z-index: 1001;
+        cursor: pointer;
+    }
+
+    .nav-toggle-img {
+        transition: transform 0.3s ease;
+    }
+
+    .nav-toggle:hover .nav-toggle-img {
+        transform: rotate(90deg);
+    }
+
+    .settings-dropdown {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        margin-top: 0.3rem;
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        padding: 0.5em 0;
+        border-radius: 8px;
+        min-width: 120px;
+        z-index: 1002;
+    }
+
+    .settings-dropdown.show {
+        display: flex;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .settings-dropdown li {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 0.3em 1em;
+    }
+
+    .settings-dropdown li a {
+        display: block;
+        width: 100%;
+        padding: 0.3em 0;
+        color: #222;
+        text-decoration: none;
+    }
+
+    .settings-dropdown li a:hover {
+        background: #f0f4ff;
+        color: #195acd;
+    }
+}
+
+/* Landscape Orientation Adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    header {
+        padding: 0.4rem 1rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+    
+    .logo img {
+        height: 24px;
+    }
+    
+    .nav-menu a {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .kid-mode-btn {
+        padding: 3px 6px;
+        font-size: 0.75rem;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    header {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .settings-dropdown {
+        border-width: 0.5px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    header {
+        position: static;
+        box-shadow: none;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .nav-toggle {
+        display: none;
+    }
+    
+    .settings-menu {
+        display: none;
+    }
+}
+
+/* Optional: Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
   
