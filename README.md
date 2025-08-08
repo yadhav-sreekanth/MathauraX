@@ -1,4 +1,11 @@
 # MathauraX AI Assistant
+# MathauraX - Interactive Math Learning Platform
+
+MathauraX is an educational platform for learning Algebra, Geometry, Trigonometry, and more.  
+Built with HTML, CSS, and JavaScript.
+
+
+Keywords: math learning, algebra practice, geometry tutorials, CBSE math, math platform
 
 An intelligent mathematical assistant that provides AI-powered responses for mathematical queries when exact matches aren't found in the search database.
 
