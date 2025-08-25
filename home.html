@@ -1553,10 +1553,351 @@ function appendMessage(text, sender) {
         <p>&copy;<img src="assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
-    <script src="https://unpkg.com/mathsteps@0.4.3/dist/mathsteps.min.js"></script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+
+<script>
+/* ===========================================================
+   Math AI + Special Replies + Mini Quiz (All-in-One)
+   Requirements: include pyodide.js & MathJax BEFORE this.
+   Relies on your existing:
+     - appendMessage(html, sender)  // appends to chat
+     - chatWindow                   // chat container (for MathJax typesetting scope)
+   =========================================================== */
+
+//////////////////////////
+// 1) Quiz Data/Engine //
+//////////////////////////
+const quizData = [
+  {
+    q: "What is \\(2+3\\)?",
+    options: ["3", "4", "5", "6"],
+    correct: 2, // 0-based (2 -> "5")
+    explain: "Because 2 + 3 = 5."
+  },
+  {
+    q: "Simplify: \\(2x + 2x - 3x\\)",
+    options: ["\\(x\\)", "\\(2x\\)", "\\(3x\\)", "\\(0\\)"],
+    correct: 0,
+    explain: "2x + 2x - 3x = (4x - 3x) = x."
+  },
+  {
+    q: "Derivative of \\(x^5\\) w.r.t. \\(x\\)?",
+    options: ["\\(5x^4\\)", "\\(x^5\\)", "\\(x^4\\)", "\\(6x^5\\)"],
+    correct: 0,
+    explain: "d/dx x^5 = 5x^4."
+  }
+];
+
+let quizState = {
+  active: false,
+  index: 0,
+  score: 0
+};
+
+function quizStart() {
+  quizState.active = true;
+  quizState.index = 0;
+  quizState.score = 0;
+  appendMessage("📘 Quiz started! Type <code>quiz next</code> to get the first question.", "ai");
+}
+
+function quizStop() {
+  const msg = `🛑 Quiz ended. Final score: <b>${quizState.score}/${quizData.length}</b>`;
+  quizState.active = false;
+  appendMessage(msg, "ai");
+}
+
+function quizNext() {
+  if (!quizState.active) {
+    appendMessage("Start the quiz first: type <code>quiz start</code>.", "ai");
+    return;
+  }
+  if (quizState.index >= quizData.length) {
+    appendMessage(`🎉 Quiz complete! Final score: <b>${quizState.score}/${quizData.length}</b>`, "ai");
+    quizState.active = false;
+    return;
+  }
+
+  const item = quizData[quizState.index];
+  const opts = item.options.map((opt, i) => `${i + 1}. ${opt}`).join("<br>");
+  const html = `
+    <div><b>Q${quizState.index + 1}:</b> ${item.q}</div>
+    <div style="margin-top:6px">${opts}</div>
+    <div style="margin-top:6px"><i>Answer with</i> <code>quiz answer N</code> (e.g., <code>quiz answer 2</code>).</div>
+  `;
+  appendMessage(html, "ai");
+  if (window.MathJax?.typesetPromise) MathJax.typesetPromise([chatWindow]);
+}
+
+function quizAnswer(nStr) {
+  if (!quizState.active) {
+    appendMessage("Start the quiz first: type <code>quiz start</code>.", "ai");
+    return;
+  }
+  const n = parseInt(nStr, 10);
+  if (!(n >= 1 && n <= 4)) {
+    appendMessage("Please answer with a number 1–4, e.g., <code>quiz answer 1</code>.", "ai");
+    return;
+  }
+  const item = quizData[quizState.index];
+  const isCorrect = (n - 1) === item.correct;
+  if (isCorrect) quizState.score += 1;
+
+  const feedback = isCorrect ? "✅ Correct!" : `❌ Incorrect. The correct answer is <b>${item.correct + 1}</b>.`;
+  appendMessage(`${feedback}<br><small>${item.explain}</small>`, "ai");
+
+  quizState.index += 1;
+  if (quizState.index < quizData.length) {
+    appendMessage(`Type <code>quiz next</code> for the next question.`, "ai");
+  } else {
+    appendMessage(`🎉 Quiz complete! Final score: <b>${quizState.score}/${quizData.length}</b>`, "ai");
+    quizState.active = false;
+  }
+  if (window.MathJax?.typesetPromise) MathJax.typesetPromise([chatWindow]);
+}
+
+/////////////////////////////
+// 2) Special Reply Rules //
+/////////////////////////////
+function specialReply(raw) {
+  const msg = raw.trim();
+  const low = msg.toLowerCase();
+
+  // Greetings / small talk
+  if (["hi", "hello", "hey"].includes(low)) {
+    return "👋 Hello! I'm your Math AI. Ask me any math question, or type <code>help</code>.";
+  }
+
+  // Help / commands
+  if (low === "help" || low === "/help") {
+    return `
+      <b>Commands</b><br>
+      • <code>simplify 2x + 2x - 3x</code><br>
+      • <code>factor x^4 - 1</code><br>
+      • <code>expand (x+1)^5</code><br>
+      • <code>derivative x^5, x, 2</code><br>
+      • <code>integrate sin(x), x, 0, pi</code><br>
+      • <code>limit sin(x)/x, x, 0</code><br>
+      • <code>series exp(x), x, 0, 6</code><br>
+      • <code>solve x^2 - 5x + 6 = 0</code><br>
+      • <code>matrix [[1,2],[3,4]]</code>, <code>det [[1,2],[3,4]]</code>, <code>inv [[1,2],[3,4]]</code><br><br>
+      <b>Quiz</b><br>
+      • <code>quiz start</code> – begin quiz<br>
+      • <code>quiz next</code> – next question<br>
+      • <code>quiz answer N</code> – answer 1–4<br>
+      • <code>quiz stop</code> – end quiz
+    `;
+  }
+
+  // About
+  if (low.includes("who are you") || low === "about") {
+    return "🤖 I’m a client-side Math AI powered by SymPy (via Pyodide) and MathJax for rendering.";
+  }
+
+  // Quiz controls
+  if (low === "quiz start") {
+    quizStart();
+    return "__handled__";
+  }
+  if (low === "quiz stop") {
+    quizStop();
+    return "__handled__";
+  }
+  if (low === "quiz next") {
+    quizNext();
+    return "__handled__";
+  }
+  if (low.startsWith("quiz answer")) {
+    const n = low.replace("quiz answer", "").trim();
+    quizAnswer(n);
+    return "__handled__";
+  }
+
+  // No special reply matched
+  return null;
+}
+
+/////////////////////////////////////////
+// 3) Pyodide + SymPy core (once)     //
+/////////////////////////////////////////
+const pyodideReady = (async () => {
+  const pyodide = await loadPyodide({
+    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/"
+  });
+  await pyodide.loadPackage("sympy");
+
+  await pyodide.runPython(`
+import json
+from sympy import *
+from sympy.parsing.sympy_parser import (
+    parse_expr, standard_transformations,
+    implicit_multiplication_application, convert_xor
+)
+
+# Symbols & parsing with 2x and ^ support
+x, y, z, t, a, b, c = symbols('x y z t a b c')
+transforms = standard_transformations + (
+    implicit_multiplication_application,
+    convert_xor,
+)
+def _parse(s):
+    return parse_expr(s, transformations=transforms)
+
+def handle(query):
+    q = query.strip()
+    try:
+        low = q.lower()
+
+        # Math commands
+        if low.startswith("integrate "):
+            args = [s.strip() for s in q[10:].split(",")]
+            if len(args) == 1:
+                f = _parse(args[0]); res = integrate(f, x)
+            elif len(args) == 2:
+                f = _parse(args[0]); v = symbols(args[1]); res = integrate(f, v)
+            elif len(args) == 4:
+                f = _parse(args[0]); v = symbols(args[1]); A = sympify(args[2]); B = sympify(args[3])
+                res = integrate(f, (v, A, B))
+            else:
+                return json.dumps({"ok": False, "error": "Usage: integrate f(x) [, x [, a, b]]"})
+
+        elif low.startswith("derivative "):
+            args = [s.strip() for s in q[10:].split(",")]
+            f = _parse(args[0])
+            v = symbols(args[1]) if len(args) >= 2 else x
+            n = int(args[2]) if len(args) >= 3 else 1
+            res = diff(f, v, n)
+
+        elif low.startswith("solve "):
+            payload = q[6:]
+            if "," in payload:
+                eqpart, varpart = payload.split(",", 1)
+                var = symbols(varpart.strip())
+            else:
+                eqpart, var = payload, x
+
+            if "=" in eqpart:
+                L, R = [s.strip() for s in eqpart.split("=", 1)]
+                equation = Eq(_parse(L), _parse(R))
+            else:
+                equation = Eq(_parse(eqpart), 0)
+            res = solve(equation, var)
+
+        elif low.startswith("limit "):
+            f, v, A = [s.strip() for s in q[6:].split(",")]
+            res = limit(_parse(f), symbols(v), sympify(A))
+
+        elif low.startswith("series "):
+            f, v, A, n = [s.strip() for s in q[7:].split(",")]
+            res = series(_parse(f), symbols(v), sympify(A), int(n))
+
+        elif low.startswith("matrix "):
+            M = Matrix(sympify(q[7:].strip())); res = M
+        elif low.startswith("det "):
+            M = Matrix(sympify(q[4:].strip())); res = M.det()
+        elif low.startswith("inv "):
+            M = Matrix(sympify(q[4:].strip())); res = M.inv()
+        elif low.startswith("eigen "):
+            M = Matrix(sympify(q[6:].strip())); res = M.eigenvals()
+        elif low.startswith("factor "):
+            res = factor(_parse(q[7:].strip()))
+        elif low.startswith("expand "):
+            res = expand(_parse(q[7:].strip()))
+        elif low.startswith("simplify "):
+            res = simplify(_parse(q[9:].strip()))
+        elif low.startswith("latex "):
+            res = latex(_parse(q[6:].strip()))
+        else:
+            # default: try to interpret the input as an expression
+            res = simplify(_parse(q))
+
+        return json.dumps({"ok": True, "result": str(res), "latex": latex(res)})
+    except Exception as e:
+        return json.dumps({"ok": False, "error": str(e)})
+  `);
+
+  return pyodide;
+})();
+
+/////////////////////////////////////////
+// 4) Chat wiring with special replies //
+/////////////////////////////////////////
+async function generateResponse(raw) {
+  const msg = raw.trim();
+  if (!msg) return;
+
+  // Special replies first
+  const special = specialReply(msg);
+  if (special === "__handled__") return;          // quiz message already posted
+  if (typeof special === "string" && special) {   // send canned response
+    appendMessage(special, "ai");
+    if (window.MathJax?.typesetPromise) MathJax.typesetPromise([chatWindow]);
+    return;
+  }
+
+  appendMessage("Thinking…", "ai");
+  const bubble = chatWindow.lastChild;
+
+  try {
+    const pyodide = await pyodideReady;
+    const pyResult = await pyodide.runPythonAsync(
+      `handle(${JSON.stringify(msg)})`
+    );
+    const data = JSON.parse(pyResult);
+
+    if (data.ok) {
+      bubble.innerHTML = `<b>Result:</b> \\(${data.latex}\\)<br><small>${escapeHTML(data.result)}</small>`;
+      if (window.MathJax?.typesetPromise) {
+        await MathJax.typesetPromise([bubble]);
+      }
+    } else {
+      bubble.innerHTML = `<b>Error:</b> ${escapeHTML(data.error)}`;
+    }
+  } catch (err) {
+    bubble.innerHTML = `<b>Runtime error:</b> ${escapeHTML(err.message)}`;
+  }
+}
+
+// HTML-safe helper
+function escapeHTML(str) {
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+// Optional: greet once on load
+if (typeof appendMessage === "function") {
+  appendMessage("👋 Hello! I'm your Math AI. Type <code>help</code> to see what I can do, or try <code>simplify 2x + 2x - 3x</code>.<br>Start a quiz with <code>quiz start</code>.", "ai");
+}
+</script>
+
     
     <script>
 
@@ -1690,41 +2031,7 @@ function appendMessage(text, sender) {
   });
 </script>
 
-    <script src="scripts/response.js"></script>
-    <script type="module" src="scripts/auth.js"></script>
     <!-- Load MathJax -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
 <script type="module" src="scripts/auth.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
