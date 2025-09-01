@@ -11,581 +11,7 @@
     <link rel="manifest" href="manifest.json"/>
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-      
-  /* -------------------- DARK MODE START -------------------- */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-body.dark-mode header {
-  background-color: #1e1e1e;
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .nav-menu li a {
-  color: #eee !important;
-}
-
-body.dark-mode .nav-menu li a::after {
-  background: #4c9aff;
-}
-
-body.dark-mode .logo-text {
-  color: #66aaff;
-}
-
-body.dark-mode .kid-mode-button {
-  background: linear-gradient(45deg, #e96443, #904e95);
-  color: #fff !important;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
-}
-
-body.dark-mode .kid-mode-button:hover {
-  background: linear-gradient(45deg, #904e95, #e96443);
-}
-
-body.dark-mode .topic-card {
-  background-color: #1f1f1f;
-  color: #ddd;
-  border: 1px solid #333;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-}
-
-body.dark-mode .topic-card h3,
-body.dark-mode .topic-card p {
-  color: #fff !important;
-}
-
-body.dark-mode .topic-card:hover {
-  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
-  background-color: #262626;
-}
-
-body.dark-mode .search-section {
-  background: #1b1b1b;
-  border-radius: 10px;
-  padding: 5rem;
-}
-
-body.dark-mode #searchInput {
-  background-color: #2b2b2b;
-  color: #eee;
-  border: 1px solid #555;
-}
-
-body.dark-mode #searchInput::placeholder {
-  color: #aaa;
-}
-
-body.dark-mode #searchButton {
-  background-color: #333;
-  color: #eee;
-  border: 1px solid #555;
-}
-
-body.dark-mode #searchButton:hover {
-  background: #555;
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
-}
-
-body.dark-mode .chat-window {
-  background-color: #1c1c1c;
-  
-}
-
-body.dark-mode .user-message {
-  background: #31465b;
-  color: #fff;
-}
-
-body.dark-mode .ai-message {
-  background: #292929;
-  color: #ddd;
-}
-
-body.dark-mode .chat-input-container {
-  background-color: #1e1e1e;
-  border-top: 1px solid #333;
-}
-
-body.dark-mode #userInput {
-  background: #2a2a2a;
-  color: #fff;
-  border: 1px solid #444;
-}
-
-body.dark-mode #sendBtn {
-  background: #3a3a3a;
-  color: #fff;
-}
-
-body.dark-mode #sendBtn:hover {
-  background: #4a4a4a;
-}
-
-body.dark-mode footer {
-  background: #0d0d0d;
-  color: #aaa;
-  box-shadow: 0 -2px 10px rgba(255,255,255,0.1);
-}
-
-body.dark-mode #contact {
-  background-color: #101010 !important;
-  color: #ccc;
-}
-
-body.dark-mode #contact nav a {
-  color: #bbb !important;
-}
-
-body.dark-mode #contact nav a:hover {
-  color: #66aaff !important;
-}
-
-body.dark-mode .nav-toggle-img {
-  filter: brightness(5);
-}
-
-body.dark-mode .ai-avatar {
-  background: #333;
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
-
-body.dark-mode .clear-chat-btn {
-  color: #ccc;
-}
-
-body.dark-mode .clear-chat-btn:hover {
-  background: #330000;
-  color: #ff4c4c;
-}
-
-body.dark-mode .chat-bubble {
-  background: #222;
-  color: #eee;
-  box-shadow: 0 1px 3px rgba(255,255,255,0.05);
-}
-
-body.dark-mode .chat-bubble.user {
-  background: linear-gradient(90deg, #1f2f57, #31465b);
-  color: #fff;
-}
-
-body.dark-mode .chat-bubble.ai {
-  background: #292929;
-  color: #eee;
-  border-left: 5px solid #3c6fff;
-}
-
-body.dark-mode .copy-btn {
-  background: #555;
-  color: #eee;
-}
-
-body.dark-mode .copy-btn:hover {
-  background: #777;
-}
-
-body.dark-mode .settings-dropdown {
-  background-color: #222;
-  border: 1px solid #444;
-}
-
-body.dark-mode .settings-dropdown li a {
-  color: #ccc;
-}
-
-body.dark-mode .settings-dropdown li a:hover {
-  background: #333;
-  color: #66aaff;
-}
-
-body.dark-mode .ai-title {
-  color: #4ca3ff;
-}
-
-body.dark-mode .ai-loading-spinner {
-  border-top: 4px solid #66aaff;
-  border-color: #333 #333 #333 #66aaff;
-}
-
-body.dark-mode .recommended-topics h2,
-body.dark-mode .search-section h2,
-body.dark-mode #contact h2 {
-  color: #4ca3ff;
-}
-
-body.dark-mode .topic-card::after {
-  background: linear-gradient(45deg, #0d6efd, #e83e8c, #ff9800, #0d6efd);
-}
-
-body.dark-mode .chat-input-bar input[type="text"] {
-  background-color: #2e2e2e;
-  border-color: #444;
-  color: #eee;
-}
-
-body.dark-mode .chat-input-bar input[type="text"]:focus {
-  background: #1f1f1f;
-  border-color: #66aaff;
-}
-
-body.dark-mode .send-btn {
-  background: #0056b3;
-  color: white;
-}
-
-body.dark-mode .send-btn:hover {
-  background: #007bff;
-}
-
-
-body.dark-mode .chat-header {
-  background: linear-gradient(90deg, #002f4b, #005c97);
-}
-
-body.dark-mode .message {
-  color: #ddd;
-}
-
-body.dark-mode #darkModeToggle {
-  background: #ffffff;
-  color: #ffffff;
-  border: 1px solid #555;
-  transition: 0.3s;
-}
-
-body.dark-mode #darkModeToggle:hover {
-  background: #222;
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
-}
-
-body.dark-mode section {
-  background: transparent;
-}
-
-body.dark-mode .ai-label {
-  color: #4ca3ff;
-}
-
-body.dark-mode .user-label {
-  color: #66aaff;
-}
-
-/* Animations for dark mode */
-body.dark-mode .topic-card {
-  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-body.dark-mode .nav-menu li a::before {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-}
-
-body.dark-mode .nav-menu li a:hover {
-  color: #66aaff !important;
-}
-
-body.dark-mode ::selection {
-  background: #66aaff;
-  color: #000;
-}
-
-body.dark-mode::-webkit-scrollbar {
-  width: 8px;
-}
-
-body.dark-mode::-webkit-scrollbar-track {
-  background: #1e1e1e;
-}
-
-body.dark-mode::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 4px;
-}
-
-body.dark-mode::-webkit-scrollbar-thumb:hover {
-  background: #777;
-}
-body.dark-mode header {
-  background-color: #0d0d0d !important;
-  color: #ffffff !important;
-  border-bottom: 1px solid #333;
-}
-body.dark-mode .settings-menu i {
-  color: #ccc !important;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-body.dark-mode .settings-menu i:hover {
-  color: #4ca3ff !important;
-  transform: rotate(180deg);
-}
-/* Fancy fume-to-line nav link effect (dark mode only) */
-body.dark-mode .nav-menu li a {
-  position: relative;
-  color: #e0e0e0;
-  font-weight: 600;
-  transition: color 0.4s ease;
-  z-index: 1;
-}
-
-body.dark-mode .nav-menu li a::before,
-body.dark-mode .nav-menu li a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-body.dark-mode .nav-menu li a::before {
-  height: 160%;
-  top: -30%;
-  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.08), transparent);
-  filter: blur(10px);
-  opacity: 1;
-  z-index: -1;
-}
-
-body.dark-mode .nav-menu li a::after {
-  background: linear-gradient(to right, #66ccff, #3399ff);
-  height: 2px;
-  z-index: 2;
-}
-
-body.dark-mode .nav-menu li a:hover::before {
-  opacity: 0;
-}
-
-body.dark-mode .nav-menu li a:hover::after {
-  transform: scaleX(1);
-}
-/* Dark mode styles for search bar */
-body.dark-mode #searchInput {
-  background-color: #1e1e1e;
-  color: #eee;
-  border: 1px solid #444;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-}
-
-body.dark-mode #searchInput::placeholder {
-  color: #aaa;
-}
-
-body.dark-mode #searchInput:focus {
-  border-color: #66aaff;
-  outline: none;
-  box-shadow: 0 0 8px rgba(102, 170, 255, 0.3);
-}
-
-/* Search button in dark mode */
-body.dark-mode #searchButton {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-  border-radius: 6px;
-  padding: 0.6rem 1.2rem;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-body.dark-mode #searchButton:hover {
-  background-color: #444;
-  box-shadow: 0 0 10px rgba(102, 170, 255, 0.4);
-}
-/* Search results container */
-body.dark-mode #searchResults {
-  background: transparent;
-  color: #e0e0e0;
-}
-
-/* Individual result card */
-body.dark-mode .search-result {
-  background: #1e1e1e;
-  border-left: 5px solid #4ca3ff;
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
-}
-
-/* Title link */
-body.dark-mode .search-result a {
-  color: #66ccff !important;
-}
-
-body.dark-mode .search-result a:hover {
-  color: #9c4be7 !important;
-}
-
-/* Description text */
-body.dark-mode .search-result p {
-  color: #ccc;
-}
-
-/* Subtopic label */
-body.dark-mode .search-result span[style*='background'] {
-  background: #2a2a2a !important;
-  color: #66ccff !important;
-}
-
-/* "Ask AI" button in dark mode */
-body.dark-mode #askAIButton {
-  background: linear-gradient(90deg, #5A65EA, #9C4BE7);
-  color: #fff;
-  border: none;
-}
-
-body.dark-mode #askAIButton:hover {
-  filter: brightness(1.1);
-}
-
-/* === Dark Mode Manual Toggle === */
-body.dark-mode {
-  background: #000;
-  color: #e2e8f0;
-}
-
-/* Buttons */
-body.dark-mode #askAIButton {
-  background: linear-gradient(90deg,#3b82f6,#8b5cf6);
-  color: #fff;
-  border: none;
-}
-body.dark-mode #askAIButton:hover {
-  filter: brightness(1.1);
-}
-
-/* Planner */
-body.dark-mode #planner {
-  background: #000;
-  color: #f1f5f9;
-  border-radius: 0.6rem;
-}
-
-/* Chat Section */
-body.dark-mode .chat-app-card {
-  background: #000;
-  border: 1px solid #334155;
-  color: #f1f5f9;
-}
-body.dark-mode .chat-window {
-  background: #000;
-}
-body.dark-mode .ai-message {
-  background: #334155;
-  color: #f8fafc;
-}
-body.dark-mode .chat-input-container {
-  background: #1e293b;
-  border-top: 1px solid #334155;
-}
-body.dark-mode .chat-input-container input {
-  background: #000;
-  color: #f8fafc;
-  border: 1px solid #475569;
-}
-body.dark-mode .chat-input-container button {
-  background: #3b82f6;
-  color: #fff;
-}
-
-/* Stat Cards */
-body.dark-mode .stat-card {
-  background: #000;
-  border: 1px solid #334155;
-  color: #f8fafc;
-}
-
-/* Subjects Grid */
-body.dark-mode .subjects-grid .subject-card {
-  background: #000;
-  border: 1px solid #334155;
-  color: #e2e8f0;
-}
-
-/* Modals */
-body.dark-mode .modal-content,
-body.dark-mode .alert-content,
-body.dark-mode .congrats-content {
-  background: #1e293b;
-  color: #f1f5f9;
-  border: 1px solid #334155;
-}
-body.dark-mode .modal-title,
-body.dark-mode .modal-subtitle {
-  color: #f8fafc;
-}
-body.dark-mode .form-label {
-  color: #e2e8f0;
-}
-body.dark-mode .form-select,
-body.dark-mode #modalSubjectName,
-body.dark-mode #modalChapters {
-  background: #000;
-  color: #f1f5f9;
-  border: 1px solid #475569;
-}
-body.dark-mode .btn-cancel {
-  background: #000;
-  color: #e2e8f0;
-}
-body.dark-mode .btn-confirm {
-  background: #3b82f6;
-  color: #fff;
-}
-/* -------------------- DARK MODE END -------------------- */
-
-@media (max-width: 828px) {
-.stats-bar{
-  display: none;
-}
-}
-        /* Navigation and Kid Mode Button styles */
-        .nav-menu {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            gap: 3.5rem;
-        }
-
-        .nav-menu li {
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-menu li a {
-            text-decoration: none;
-            color: inherit;
-            padding: 0.5rem 0;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu li a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #195acd;
-            transition: width 0.3s ease;
-        }
-
-        .nav-menu li a:hover::after {
-            width: 100%;
-        }
-
-
-    </style>
+    
 </head>
 <body>
     <header style="position: fixed; top: 0; right: 0; width: 100%; z-index: 1000; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background: white; display: flex; justify-content: space-between; align-items: center;">
@@ -602,6 +28,7 @@ body.dark-mode .btn-confirm {
                 <li><a href="home.html">Home</a></li>
                 <li><a href="#topics">Topics</a></li>
                 <li><a href="#planner">Exam Planner</a></li>
+                <li><a href="#timer">Timer</a></li>
                 <li>
                     <a href="kidmode/kid.html" class="kid-mode-button">
                         <i class="fas fa-child"></i> &nbsp; Kid Mode
@@ -940,6 +367,226 @@ function appendMessage(text, sender) {
 
 </script>
 
+<section class="timer" id="timer">
+  <div class="timer-container">
+        <div class="timer-title" style="font-weight: 600;">Study Timer</div>
+        <div class="purpose-group">
+            <div id="purposeInputWrapper">
+                <input type="text" id="purposeInput" class="purpose-input" maxlength="60" placeholder="Why are you setting this timer?">
+                <button id="purposeEnterBtn" class="purpose-enter-btn">Enter</button>
+            </div>
+            <div id="purposeDisplay" class="purpose-display" style="display:none;">
+                <span id="purposeText" class="purpose-gradient-text"></span>
+                <button id="purposeEditBtn" class="purpose-edit-btn" title="Edit Purpose">✏️</button>
+            </div>
+        </div>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="input-group">
+            <div class="input-col">
+                <label for="minutesInput">Min</label>
+                <input type="number" id="minutesInput" min="0" max="59" value="0">
+            </div>
+            <div class="input-col">
+                <label for="secondsInput">Sec</label>
+                <input type="number" id="secondsInput" min="0" max="59" value="0">
+            </div>
+            <div class="input-col">
+                <label for="hoursInput">Hours</label>
+                <input type="number" id="hoursInput" min="0" max="23" value="0">
+            </div>
+        </div>
+        <div class="timer-buttons">
+            <button id="startBtn"><span class="btn-text">Start</span></button>
+            <button id="pauseBtn" disabled><span class="btn-text">Pause</span></button>
+            <button id="resetBtn"><span class="btn-text">Reset</span></button>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+        <div class="end-message" id="endMessage">Time's up! Take a break 🎉</div>
+    </div>
+    <script>
+        const timerDisplay = document.getElementById('timerDisplay');
+        const hoursInput = document.getElementById('hoursInput');
+        const minutesInput = document.getElementById('minutesInput');
+        const secondsInput = document.getElementById('secondsInput');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const endMessage = document.getElementById('endMessage');
+
+        function getTotalSeconds() {
+            let m = parseInt(minutesInput.value, 10) || 0;
+            let s = parseInt(secondsInput.value, 10) || 0;
+            let h = parseInt(hoursInput.value, 10) || 0;
+            return h * 3600 + m * 60 + s;
+        }
+
+        let totalSeconds = getTotalSeconds();
+        let remainingSeconds = totalSeconds;
+        let timerInterval = null;
+        let isRunning = false;
+
+        function updateDisplay() {
+            const h = Math.floor(remainingSeconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((remainingSeconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (remainingSeconds % 60).toString().padStart(2, '0');
+            timerDisplay.textContent = `${h}:${m}:${s}`;
+            const percent = totalSeconds === 0 ? 0 : 100 * (1 - remainingSeconds / totalSeconds);
+            progressBar.style.width = percent + '%';
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            if (remainingSeconds <= 0) return;
+            isRunning = true;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            hoursInput.disabled = true;
+            minutesInput.disabled = true;
+            secondsInput.disabled = true;
+            endMessage.style.display = 'none';
+            progressBar.classList.remove('bounce');
+            void progressBar.offsetWidth;
+            progressBar.classList.add('bounce');
+            timerInterval = setInterval(() => {
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    endMessage.style.display = 'block';
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (!isRunning) return;
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            minutesInput.value = 0;
+            secondsInput.value = 0;
+            hoursInput.value = 0;
+            totalSeconds = 0;
+            remainingSeconds = 0;
+            updateDisplay();
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            hoursInput.disabled = false;
+            minutesInput.disabled = false;
+            secondsInput.disabled = false;
+            endMessage.style.display = 'none';
+            document.getElementById('purposeInputWrapper').style.display = 'block';
+            document.getElementById('purposeDisplay').style.display = 'none';
+            document.getElementById('purposeDisplay').classList.remove('purpose-display-animate-in');
+            document.getElementById('purposeInput').value = '';
+            document.getElementById('purposeText').textContent = '';
+            const inputEl = document.getElementById('purposeInput');
+            const btnEl = document.getElementById('purposeEnterBtn');
+            inputEl.style.opacity = 1;
+            inputEl.style.transform = 'translateY(0)';
+            btnEl.style.opacity = 1;
+            btnEl.style.transform = 'translateY(0)';
+        }
+
+        function inputChangeHandler() {
+            if (isRunning) return;
+            let m = parseInt(minutesInput.value, 10);
+            let s = parseInt(secondsInput.value, 10);
+            let h = parseInt(hoursInput.value, 10);
+            if (isNaN(m) || m < 0) m = 0;
+            if (m > 59) m = 59;
+            if (isNaN(s) || s < 0) s = 0;
+            if (s > 59) s = 59;
+            if (isNaN(h) || h < 0) h = 0;
+            if (h > 23) h = 23;
+            minutesInput.value = m;
+            secondsInput.value = s;
+            hoursInput.value = h;
+            totalSeconds = getTotalSeconds();
+            remainingSeconds = totalSeconds;
+            updateDisplay();
+        }
+
+        hoursInput.addEventListener('change', inputChangeHandler);
+        minutesInput.addEventListener('change', inputChangeHandler);
+        secondsInput.addEventListener('change', inputChangeHandler);
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Initialize display
+        minutesInput.value = 0;
+        secondsInput.value = 0;
+        hoursInput.value = 0;
+        totalSeconds = 0;
+        remainingSeconds = 0;
+        updateDisplay();
+
+        // Purpose input logic
+        const purposeInput = document.getElementById('purposeInput');
+        const purposeEnterBtn = document.getElementById('purposeEnterBtn');
+        const purposeInputWrapper = document.getElementById('purposeInputWrapper');
+        const purposeDisplay = document.getElementById('purposeDisplay');
+        const purposeText = document.getElementById('purposeText');
+        const purposeEditBtn = document.getElementById('purposeEditBtn');
+
+        function setPurpose() {
+            const value = purposeInput.value.trim();
+            if (value.length === 0) return;
+            purposeText.textContent = value;
+            // Animate out input and button
+            const inputEl = document.getElementById('purposeInput');
+            const btnEl = document.getElementById('purposeEnterBtn');
+            inputEl.classList.add('purpose-input-animate-out');
+            btnEl.classList.add('purpose-enter-btn-animate-out');
+            setTimeout(() => {
+                purposeInputWrapper.style.display = 'none';
+                inputEl.style.opacity = 1;
+                inputEl.style.transform = 'translateY(0)';
+                btnEl.style.opacity = 1;
+                btnEl.style.transform = 'translateY(0)';
+                inputEl.classList.remove('purpose-input-animate-out');
+                btnEl.classList.remove('purpose-enter-btn-animate-out');
+                purposeDisplay.style.display = 'flex';
+                setTimeout(() => {
+                    purposeDisplay.classList.add('purpose-display-animate-in');
+                }, 10);
+            }, 480);
+        }
+        function editPurpose() {
+            purposeInputWrapper.style.display = 'block';
+            purposeDisplay.style.display = 'none';
+            purposeDisplay.classList.remove('purpose-display-animate-in');
+            const inputEl = document.getElementById('purposeInput');
+            const btnEl = document.getElementById('purposeEnterBtn');
+            inputEl.style.opacity = 1;
+            inputEl.style.transform = 'translateY(0)';
+            btnEl.style.opacity = 1;
+            btnEl.style.transform = 'translateY(0)';
+            purposeInput.focus();
+        }
+        purposeEnterBtn.addEventListener('click', setPurpose);
+        purposeEditBtn.addEventListener('click', editPurpose);
+        purposeInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                setPurpose();
+            }
+        });
+    </script>
+</section>
 
     <section class="recommended-topics" id="topics">
         <h2>NCERT Solutions CBSE 2025-2026  Class 10 </h2>

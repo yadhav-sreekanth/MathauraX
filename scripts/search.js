@@ -31,14 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     ];
 
-  // Trigger searchFunction when Enter is pressed in the input
-  document.getElementById("searchInput").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); // optional: prevents default form submission
-      searchFunction();
-    }
-  });
-
+  
   function searchFunction() {
     let query = document.getElementById("searchInput").value;
     alert("Searching for: " + query); // Replace this with real search logic

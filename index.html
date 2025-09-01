@@ -578,9 +578,6 @@
       outline: none;
     }
 
-    .form button:hover {
-      background: #2563eb;
-    }
 
     .close-btn {
       position: absolute;
@@ -714,7 +711,6 @@
 
     .form button {
       padding: clamp(10px, 2.5vw, 12px);
-      background: var(--accent-color);
       color: white;
       border: none;
       border-radius: 30px;
@@ -723,18 +719,17 @@
       transition: all 0.3s ease;
       align-self: center;
       min-width: clamp(120px, 25vw, 140px);
+      background: #0088cc;
       margin-top: 10px;
       font-size: clamp(14px, 2.5vw, 1rem);
     }
 
     .form button:hover {
-      background: #0088cc;
       transform: translateY(-2px);
       box-shadow: 0 0 15px var(--glow);
     }
 
     .error-message {
-      color: var(--error-color);
       font-size: clamp(12px, 2vw, 0.85rem);
       min-height: 1em;
       text-align: center;
@@ -1979,25 +1974,27 @@
 
       <!-- Sign Up Form -->
       <form id="signUpForm" class="form">
-        <label for="signup-email">Email</label>
+        <label for="signup-email" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px;">Email</label>
         <input type="email" id="signup-email" required placeholder="Enter your email" />
-        <label for="signup-password">Password</label>
-        <input type="password" id="signup-password" required placeholder="Create a password" />
+        <label for="signup-password" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px;">Password</label>
+        <input type="password" id="signup-password" required placeholder="Create a password" /> <br/>
         <div class="form-btn-row">
           <button type="submit">Sign Up</button>
-        </div>
+        </div> <br/>
         <div class="error-message" id="signUpError"></div>
       </form>
 
       <!-- Sign In Form -->
       <form id="signInForm" class="form" style="display: none;">
-        <label for="signin-email">Email</label>
+        <label for="signin-email"style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px;">Email</label>
         <input type="email" id="signin-email" required placeholder="Enter your email" />
-        <label for="signin-password">Password</label>
+        <label for="signin-password" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px;">Password</label>
         <input type="password" id="signin-password" required placeholder="Enter your password" />
+        <br/>
         <div class="form-btn-row">
           <button type="submit">Sign In</button>
         </div>
+        <br/>
         <div class="error-message" id="signInError"></div>
       </form>
     </div>
