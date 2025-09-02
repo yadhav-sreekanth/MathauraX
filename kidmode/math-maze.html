@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Math Maze - MathauraX-kidmode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<style>
+ body{font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#f1f8e9,#e3f2fd);text-align:center;padding:2rem}
+ header{background:#6a4c93;color:#fff;padding:1rem;border-radius:12px;font-size:1.6rem}
+ .card{background:#fff;margin:1.5rem auto;padding:1rem;border-radius:14px;max-width:700px;box-shadow:0 8px 18px rgba(0,0,0,.08)}
+ .maze{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:1rem}
+ .cell{padding:1rem;border-radius:10px;background:#90caf9;color:#000;font-size:1.2rem;cursor:pointer;transition:0.2s}
+ .cell:hover{background:#64b5f6;color:#fff}
+ #feedback{margin-top:1rem;font-weight:bold;font-size:1.2rem}
+</style>
+</head>
+<body>
+<header>🌀 Math Maze</header>
+<main class="card">
+ <div>Solve problems to find the right path!</div>
+ <div id="question"></div>
+ <div class="maze" id="maze"></div>
+ <div id="feedback"></div>
+ <button onclick="newProblem()">Next</button>
+</main>
+<script>
+ let correct=0;
+ function newProblem(){
+   const a=Math.floor(Math.random()*10)+1;
+   const b=Math.floor(Math.random()*10)+1;
+   correct=a+b;
+   document.getElementById('question').textContent=`What is ${a} + ${b}?`;
+   const answers=[correct];
+   while(answers.length<9){
+     let r=Math.floor(Math.random()*20)+1;
+     if(!answers.includes(r)) answers.push(r);
+   }
+   answers.sort(()=>Math.random()-0.5);
+   document.getElementById('maze').innerHTML='';
+   answers.forEach(ans=>{
+     const div=document.createElement('div');
+     div.className='cell';
+     div.textContent=ans;
+     div.onclick=()=>check(ans);
+     document.getElementById('maze').appendChild(div);
+   });
+   document.getElementById('feedback').textContent='';
+ }
+ function check(val){
+   if(val===correct){
+     document.getElementById('feedback').textContent='🎉 Correct path!';
+   } else {
+     document.getElementById('feedback').textContent='❌ Dead end!';
+   }
+ }
+ newProblem();
+</script>
+</body></html>

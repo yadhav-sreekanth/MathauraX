@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Multiplication Quest - MathauraX-kidmode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<style>
+ body{font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#f1f8e9,#e0f7fa);text-align:center;padding:2rem}
+ header{background:#8ecae6;color:#023047;padding:1rem;border-radius:12px;font-size:1.6rem}
+ .card{background:#fff;margin:1.5rem auto;padding:1rem;border-radius:14px;max-width:600px;box-shadow:0 8px 18px rgba(0,0,0,.08)}
+ button{margin:6px;padding:.6rem 1rem;border:none;border-radius:10px;background:#ffb703;color:#000;font-size:1rem;cursor:pointer}
+ #problem{font-size:2rem;margin:1rem 0;color:#d00000}
+ #feedback{margin-top:1rem;font-weight:bold}
+</style>
+</head>
+<body>
+<header>✖️ Multiplication Quest</header>
+<main class="card">
+ <div id="problem"></div>
+ <input type="number" id="answer" placeholder="Your answer">
+ <div><button onclick="check()">Check</button><button onclick="newProblem()">Next</button></div>
+ <div id="feedback"></div>
+</main>
+<script>
+ let a=0,b=0;
+ function newProblem(){
+   a=Math.floor(Math.random()*10)+1;
+   b=Math.floor(Math.random()*10)+1;
+   document.getElementById('problem').textContent=a+' × '+b+' = ?';
+   document.getElementById('answer').value='';
+   document.getElementById('feedback').textContent='';
+ }
+ function check(){
+   const val=parseInt(document.getElementById('answer').value);
+   if(val===a*b){document.getElementById('feedback').textContent='🎉 Correct!';}
+   else{document.getElementById('feedback').textContent='❌ Try again!';}
+ }
+ newProblem();
+</script>
+</body></html>

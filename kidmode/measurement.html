@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Measurement Mania  - MathauraX-kidmode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<style>
+ body{font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#f3e5f5,#e1f5fe);text-align:center;padding:2rem}
+ header{background:#ffd54f;padding:1rem;border-radius:12px;color:#4a148c;font-weight:bold}
+ .card{background:#fff;margin:1.5rem auto;padding:1rem;border-radius:14px;max-width:650px;box-shadow:0 8px 18px rgba(0,0,0,.06)}
+ .objects{display:flex;justify-content:center;gap:40px;margin-top:1rem}
+ .obj{width:60px;background:#90caf9;border-radius:6px;display:flex;align-items:flex-end;justify-content:center;color:#000;font-weight:bold}
+ button{margin-top:1rem;padding:.6rem 1rem;border-radius:10px;border:none;background:#00b4d8;color:#fff;cursor:pointer}
+ #feedback{margin-top:1rem;font-weight:bold}
+</style>
+</head>
+<body>
+<header>📏 Measurement Mania</header>
+<main class="card">
+ <div>Which is taller?</div>
+ <div class="objects"><div class="obj" id="left"></div><div class="obj" id="right"></div></div>
+ <div><button onclick="choose('left')">Left</button><button onclick="choose('right')">Right</button><button onclick="newProblem()">Next</button></div>
+ <div id="feedback"></div>
+</main>
+<script>
+ let h1=0,h2=0;
+ function newProblem(){
+   h1=Math.floor(Math.random()*100)+50;
+   h2=Math.floor(Math.random()*100)+50;
+   document.getElementById('left').style.height=h1+'px'; document.getElementById('left').textContent=h1;
+   document.getElementById('right').style.height=h2+'px'; document.getElementById('right').textContent=h2;
+   document.getElementById('feedback').textContent='';
+ }
+ function choose(side){
+   if((side==='left' && h1>h2)||(side==='right' && h2>h1)){
+     document.getElementById('feedback').textContent='🎉 Correct!';}
+   else{document.getElementById('feedback').textContent='❌ Try again!';}
+ }
+ newProblem();
+</script>
+</body></html>

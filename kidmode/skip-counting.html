@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Skip Counting - MathauraX Kid Mode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<style>
+  body{margin:0;font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#e8f5e9,#f3e5f5);color:#222;text-align:center;padding:2rem}
+  header{background:#8ecae6;color:#023047;padding:1rem;border-radius:12px;font-size:1.4rem}
+  .card{background:#fff;margin:1.5rem auto;padding:1.25rem;border-radius:14px;max-width:720px;box-shadow:0 8px 18px rgba(0,0,0,.06)}
+  .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  button{padding:.6rem 1rem;border-radius:10px;border:none;cursor:pointer;background:#ffd166;color:#000;font-weight:bold}
+  #sequence{font-size:2rem;margin-top:14px;color:#d00000}
+  .play-btn{background:#00b4d8;color:#fff}
+</style>
+</head>
+<body>
+<header>🏃 Skip Counting — Practice by 2s, 5s, 10s!</header>
+
+<main class="card">
+  <div>Select step:</div>
+  <div class="controls">
+    <button onclick="setStep(2)">By 2s</button>
+    <button onclick="setStep(5)">By 5s</button>
+    <button onclick="setStep(10)">By 10s</button>
+    <button class="play-btn" onclick="start()">▶️ Start</button>
+    <button onclick="stop()">⏹️ Stop</button>
+  </div>
+
+  <div id="sequence">0</div>
+  <div style="margin-top:8px;font-weight:bold" id="hint">Hint: Try to say them out loud!</div>
+</main>
+
+<script>
+  let step=2, current=0, timer=null;
+  const seq = document.getElementById('sequence');
+
+  function setStep(s){ step=s; seq.textContent='0'; current=0; document.getElementById('hint').textContent='Step set to ' + s; }
+  function start(){
+    if(timer) return;
+    timer = setInterval(()=>{
+      current += step;
+      seq.textContent = current;
+      // simple voice (if allowed) for fun
+      if(window.speechSynthesis){
+        const ut = new SpeechSynthesisUtterance(current.toString());
+        ut.rate = 0.9;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(ut);
+      }
+    }, 900);
+  }
+  function stop(){ clearInterval(timer); timer=null; }
+</script>
+</body>
+</html>

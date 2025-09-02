@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Odd or Even  - MathauraX-kidmode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<style>
+ body{font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#ede7f6,#f1f8e9);text-align:center;padding:2rem}
+ header{background:#64b5f6;color:#fff;padding:1rem;border-radius:12px;font-size:1.6rem}
+ .card{background:#fff;margin:1.5rem auto;padding:1rem;border-radius:14px;max-width:600px;box-shadow:0 8px 18px rgba(0,0,0,.08)}
+ button{margin:6px;padding:.6rem 1rem;border:none;border-radius:10px;background:#ffb703;color:#000;font-size:1rem;cursor:pointer}
+ #number{font-size:2rem;margin:1rem 0;color:#4a148c}
+ #feedback{margin-top:1rem;font-weight:bold}
+</style>
+</head>
+<body>
+<header>⚖️ Odd or Even</header>
+<main class="card">
+ <div id="number"></div>
+ <div><button onclick="check(true)">Even</button><button onclick="check(false)">Odd</button></div>
+ <div><button onclick="newProblem()">Next</button></div>
+ <div id="feedback"></div>
+</main>
+<script>
+ let num=0;
+ function newProblem(){
+   num=Math.floor(Math.random()*100)+1;
+   document.getElementById('number').textContent=num;
+   document.getElementById('feedback').textContent='';
+ }
+ function check(isEven){
+   if((num%2===0)===isEven){document.getElementById('feedback').textContent='🎉 Correct!';}
+   else{document.getElementById('feedback').textContent='❌ Try again!';}
+ }
+ newProblem();
+</script>
+</body></html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Math Story Problems - MathauraX Kid Mode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<style>
+  body{margin:0;font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#fff8e1,#e0f7fa);padding:2rem;text-align:center}
+  header{background:#ffb4a2;color:#5d4037;padding:1rem;border-radius:12px}
+  .card{background:#fff;margin:1.5rem auto;padding:1.25rem;border-radius:14px;max-width:720px;box-shadow:0 10px 20px rgba(0,0,0,.06)}
+  .choices{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  .choice{background:#f1f8e9;padding:.8rem 1rem;border-radius:10px;cursor:pointer;border:2px solid transparent}
+  .choice:hover{transform:scale(1.03)}
+  .choice.correct{background:#c8e6c9;border-color:#2e7d32}
+  .choice.wrong{background:#ffcdd2;border-color:#c62828}
+</style>
+</head>
+<body>
+<header>📖 Math Story Time — Pick the Best Answer</header>
+
+<main class="card">
+  <div id="story">...</div>
+
+  <div class="choices" id="choices"></div>
+
+  <div id="result" style="margin-top:12px;font-weight:bold"></div>
+  <div style="margin-top:10px"><button onclick="next()">🔁 New Story</button></div>
+</main>
+
+<script>
+  const stories = [
+    {text:'Lina has 4 red balloons and 3 blue balloons. How many balloons in total?', options:['6','7','8'], answer:'7'},
+    {text:'A basket has 10 apples. Sam ate 3. How many left?', options:['7','6','8'], answer:'7'},
+    {text:'There are 5 birds on a tree. 2 more come. How many now?', options:['6','7','8'], answer:'7'},
+    {text:'Mike had 12 candies and gave 4 to his friend. How many does he keep?', options:['6','8','7'], answer:'8'}
+  ];
+
+  const storyEl = document.getElementById('story');
+  const choicesEl = document.getElementById('choices');
+  const result = document.getElementById('result');
+  let idx=0;
+
+  function loadStory(){
+    const s = stories[idx % stories.length];
+    storyEl.textContent = s.text;
+    choicesEl.innerHTML='';
+    result.textContent='';
+    s.options.sort(()=>Math.random()-0.5).forEach(opt=>{
+      const d = document.createElement('div');
+      d.className='choice';
+      d.textContent=opt;
+      d.tabIndex=0;
+      d.onclick=()=>check(opt,d);
+      d.onkeypress=(e)=>{ if(e.key==='Enter') check(opt,d); };
+      choicesEl.appendChild(d);
+    });
+  }
+
+  function check(opt,node){
+    const s = stories[idx % stories.length];
+    if(opt === s.answer){
+      node.classList.add('correct');
+      result.textContent='🎉 Correct! Great reading and math!';
+      setTimeout(()=>{ idx++; loadStory(); }, 1200);
+    } else {
+      node.classList.add('wrong');
+      result.textContent='❌ Not quite — try another choice!';
+    }
+  }
+
+  function next(){ idx++; loadStory(); }
+  loadStory();
+</script>
+</body>
+</html>

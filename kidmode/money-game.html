@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Money Game - MathauraX-kidmode</title>
+<style>
+ body{font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#e0f7fa,#fce4ec);text-align:center;padding:2rem}
+ header{background:#4caf50;color:#fff;padding:1rem;border-radius:12px;font-size:1.6rem}
+ .card{background:#fff;margin:1.5rem auto;padding:1rem;border-radius:14px;max-width:650px;box-shadow:0 8px 18px rgba(0,0,0,.06)}
+ .coins{display:flex;justify-content:center;gap:10px;margin-top:1rem;flex-wrap:wrap}
+ .coin{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;color:#fff}
+ .c1{background:#fbc02d}.c5{background:#ff7043}.c10{background:#8e24aa}.c25{background:#1976d2}
+ #target{font-size:1.5rem;color:#d00000;margin-top:1rem}
+ #feedback{margin-top:1rem;font-weight:bold}
+</style>
+</head>
+<body>
+<header>💰 Money Game</header>
+<main class="card">
+ <div id="target"></div>
+ <div class="coins">
+   <div class="coin c1" onclick="add(1)">1¢</div>
+   <div class="coin c5" onclick="add(5)">5¢</div>
+   <div class="coin c10" onclick="add(10)">10¢</div>
+   <div class="coin c25" onclick="add(25)">25¢</div>
+ </div>
+ <div>Total: <span id="total">0</span>¢</div>
+ <button onclick="check()">Check</button><button onclick="newProblem()">Next</button>
+ <div id="feedback"></div>
+</main>
+<script>
+ let target=0,total=0;
+ function newProblem(){
+   target=(Math.floor(Math.random()*8)+1)*5;
+   total=0;
+   document.getElementById('target').textContent='Make: '+target+'¢';
+   document.getElementById('total').textContent=total;
+   document.getElementById('feedback').textContent='';
+ }
+ function add(v){ total+=v; document.getElementById('total').textContent=total; }
+ function check(){
+   if(total===target){document.getElementById('feedback').textContent='🎉 Correct!';}
+   else{document.getElementById('feedback').textContent='❌ Not correct!';}
+ }
+ newProblem();
+</script>
+</body></html>

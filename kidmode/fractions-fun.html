@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Fractions Fun - MathauraX Kid Mode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+<style>
+  body{margin:0;font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#e0f7fa,#fff3e0);color:#333;text-align:center;padding:2rem}
+  header{background:#ffd166;padding:1rem;border-radius:12px;color:#4a148c;font-weight:bold}
+  .card{background:#fff;margin:1.5rem auto;padding:1.25rem;border-radius:14px;max-width:720px;box-shadow:0 8px 18px rgba(0,0,0,.06)}
+  .pie-wrap{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:1rem}
+  svg{width:140px;height:140px}
+  select,button{font-size:1rem;padding:.6rem;border-radius:10px;margin-top:8px}
+  #feedback{margin-top:12px;font-weight:bold}
+</style>
+</head>
+<body>
+<header>🥧 Fractions Fun — Pick the Fraction</header>
+
+<main class="card">
+  <div>Look at the pie! Choose the correct fraction that shows the shaded part.</div>
+
+  <div class="pie-wrap" id="pies">
+    <!-- SVG pies inserted here -->
+  </div>
+
+  <div style="margin-top:12px">
+    <select id="choice"></select>
+    <button onclick="check()">Check</button>
+    <button onclick="next()">Next Pie</button>
+  </div>
+
+  <div id="feedback"></div>
+</main>
+
+<script>
+  const piesEl = document.getElementById('pies');
+  const choice = document.getElementById('choice');
+  const feedback = document.getElementById('feedback');
+
+  // prebuilt pie configs: {parts, shaded}
+  const pies = [
+    {parts:2,shaded:1},
+    {parts:3,shaded:1},
+    {parts:4,shaded:3},
+    {parts:6,shaded:2},
+    {parts:8,shaded:5}
+  ];
+
+  let idx=0;
+
+  function drawPie(parts,shaded,elId){
+    // draw an SVG pie
+    const cx=70, cy=70, r=60;
+    let svg = `<svg viewBox="0 0 140 140" role="img" aria-label="${shaded} of ${parts}"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#ffe9f0" stroke="#ff6f61" stroke-width="2"/>`;
+    for(let i=0;i<parts;i++){
+      const start = (i/parts)*2*Math.PI - Math.PI/2;
+      const end = ((i+1)/parts)*2*Math.PI - Math.PI/2;
+      const x1 = cx + r*Math.cos(start);
+      const y1 = cy + r*Math.sin(start);
+      const x2 = cx + r*Math.cos(end);
+      const y2 = cy + r*Math.sin(end);
+      const large = 0;
+      const path = `<path d="M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z" fill="${i < shaded ? '#ff6f61' : '#fff'}" stroke="#ffb4a2"/>`;
+      svg += path;
+    }
+    svg += `</svg>`;
+    return svg;
+  }
+
+  function load(){
+    piesEl.innerHTML='';
+    const p = pies[idx % pies.length];
+    piesEl.innerHTML = drawPie(p.parts, p.shaded);
+    // fill select with options including correct
+    const opts = new Set();
+    opts.add(`${p.shaded}/${p.parts}`);
+    while(opts.size<4){
+      const a = Math.floor(Math.random()*(p.parts))+1;
+      const b = p.parts;
+      opts.add(`${a}/${b}`);
+    }
+    const arr = Array.from(opts).sort(()=>Math.random()-0.5);
+    choice.innerHTML = '';
+    arr.forEach(o=> choice.appendChild(new Option(o,o)));
+    feedback.textContent='';
+  }
+
+  function check(){
+    const p = pies[idx % pies.length];
+    if(choice.value === `${p.shaded}/${p.parts}`){
+      feedback.textContent='🎉 Correct — great fraction sense!';
+      feedback.style.color='#198754';
+    } else {
+      feedback.textContent='❌ Not quite — try again!';
+      feedback.style.color='#cc0000';
+    }
+  }
+
+  function next(){ idx++; load(); }
+  load();
+</script>
+</body>
+</html>

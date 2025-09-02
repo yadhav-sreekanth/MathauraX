@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Number Bonds - MathauraX Kid Mode</title>
+  <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+
+<style>
+  body{margin:0;font-family:'Comic Sans MS',cursive;background:linear-gradient(135deg,#f8edeb,#ffd6e0);color:#333;text-align:center;padding:2rem}
+  header{background:#ff6f61;color:#fff;padding:1rem;border-radius:12px;font-size:1.6rem;box-shadow:0 6px 12px rgba(0,0,0,.08)}
+  .card{background:#fff;margin:1.5rem auto;padding:1.25rem;border-radius:14px;max-width:680px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+  .target{font-size:2rem;color:#d81b60;font-weight:bold}
+  .buckets{display:flex;justify-content:center;gap:12px;margin-top:1rem;flex-wrap:wrap}
+  .bucket{background:#ffecec;border-radius:12px;padding:10px 18px;cursor:pointer;min-width:110px;font-size:1.3rem;box-shadow:0 6px 12px rgba(216,27,96,.08)}
+  .bucket.correct{background:#d0f4de;color:#0b6b3a;box-shadow:0 8px 18px rgba(13,110,61,.08)}
+  .controls{margin-top:1rem}
+  button{background:#00b4d8;border:none;color:#fff;padding:.7rem 1rem;border-radius:10px;font-size:1rem;cursor:pointer}
+  #score{font-weight:bold;margin-top:1rem}
+</style>
+</head>
+<body>
+<header>🔗 Number Bonds — Make the Target!</header>
+
+<main class="card">
+  <div>Target number:</div>
+  <div class="target" id="target">10</div>
+
+  <div class="buckets" id="pairs">
+    <!-- pair buttons -->
+  </div>
+
+  <div class="controls">
+    <button onclick="newRound()">🔁 New Target</button>
+    <button onclick="giveHint()">💡 Hint</button>
+  </div>
+
+  <div id="message" style="margin-top:12px;font-size:1.15rem"></div>
+  <div id="score">Score: <span id="scoreVal">0</span></div>
+</main>
+
+<script>
+  const pairsEl = document.getElementById('pairs');
+  const targetEl = document.getElementById('target');
+  const msg = document.getElementById('message');
+  const scoreVal = document.getElementById('scoreVal');
+
+  let target=10, score=0, correctSet=[];
+
+  function randomTarget(){
+    return Math.floor(Math.random()*9)+5; // 5..13
+  }
+
+  // Generate pair options including correct complements
+  function loadPairs(){
+    pairsEl.innerHTML='';
+    target = randomTarget();
+    targetEl.textContent = target;
+    correctSet = [];
+    // generate 6 options (pairs)
+    const correctComplement = Math.floor(Math.random()*(target))+1;
+    const correctPair = [correctComplement, target-correctComplement];
+    correctSet.push(correctPair.slice());
+
+    const options = [correctPair];
+    while(options.length < 6){
+      const a = Math.floor(Math.random()*12)+1;
+      const b = Math.floor(Math.random()*12)+1;
+      // avoid duplicates and target-equals ones
+      if(a+b===target || options.some(o=>o[0]===a && o[1]===b) || options.some(o=>o[0]===b && o[1]===a)) {
+        // include some distractors but not duplicates of correct
+        if(options.length<6 && Math.random()>0.6) options.push([a,b]);
+        continue;
+      }
+      options.push([a,b]);
+    }
+    // shuffle
+    options.sort(()=>Math.random()-0.5);
+
+    options.forEach((p,idx)=>{
+      const btn=document.createElement('div');
+      btn.className='bucket';
+      btn.textContent = `${p[0]} + ${p[1]}`;
+      btn.tabIndex = 0;
+      btn.onclick = ()=>checkPair(p, btn);
+      btn.onkeypress = (e)=>{ if(e.key==='Enter') checkPair(p,btn); };
+      pairsEl.appendChild(btn);
+    });
+
+    msg.textContent='Tap the pair that adds up to the target!';
+  }
+
+  function checkPair(pair, node){
+    if(pair[0]+pair[1] === target){
+      node.classList.add('correct');
+      msg.textContent = '🎉 Correct! Great adding!';
+      score+=10;
+      scoreVal.textContent=score;
+      // lock other buttons
+      Array.from(pairsEl.children).forEach(c=>c.onclick=null);
+    } else {
+      msg.textContent = '❌ Not quite — try another pair!';
+      score=Math.max(0, score-2);
+      scoreVal.textContent=score;
+      // small shake
+      node.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'translateX(0)'}],{duration:250});
+    }
+  }
+
+  function newRound(){ loadPairs(); }
+  function giveHint(){
+    // highlight one correct-looking number
+    msg.textContent = 'Hint: try pairs that include numbers close to ' + Math.ceil(target/2);
+  }
+
+  // init
+  loadPairs();
+</script>
+
+</body>
+</html>
