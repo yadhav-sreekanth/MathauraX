@@ -22,7 +22,8 @@
         
         <nav>
             <div class="nav-toggle" id="navToggle">
-                <img class="nav-toggle-img" src="assets/nav.png" alt="Menu" style="width:24px; height:24px; cursor: pointer;"/>
+                <img class="nav-toggle-img" src="                    <i id="settingsIcon" class="fas fa-bars" style="cursor: pointer; font-size: 1.4rem; color: #000;"></i>
+" alt="Menu" style="width:24px; height:24px; cursor: pointer;"/>
             </div>
             <ul class="nav-menu">
                 <li><a href="home.html">Home</a></li>
@@ -55,11 +56,10 @@
 </li>
 
                 <li class="settings-menu">
-                    <i id="settingsIcon" class="fas fa-cog" style="cursor: pointer; font-size: 1.4rem; color: #000;"></i>
+                    <i id="settingsIcon" class="fas fa-bars" style="cursor: pointer; font-size: 1.4rem; color: #000;"></i>
                     <ul id="settingsDropdown" class="settings-dropdown">
                         <li>
   <button id="darkModeToggle" title="Toggle Dark Mode" style="background: #222;color: white;border: none;padding: 0.5rem ; margin-bottom: 13px ;border-radius: 505px;cursor: pointer;font-weight: bold;transition: 0.3s;">🌙 Dark Mode</button></li>
-                  <br/>
 
                         <li><a href="https://yadhav-sreekanth.github.io/Yadhav-Portfolio/" target="_blank"><b>Developer</b></a></li>
                         <li><a href="index.html" onclick="logout()" id="logoutLink"><b>Logout</b></a></li>
@@ -600,27 +600,9 @@ function appendMessage(text, sender) {
     <footer>
         <p>&copy;<img src="assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
     </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
-
-
 <script src="scripts/search.js"></script>
 <script src="scripts/AI.js"></script>
-    <!-- Load MathJax -->
 <script type="module" src="scripts/auth.js"></script>
 </body>
 </html>

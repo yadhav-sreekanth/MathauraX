@@ -92,10 +92,28 @@ h3 {
       opacity: 1;
     }
   }
+  .full{
+    color: #000000;
+    border-color: white;
+    padding: 0 2px 3px 5px; 
+    border-radius: 40px;
+    box-shadow: #000000 ;
+    background:linear-gradient(rgb(153, 255, 0), rgb(0, 255, 26));
+    font-weight: 600;
+  }
+    .full:hover{
+    background: #000;
+    color: #fff;
+    transform: translateY(8px);
+    transform: translateX(-7px);
+    scroll-behavior: smooth;
+    display: flex;
+  }
     </style>
     
   <header>
     <h1>CBSE Class 10 Maths NCERT Solutions</h1>
+<p style="text-align: center; font-size: 1rem"><strong style=" color: red;">Caution:</strong> Some Chapter's exercises are unavailable</P>
     <nav>
         <ul class="chapter-nav">
           <li><a href="chapter-1.html">Chapter 1: Real Numbers</a></li>
@@ -116,7 +134,54 @@ h3 {
         </ul>
       </nav>
     </header>
+    <h1 style="text-align: center; font-size: 23px">Question Bank PDF's for Class 10 students are given below</h2>
+<p style="text-align: center; font-size: 1rem"><strong style=" color: red;">Caution:</strong> Some Chapter's Question bank are unavailable<strong style=" color: red;"> <br/>Remember:</strong> These questions banks are found on internet and it may belongs to various people</P>
+              <ul class="chapter-nav">
+        <ul>
+  <li><a href="../PDF/cp1.pdf" target="pdfFrame">Chapter 1: Real Numbers</a></li>
+  <li><a href="../PDF/cp2.pdf" target="pdfFrame">Chapter 2: Polynomials</a></li>
+  <li><a href="../PDF/cp3.pdf" target="pdfFrame">Chapter 3: Linear Equations</a></li>
+  <li><a href="../PDF/cp4.pdf" target="pdfFrame">Chapter 4: Quadratic Equations</a></li>
+  <li><a href="../PDF/cp5.pdf" target="pdfFrame">Chapter 5: Arithmetic Progressions</a></li>
+  <li><a href="../PDF/cp6.pdf" target="pdfFrame">Chapter 6: Coordinate Geometry</a></li>
+  <li><a href="../PDF/cp7.pdf" target="pdfFrame">Chapter 7: Triangles</a></li>
+  <li><a href="../PDF/cp8.pdf" target="pdfFrame">Chapter 8: Introduction to Trigonometry</a></li>
+  <li><a href="../PDF/cp9.pdf" target="pdfFrame">Chapter 9: Some Applications of Trigonometry</a></li>
+  <li><a href="../PDF/cp10.pdf" target="pdfFrame">Chapter 10: Circles</a></li>
+  <li><a href="../PDF/cp11.pdf" target="pdfFrame">Chapter 11: Constructions</a></li>
+  <li><a href="../PDF/cp12.pdf" target="pdfFrame">Chapter 12: Areas Related to Circles</a></li>
+  <li><a href="../PDF/cp13.pdf" target="pdfFrame">Chapter 13: Surface Areas and Volumes</a></li>
+  <li><a href="../PDF/cp14.pdf" target="pdfFrame">Chapter 14: Statistics</a></li>
+  <li><a href="../PDF/cp15.pdf" target="pdfFrame">Chapter 15: Probability</a></li>
+</ul>
 
+<!-- PDF viewer -->
+<div style="position: relative; width: 800px;">
+  <iframe id="pdfFrame" name="pdfFrame" width="800" height="725"></iframe>
+  
+  <!-- Fullscreen button -->
+  <button class="full" onclick="openFullscreen()" 
+          style="position: absolute; top: 10px; right: 10px; padding: 6px 12px;">
+    ⛶ Full Screen
+  </button>
+</div>
+
+<script>
+  function openFullscreen() {
+    let iframe = document.getElementById("pdfFrame");
+    if (iframe.requestFullscreen) {
+      iframe.requestFullscreen();
+    } else if (iframe.mozRequestFullScreen) { // Firefox
+      iframe.mozRequestFullScreen();
+    } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari, Opera
+      iframe.webkitRequestFullscreen();
+    } else if (iframe.msRequestFullscreen) { // IE/Edge
+      iframe.msRequestFullscreen();
+    }
+  }
+</script>
+
+        </ul>
 <script type="module" src="../scripts/auth.js"></script>
 
 </html>

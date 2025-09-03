@@ -124,15 +124,11 @@
                         'Magnetic Effects of Electric Current', 'Sources of Energy', 'Our Environment',
                         'Management of Natural Resources'
                       ],
-                      'Chemistry': [
+                      'Science': [
                         'Chemical Reactions and Equations', 'Acids, Bases and Salts', 'Metals and Non-metals',
                         'Carbon and its Compounds', 'Periodic Classification of Elements', 'Life Processes',
                         'Control and Coordination', 'How do Organisms Reproduce?', 'Heredity and Evolution',
                         'Our Environment', 'Management of Natural Resources'
-                      ],
-                      'Biology': [
-                        'Life Processes', 'Control and Coordination', 'How do Organisms Reproduce?',
-                        'Heredity and Evolution', 'Our Environment', 'Management of Natural Resources'
                       ],
                       'English': [
                         'Reading Comprehension', 'Writing Skills', 'Grammar', 'Literature', 'Poetry', 'Prose', 'Drama'
