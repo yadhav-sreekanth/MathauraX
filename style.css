@@ -3213,10 +3213,6 @@ body{
             margin: 0 auto;
         }
 
-        /* Modern Chat App Card */
-        .ai-assistant-section.chat-app-card {
-     
-        }
         .chat-header {
             display: flex;
             align-items: center;

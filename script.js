@@ -1,4 +1,4 @@
-          // User's subjects
+// User's subjects
           let userSubjects = JSON.parse(localStorage.getItem('userSubjects') || '[]');
           let examData = JSON.parse(localStorage.getItem('smartExamPlannerData') || '{}');
           let studyStreak = parseInt(localStorage.getItem('studyStreak') || '0');
@@ -110,52 +110,174 @@
                   ]
                 }
               },
-            
-              'Class 10': {
-                  'CBSE': {
-                      'Mathematics': [
-                        'Real Numbers', 'Polynomials', 'Pair of Linear Equations', 'Quadratic Equations',
-                        'Arithmetic Progressions', 'Triangles', 'Coordinate Geometry', 'Introduction to Trigonometry',
-                        'Applications of Trigonometry', 'Circles', 'Constructions', 'Areas Related to Circles',
-                        'Surface Areas and Volumes', 'Statistics', 'Probability'
-                      ],
-                      'Physics': [
-                        'Light - Reflection and Refraction', 'Human Eye and Colourful World', 'Electricity',
-                        'Magnetic Effects of Electric Current', 'Sources of Energy', 'Our Environment',
-                        'Management of Natural Resources'
-                      ],
-                      'Science': [
-                        'Chemical Reactions and Equations', 'Acids, Bases and Salts', 'Metals and Non-metals',
-                        'Carbon and its Compounds', 'Periodic Classification of Elements', 'Life Processes',
-                        'Control and Coordination', 'How do Organisms Reproduce?', 'Heredity and Evolution',
-                        'Our Environment', 'Management of Natural Resources'
-                      ],
-                      'English': [
-                        'Reading Comprehension', 'Writing Skills', 'Grammar', 'Literature', 'Poetry', 'Prose', 'Drama'
-                      ],
-                      'History': [
-                        'The Rise of Nationalism in Europe', 'Nationalism in India', 'The Making of a Global World',
-                        'The Age of Industrialisation', 'Print Culture and the Modern World'
-                      ],
-                      'Geography': [
-                        'Resources and Development', 'Water Resources', 'Agriculture', 'Minerals and Energy Resources',
-                        'Manufacturing Industries', 'Lifelines of National Economy'
-                      ],
-                      'Political Science (Civics)': [
-                        'Power Sharing', 'Federalism', 'Democracy and Diversity', 'Gender, Religion and Caste',
-                        'Popular Struggles and Movements', 'Political Parties', 'Outcomes of Democracy',
-                        'Challenges to Democracy'
-                      ],
-                      'Economics': [
-                        'Development', 'Sectors of the Indian Economy', 'Money and Credit',
-                        'Globalisation and the Indian Economy', 'Consumer Rights'
-                      ],
-                      'Computer Science': [
-                        'Computer Fundamentals', 'Programming Basics', 'Data Types', 'Control Structures',
-                        'Functions', 'Arrays', 'File Handling'
-                      ]
-                    },
-                    'ICSE': {
+'Class 10': {
+    'CBSE': {
+        'Mathematics': [
+            'Real Numbers', 'Polynomials', 'Pair of Linear Equations', 'Quadratic Equations',
+            'Arithmetic Progressions', 'Triangles', 'Coordinate Geometry', 'Introduction to Trigonometry',
+            'Applications of Trigonometry', 'Circles', 'Constructions', 'Areas Related to Circles',
+            'Surface Areas and Volumes', 'Statistics', 'Probability'
+        ],
+        'Physics': [
+            'Light - Reflection and Refraction', 'Human Eye and Colourful World', 'Electricity',
+            'Magnetic Effects of Electric Current', 'Sources of Energy', 'Our Environment',
+            'Management of Natural Resources'
+        ],
+        'Science': [
+            'Chemical Reactions and Equations', 'Acids, Bases and Salts', 'Metals and Non-metals',
+            'Carbon and its Compounds', 'Periodic Classification of Elements', 'Life Processes',
+            'Control and Coordination', 'How do Organisms Reproduce?', 'Heredity and Evolution',
+            'Our Environment', 'Management of Natural Resources'
+        ],
+        'English': {
+            'First Flight (Textbook)': [
+                'A Letter to God',
+                'Dust of Snow',
+                'Fire and Ice',
+                'Chapter 2 – Nelson Mandela: Long Walk to Freedom',
+                'A Tiger in the Zoo',
+                'Chapter 3 – Two Stories about Flying',
+                'I. His First Flight',
+                'II. Black Aeroplane',
+                'How to Tell Wild Animals',
+                'The Ball Poem',
+                'Chapter 4 – From the Diary of Anne Frank',
+                'Amanda!',
+                'Chapter 5 – Glimpses of India',
+                'I. A Baker from Goa',
+                'II. Coorg',
+                'III. Tea from Assam',
+                'The Trees',
+                'Chapter 6 – Mijbil the Otter',
+                'Fog',
+                'Chapter 7 – Madam Rides the Bus',
+                'The Tale of Custard the Dragon',
+                'Chapter 8 – The Sermon at Benares',
+                'For Anne Gregory',
+                'Chapter 9 – The Proposal'
+            ],
+            'Footprints Without Feet (Supplementary Reader)': [
+                'A Triumph of Surgery',
+                'Chapter 2 – The Thief’s Story',
+                'Chapter 3 – The Midnight Visitor',
+                'Chapter 4 – A Question of Trust',
+                'Chapter 5 – Footprints without Feet',
+                'Chapter 6 – The Making of a Scientist',
+                'Chapter 7 – The Necklace',
+                'Chapter 8 – Bholi',
+                'Chapter 9 – The Book That Saved the Earth'
+            ],
+            'Language Components': [
+                'Reading Comprehension',
+                'Writing Skills',
+                'Grammar'
+            ]
+        },
+        'History': [
+            'The Rise of Nationalism in Europe', 'Nationalism in India', 'The Making of a Global World',
+            'The Age of Industrialisation', 'Print Culture and the Modern World'
+        ],
+        'Geography': [
+            'Resources and Development', 'Water Resources', 'Agriculture', 'Minerals and Energy Resources',
+            'Manufacturing Industries', 'Lifelines of National Economy'
+        ],
+        'Political Science': [
+            'Power Sharing', 'Federalism', 'Democracy and Diversity', 'Gender, Religion and Caste',
+            'Popular Struggles and Movements', 'Political Parties', 'Outcomes of Democracy',
+            'Challenges to Democracy'
+        ],
+        'Economics': [
+            'Development', 'Sectors of the Indian Economy', 'Money and Credit',
+            'Globalisation and the Indian Economy', 'Consumer Rights'
+        ],
+        'Computer Science': [
+            'Computer Fundamentals', 'Programming Basics', 'Data Types', 'Control Structures',
+            'Functions', 'Arrays', 'File Handling'
+        ]
+    }
+},
+'Class 10': {
+    'CBSE': {
+        'Mathematics': [
+            'Real Numbers', 'Polynomials', 'Pair of Linear Equations', 'Quadratic Equations',
+            'Arithmetic Progressions', 'Triangles', 'Coordinate Geometry', 'Introduction to Trigonometry',
+            'Applications of Trigonometry', 'Circles', 'Constructions', 'Areas Related to Circles',
+            'Surface Areas and Volumes', 'Statistics', 'Probability'
+        ],
+        'Physics': [
+            'Light - Reflection and Refraction', 'Human Eye and Colourful World', 'Electricity',
+            'Magnetic Effects of Electric Current', 'Sources of Energy', 'Our Environment',
+            'Management of Natural Resources'
+        ],
+        'Science': [
+            'Chemical Reactions and Equations', 'Acids, Bases and Salts', 'Metals and Non-metals',
+            'Carbon and its Compounds', 'Periodic Classification of Elements', 'Life Processes',
+            'Control and Coordination', 'How do Organisms Reproduce?', 'Heredity and Evolution',
+            'Our Environment', 'Management of Natural Resources'
+        ],
+            'English': [
+                'A Letter to God',
+                'Dust of Snow',
+                'Fire and Ice',
+                'Nelson Mandela: Long Walk to Freedom',
+                'A Tiger in the Zoo',
+                'Two Stories about Flying',
+                'I. His First Flight',
+                'II. Black Aeroplane',
+                'How to Tell Wild Animals',
+                'The Ball Poem',
+                'From the Diary of Anne Frank',
+                'Amanda!',
+                'Glimpses of India',
+                'I. A Baker from Goa',
+                'II. Coorg',
+                'III. Tea from Assam',
+                'The Trees',
+                'Mijbil the Otter',
+                'Fog',
+                'Madam Rides the Bus',
+                'The Tale of Custard the Dragon',
+                'The Sermon at Benares',
+                'For Anne Gregory',
+                'The Proposal',
+                'A Triumph of Surgery',
+                'The Thief’s Story',
+                'The Midnight Visitor',
+                'A Question of Trust',
+                'Footprints without Feet',
+                'The Making of a Scientist',
+                'The Necklace',
+                'Bholi',
+                'The Book That Saved the Earth'
+            ],
+            'Language Components': [
+                'Reading Comprehension',
+                'Writing Skills',
+                'Grammar'
+            ],
+        'History': [
+            'The Rise of Nationalism in Europe', 'Nationalism in India', 'The Making of a Global World',
+            'The Age of Industrialisation', 'Print Culture and the Modern World'
+        ],
+        'Geography': [
+            'Resources and Development', 'Water Resources', 'Agriculture', 'Minerals and Energy Resources',
+            'Manufacturing Industries', 'Lifelines of National Economy'
+        ],
+        'Political Science': [
+            'Power Sharing', 'Federalism', 'Democracy and Diversity', 'Gender, Religion and Caste',
+            'Popular Struggles and Movements', 'Political Parties', 'Outcomes of Democracy',
+            'Challenges to Democracy'
+        ],
+        'Economics': [
+            'Development', 'Sectors of the Indian Economy', 'Money and Credit',
+            'Globalisation and the Indian Economy', 'Consumer Rights'
+        ],
+        'Computer Science': [
+            'Computer Fundamentals', 'Programming Basics', 'Data Types', 'Control Structures',
+            'Functions', 'Arrays', 'File Handling'
+        ]
+    },
+                        'ICSE': {
                       'Mathematics': [
                         'Commercial Mathematics', 'Algebra', 'Geometry', 'Mensuration', 'Trigonometry',
                         'Statistics', 'Probability', 'Coordinate Geometry', 'Linear Programming'
@@ -791,3 +913,129 @@
           const style = document.createElement('style');
           style.innerHTML = `@keyframes pulseBg { 0% { background: #fee2e2; } 50% { background: #fecaca; } 100% { background: #fee2e2; } }`;
           document.head.appendChild(style);
+
+          // --- Added: Nav toggle (image) and dropdown handlers ---
+          // Usage notes (HTML):
+          // - Nav toggle button: <button data-nav-toggle data-nav-target="#mainNav" data-open-src="hamburger.png" data-close-src="close.png"><img src="hamburger.png" alt="menu"></button>
+          // - The target nav should have id="mainNav" and will receive class "open" when opened.
+          // - Dropdown toggle: <button data-dropdown-toggle aria-expanded="false" aria-controls="dd1">Menu</button>
+          //   <ul id="dd1" class="dropdown-menu">...</ul>
+
+          function initNavToggle() {
+              // Toggle nav and swap image src if open/close sources provided
+              document.querySelectorAll('[data-nav-toggle]').forEach(btn => {
+                  const targetSel = btn.getAttribute('data-nav-target');
+                  const openSrc = btn.getAttribute('data-open-src');
+                  const closeSrc = btn.getAttribute('data-close-src');
+                  const img = btn.querySelector('img');
+                  
+                  btn.addEventListener('click', (e) => {
+                      e.stopPropagation();
+                      if (!targetSel) return;
+                      const menu = document.querySelector(targetSel);
+                      if (!menu) return;
+                      const isOpen = menu.classList.toggle('open');
+                      btn.setAttribute('aria-expanded', String(isOpen));
+                      if (img && openSrc && closeSrc) {
+                          img.src = isOpen ? closeSrc : openSrc;
+                      } else if (img) {
+                          img.classList.toggle('open', isOpen);
+                      }
+                  });
+              });
+
+              // Close nav when clicking outside
+              document.addEventListener('click', (e) => {
+                  document.querySelectorAll('[data-nav-toggle]').forEach(toggle => {
+                      const targetSel = toggle.getAttribute('data-nav-target');
+                      if (!targetSel) return;
+                      const menu = document.querySelector(targetSel);
+                      if (!menu || !menu.classList.contains('open')) return;
+                      if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                          menu.classList.remove('open');
+                          toggle.setAttribute('aria-expanded', 'false');
+                          const img = toggle.querySelector('img');
+                          const openSrc = toggle.getAttribute('data-open-src');
+                          if (img && openSrc) img.src = openSrc;
+                      }
+                  });
+              });
+
+              // Close nav with Escape
+              document.addEventListener('keydown', (e) => {
+                  if (e.key === 'Escape') {
+                      document.querySelectorAll('[data-nav-toggle]').forEach(toggle => {
+                          const targetSel = toggle.getAttribute('data-nav-target');
+                          if (!targetSel) return;
+                          const menu = document.querySelector(targetSel);
+                          if (!menu || !menu.classList.contains('open')) return;
+                          menu.classList.remove('open');
+                          toggle.setAttribute('aria-expanded', 'false');
+                          const img = toggle.querySelector('img');
+                          const openSrc = toggle.getAttribute('data-open-src');
+                          if (img && openSrc) img.src = openSrc;
+                      });
+                  }
+              });
+          }
+
+          function initDropdowns() {
+              document.querySelectorAll('[data-dropdown-toggle]').forEach(btn => {
+                  const targetId = btn.getAttribute('aria-controls');
+                  const menu = targetId ? document.getElementById(targetId) : null;
+                  if (!menu) return;
+
+                  btn.addEventListener('click', (e) => {
+                      e.stopPropagation();
+                      const isOpen = menu.classList.toggle('show');
+                      btn.setAttribute('aria-expanded', String(isOpen));
+                  });
+
+                  btn.addEventListener('keydown', (e) => {
+                      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          menu.classList.add('show');
+                          btn.setAttribute('aria-expanded', 'true');
+                          const first = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+                          if (first) first.focus();
+                      } else if (e.key === 'Escape') {
+                          menu.classList.remove('show');
+                          btn.setAttribute('aria-expanded', 'false');
+                          btn.focus();
+                      }
+                  });
+              });
+
+              // Close dropdowns when clicking outside
+              document.addEventListener('click', (e) => {
+                  document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                      const toggleBtn = document.querySelector(`[aria-controls="${menu.id}"]`);
+                      if (!menu.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+                          menu.classList.remove('show');
+                          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+                      }
+                  });
+              });
+
+              // Close dropdowns on Escape globally
+              document.addEventListener('keydown', (e) => {
+                  if (e.key === 'Escape') {
+                      document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                          menu.classList.remove('show');
+                          const toggleBtn = document.querySelector(`[aria-controls="${menu.id}"]`);
+                          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+                      });
+                  }
+              });
+          }
+
+          // Initialize handlers after DOM ready
+          if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', () => {
+                  initNavToggle();
+                  initDropdowns();
+              });
+          } else {
+              initNavToggle();
+              initDropdowns();
+          }
