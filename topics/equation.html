@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathauraX - Math equations</title>
+  <link rel="icon" href="../assets/logo.svg">
+
+  <!-- MathJax for rendering LaTeX -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f7f9fb;
+      margin: 0;
+      padding: 0;
+      color: #111;
+    }
+    header {
+      background: #ffffff;
+      color: #111;
+      padding: 18px;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #e6e9ef;
+    }
+    .search-box {
+      margin: 18px auto;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 84%;
+      max-width: 900px;
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid #3f51b5;
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.18s;
+      background: #fff;
+    }
+    input[type="text"]:focus {
+      box-shadow: 0 0 10px rgba(63, 81, 181, 0.14);
+    }
+    .container {
+      margin: 20px auto 80px;
+      width: 92%;
+      max-width: 1100px;
+    }
+    .section {
+      margin: 18px 0;
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(8, 35, 102, 0.04);
+      border-left: 6px solid #3f51b5;
+    }
+    .section h2 {
+      margin: 0 0 8px;
+      color: #243b8a;
+      font-size: 1.15rem;
+    }
+    .equation {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #fbfdff;
+      transition: background 0.12s;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+    .equation:hover { background: #f3f7ff; }
+    .note { font-size: 0.86rem; color: #555; margin-top: 6px; }
+    .highlight { background-color: #fff176; font-weight: 700; padding: 0 2px; border-radius: 2px; }
+    pre.latex { background:#f4f6fb; padding:8px; border-radius:6px; overflow:auto; }
+    .small { font-size:0.9rem; color:#333; }
+    
+  </style>
+</head>
+<style>
+  .google-link {
+    text-decoration: none; /* no underline */
+    color: inherit;        /* keeps same text color */
+    cursor: pointer;
+  }
+
+</style>
+<body>
+  <header>
+    <a href="../home.html" style="text-decoration: none; color: inherit;">
+      <img src="../assets/logo.svg" alt="MathauraX logo" style="width: 72px; vertical-align: middle;" />
+      <span style="vertical-align: middle; margin-left: 10px;">MathauraX — Mathematics Equations Library</span>
+    </a>
+  </header>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search any equation..." onkeyup="searchEquations()" />
+  </div>
+
+  <div class="container" id="equations-container">
+
+    <!-- Foundations -->
+    <div class="section" id="foundations">
+      <h2>Foundations & Notation</h2>
+      <div class="equation">Set notation: \( A = \{x \mid P(x)\} \), subset: \( A \subseteq B \)</div>
+      <div class="equation">Element of: \( x \in A \), Not element: \( x \notin A \)</div>
+      <div class="equation">Power set: \( \mathcal{P}(A) = \{B \mid B \subseteq A\} \)</div>
+      <div class="equation">Cardinality: \( |A| \) is number of elements in finite set \(A\)</div>
+      <div class="equation">Function: \( f: X \to Y \), image: \( f(X) = \{f(x): x\in X\} \)</div>
+      <div class="equation">Composition: \( (f\circ g)(x) = f(g(x)) \)</div>
+      <div class="equation">Inverse (bijective): \( f^{-1}(y) \) with \( f(f^{-1}(y))=y \)</div>
+      <div class="equation">Big-O notation: \( f(x)=O(g(x)) \) as \( x\to\infty \)</div>
+    </div>
+
+    <!-- Arithmetic & Number Theory -->
+    <div class="section" id="arithmetic-number-theory">
+      <h2>Arithmetic & Number Theory</h2>
+      <div class="equation">Division algorithm: For integers \(a,b\,(b>0)\) there exist unique \(q,r\) s.t. \( a = bq + r,\ 0\le r<b\)</div>
+      <div class="equation">Greatest common divisor: \( \gcd(a,b) \)</div>
+      <div class="equation">Euclidean algorithm (one step): \( \gcd(a,b)=\gcd(b,r)\) where \(r=a \bmod b\)</div>
+      <div class="equation">Prime definition: \( p>1 \) and its only positive divisors are \(1\) and \(p\)</div>
+      <div class="equation">Fundamental theorem of arithmetic: every integer \(>1\) has unique prime factorization</div>
+      <div class="equation">Modular arithmetic: \( a\equiv b \pmod m \iff m\mid (a-b) \)</div>
+      <div class="equation">Euler's phi: \( \varphi(n) \) = number of integers \(1\le k\le n\) coprime to \(n\)</div>
+      <div class="equation">Euler's theorem: \( a^{\varphi(n)} \equiv 1 \pmod n \) if \( \gcd(a,n)=1 \)</div>
+      <div class="equation">Chinese remainder theorem (pair): system \(x\equiv a_1\pmod{m_1}\), \(x\equiv a_2\pmod{m_2}\) has solution iff \(a_1\equiv a_2\pmod{\gcd(m_1,m_2)}\)</div>
+    </div>
+
+    <!-- Algebra -->
+    <div class="section" id="algebra">
+      <h2>Algebra: Identities, Polynomials & Equations</h2>
+
+      <div class="equation">Commutative laws: \( a + b = b + a,\quad ab = ba \)</div>
+      <div class="equation">Associative laws: \( (a+b)+c = a+(b+c),\quad (ab)c = a(bc) \)</div>
+      <div class="equation">Distributive law: \( a(b+c)=ab+ac \)</div>
+
+      <div class="equation">Binomial theorem: \( (x+y)^n = \sum_{k=0}^n \binom{n}{k} x^{n-k} y^k \)</div>
+      <div class="equation">Binomial coefficient: \( \binom{n}{k} = \dfrac{n!}{k!(n-k)!} \)</div>
+
+      <div class="equation">Quadratic (standard): \( ax^2 + bx + c = 0 \)</div>
+      <div class="equation">Quadratic formula: \( x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} \)</div>
+      <div class="equation">Discriminant: \( \Delta = b^2 - 4ac \) — roots: real if \( \Delta\ge0 \)</div>
+
+      <div class="equation">Sum & product of roots: if roots \( \alpha,\beta \) then \( \alpha+\beta = -\dfrac{b}{a},\ \alpha\beta=\dfrac{c}{a} \)</div>
+
+      <div class="equation">Polynomial division (remainder theorem): remainder of \(f(x)\) on division by \(x-a\) is \(f(a)\)</div>
+      <div class="equation">Factor theorem: if \(f(a)=0\) then \(x-a\) is a factor of \(f(x)\)</div>
+
+      <div class="equation">Systems (2×2 linear): \(
+        \begin{cases}
+          a_1x+b_1y=c_1\\
+          a_2x+b_2y=c_2
+        \end{cases}
+        \Rightarrow
+        x=\dfrac{c_1b_2-c_2b_1}{a_1b_2-a_2b_1},\ 
+        y=\dfrac{a_1c_2-a_2c_1}{a_1b_2-a_2b_1}
+      \)</div>
+    </div>
+
+    <!-- Complex Numbers -->
+    <div class="section" id="complex">
+      <h2>Complex Numbers</h2>
+      <div class="equation">Complex number: \( z = x + iy,\ i^2=-1 \)</div>
+      <div class="equation">Conjugate: \( \overline{z} = x - iy \)</div>
+      <div class="equation">Modulus: \( |z| = \sqrt{x^2+y^2} \)</div>
+      <div class="equation">Polar form: \( z = r(\cos\theta + i\sin\theta) = r e^{i\theta} \)</div>
+      <div class="equation">De Moivre: \( (r e^{i\theta})^n = r^n e^{in\theta} \)</div>
+      <div class="equation">Roots: \( z^{1/n} = r^{1/n} e^{i(\theta+2k\pi)/n},\ k=0,\dots,n-1 \)</div>
+    </div>
+
+    <!-- Linear Algebra -->
+    <div class="section" id="linear-algebra">
+      <h2>Linear Algebra & Matrices</h2>
+      <div class="equation">Matrix multiplication: \( (AB)_{ij}=\sum_k A_{ik}B_{kj} \)</div>
+      <div class="equation">Transpose: \( (A^T)_{ij}=A_{ji} \)</div>
+      <div class="equation">Determinant (2×2): \( \det\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc \)</div>
+      <div class="equation">Inverse (2×2): \( A^{-1}=\dfrac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix} \) if \(ad-bc\ne0\)</div>
+      <div class="equation">Rank of a matrix: maximum number of linearly independent rows/columns</div>
+      <div class="equation">Eigenvalue problem: \( A\mathbf{v}=\lambda \mathbf{v} \)</div>
+      <div class="equation">Characteristic polynomial: \( \det(A-\lambda I)=0 \)</div>
+      <div class="equation">Diagonalization: \( A=SDS^{-1} \) if \(A\) has linearly independent eigenvectors</div>
+    </div>
+
+    <!-- Vector Algebra -->
+    <div class="section" id="vector">
+      <h2>Vector Algebra (Euclidean)</h2>
+      <div class="equation">Vector: \( \mathbf{v}=(v_1,\dots,v_n) \)</div>
+      <div class="equation">Dot product: \( \mathbf{u}\cdot\mathbf{v}=\sum_i u_i v_i \)</div>
+      <div class="equation">Magnitude: \( \|\mathbf{v}\|=\sqrt{\mathbf{v}\cdot\mathbf{v}} \)</div>
+      <div class="equation">Angle: \( \cos\theta = \dfrac{\mathbf{u}\cdot\mathbf{v}}{\|\mathbf{u}\|\|\mathbf{v}\|} \)</div>
+      <div class="equation">Cross product (3D): \( \mathbf{u}\times\mathbf{v} = (u_2v_3-u_3v_2,\dots) \)</div>
+      <div class="equation">Projection: \( \mathrm{proj}_{\mathbf{u}}\mathbf{v} = \dfrac{\mathbf{u}\cdot\mathbf{v}}{\mathbf{u}\cdot\mathbf{u}}\mathbf{u} \)</div>
+    </div>
+
+    <!-- Geometry & Analytic Geometry -->
+    <div class="section" id="geometry">
+      <h2>Geometry & Analytic Geometry</h2>
+      <div class="equation">Distance between points: \( d=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2} \)</div>
+      <div class="equation">Midpoint: \( M=\left(\dfrac{x_1+x_2}{2},\dfrac{y_1+y_2}{2}\right) \)</div>
+      <div class="equation">Equation of a line (two-point): \( y-y_1=\dfrac{y_2-y_1}{x_2-x_1}(x-x_1) \)</div>
+      <div class="equation">Slope-intercept: \( y=mx+c \)</div>
+      <div class="equation">Circle (center \(h,k\), radius \(r\)): \( (x-h)^2+(y-k)^2=r^2 \)</div>
+      <div class="equation">Ellipse standard: \( \dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1 \)</div>
+      <div class="equation">Hyperbola standard: \( \dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1 \)</div>
+      <div class="equation">Parabola (vertical): \( y-k = a(x-h)^2 \)</div>
+    </div>
+
+    <!-- Trigonometry -->
+    <div class="section" id="trigonometry">
+      <h2>Trigonometry</h2>
+      <div class="equation">Basic definitions (unit circle): \( \sin\theta,\ \cos\theta,\ \tan\theta = \dfrac{\sin\theta}{\cos\theta}\)</div>
+      <div class="equation">Pythagorean identity: \( \sin^2\theta+\cos^2\theta=1 \)</div>
+      <div class="equation">Addition formulas: \( \sin(a\pm b)=\sin a\cos b\pm\cos a\sin b \)</div>
+      <div class="equation">Cosine addition: \( \cos(a\pm b)=\cos a\cos b\mp\sin a\sin b \)</div>
+      <div class="equation">Double-angle: \( \sin2x=2\sin x\cos x,\ \cos2x=\cos^2x-\sin^2x \)</div>
+      <div class="equation">Product-to-sum: \( \sin a\cos b=\tfrac12[\sin(a+b)+\sin(a-b)] \)</div>
+      <div class="equation">Inverse trig relations: example \( \sin^{-1}x\in[-\tfrac{\pi}{2},\tfrac{\pi}{2}] \)</div>
+    </div>
+
+    <!-- Sequences & Series -->
+    <div class="section" id="sequences-series">
+      <h2>Sequences & Series</h2>
+      <div class="equation">Arithmetic sequence: \( a_n=a_1+(n-1)d \)</div>
+      <div class="equation">Arithmetic series: \( S_n=\dfrac{n}{2}(2a_1+(n-1)d) \)</div>
+      <div class="equation">Geometric sequence: \( a_n=a_1 r^{n-1} \)</div>
+      <div class="equation">Geometric series (finite): \( S_n=a_1\dfrac{r^n-1}{r-1} \)</div>
+      <div class="equation">Geometric (infinite): \( S_\infty=\dfrac{a_1}{1-r},\ |r|<1 \)</div>
+      <div class="equation">Convergence (Cauchy): sequence \( (a_n) \) is Cauchy iff for all \( \varepsilon>0\) there exists \(N\) s.t. \( |a_n-a_m|<\varepsilon \) for \(n,m>N\)</div>
+      <div class="equation">Taylor series about \(a\): \( f(x)=\sum_{n=0}^\infty \dfrac{f^{(n)}(a)}{n!}(x-a)^n \)</div>
+      <div class="equation">Maclaurin (a=0): examples \( e^x=\sum_{n=0}^\infty \dfrac{x^n}{n!},\ \sin x=\sum_{n=0}^\infty (-1)^n\dfrac{x^{2n+1}}{(2n+1)!}\)</div>
+    </div>
+
+    <!-- Calculus -->
+    <div class="section" id="calculus">
+      <h2>Calculus — Single & Multivariable</h2>
+      <div class="equation">Limit definition: \( \lim_{x\to a} f(x)=L \) if for all \( \varepsilon>0 \) there exists \( \delta>0 \) s.t. \(0<|x-a|<\delta\Rightarrow |f(x)-L|<\varepsilon\)</div>
+      <div class="equation">Derivative (definition): \( f'(x)=\lim_{h\to0}\dfrac{f(x+h)-f(x)}{h} \)</div>
+      <div class="equation">Basic rules: \( (u+v)'=u'+v',\ (uv)'=u'v+uv',\ (\tfrac{u}{v})'=\dfrac{u'v-uv'}{v^2} \)</div>
+      <div class="equation">Chain rule: \( \dfrac{d}{dx}f(g(x))=f'(g(x))g'(x) \)</div>
+      <div class="equation">Mean Value Theorem: if \(f\) continuous on \([a,b]\) and differentiable on \((a,b)\) then \(\exists c\in(a,b): f'(c)=\dfrac{f(b)-f(a)}{b-a}\)</div>
+
+      <div class="equation">Definite integral (Riemann): \( \int_a^b f(x)\,dx = \lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\Delta x \)</div>
+      <div class="equation">Fundamental Theorem of Calculus: \( \dfrac{d}{dx}\int_a^x f(t)\,dt = f(x) \)</div>
+      <div class="equation">Integration by parts: \( \int u\,dv = uv - \int v\,du \)</div>
+      <div class="equation">Substitution: \( \int f(g(x))g'(x)\,dx = \int f(u)\,du \) with \(u=g(x)\)</div>
+      <div class="equation">Improper integrals: convergence studied via limits</div>
+
+      <div class="equation">Partial derivative: \( f_x=\dfrac{\partial f}{\partial x} \)</div>
+      <div class="equation">Gradient (scalar field \(f\)): \( \nabla f = \left(\dfrac{\partial f}{\partial x},\dfrac{\partial f}{\partial y},\dots\right) \)</div>
+      <div class="equation">Directional derivative: \( D_{\mathbf{u}}f = \nabla f\cdot\mathbf{u} \)</div>
+      <div class="equation">Multiple integral example: \( \iint_D f(x,y)\,dA \)</div>
+    </div>
+
+    <!-- Differential Equations -->
+    <div class="section" id="differential-equations">
+      <h2>Differential Equations (ODEs)</h2>
+      <div class="equation">First-order linear: \( y' + p(x)y = q(x) \); integrating factor \( \mu(x)=e^{\int p(x)\,dx} \)</div>
+      <div class="equation">Separable: \( \dfrac{dy}{dx}=g(x)h(y) \Rightarrow \int \dfrac{dy}{h(y)} = \int g(x)\,dx \)</div>
+      <div class="equation">Homogeneous linear (2nd order): \( y''+ay'+by=0 \) → characteristic \( r^2+ar+b=0 \)</div>
+      <div class="equation">Particular solution (method of undetermined coefficients) and variation of parameters (textbook methods)</div>
+    </div>
+
+    <!-- Combinatorics & Discrete Math -->
+    <div class="section" id="combinatorics">
+      <h2>Combinatorics & Discrete Math</h2>
+      <div class="equation">Permutations: \( P(n,k)=\dfrac{n!}{(n-k)!} \)</div>
+      <div class="equation">Combinations: \( C(n,k)=\binom{n}{k}=\dfrac{n!}{k!(n-k)!} \)</div>
+      <div class="equation">Multiset combinations: \( C(n+k-1,k) \)</div>
+      <div class="equation">Inclusion–exclusion (2 sets): \( |A\cup B|=|A|+|B|-|A\cap B| \)</div>
+      <div class="equation">Recurrence (linear): solve via characteristic polynomial</div>
+    </div>
+
+    <!-- Probability & Statistics -->
+    <div class="section" id="probability-statistics">
+      <h2>Probability & Statistics</h2>
+      <div class="equation">Probability axioms: \( 0\le P(A)\le1,\ P(\Omega)=1,\ P(A\cup B)=P(A)+P(B)-P(A\cap B) \)</div>
+      <div class="equation">Conditional probability: \( P(A\mid B)=\dfrac{P(A\cap B)}{P(B)} \)</div>
+      <div class="equation">Bayes' theorem: \( P(A\mid B)=\dfrac{P(B\mid A)P(A)}{P(B)} \)</div>
+      <div class="equation">Independence: \( P(A\cap B)=P(A)P(B) \)</div>
+      <div class="equation">Discrete expectation: \( E[X]=\sum_x x P(X=x) \)</div>
+      <div class="equation">Variance: \( \mathrm{Var}(X)=E[(X-E[X])^2]=E[X^2]-E[X]^2 \)</div>
+      <div class="equation">Common discrete distributions: Binomial \( P(X=k)=\binom{n}{k}p^k(1-p)^{n-k} \)</div>
+      <div class="equation">Poisson: \( P(X=k)=e^{-\lambda}\dfrac{\lambda^k}{k!} \)</div>
+      <div class="equation">Continuous expectation: \( E[X]=\int_{-\infty}^{\infty} x f_X(x)\,dx \)</div>
+      <div class="equation">Normal pdf: \( f(x)=\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\tfrac{(x-\mu)^2}{2\sigma^2}} \)</div>
+      <div class="equation">Central limit theorem: properly normalized sum of i.i.d. variables → Normal as \(n\to\infty\)</div>
+    </div>
+
+    <!-- Inequalities & Optimization -->
+    <div class="section" id="inequalities-optimization">
+      <h2>Inequalities & Optimization</h2>
+      <div class="equation">AM–GM (n numbers): \( \dfrac{x_1+\cdots+x_n}{n} \ge (x_1\cdots x_n)^{1/n} \)</div>
+      <div class="equation">Cauchy–Schwarz: \( \left(\sum a_ib_i\right)^2 \le \left(\sum a_i^2\right)\left(\sum b_i^2\right) \)</div>
+      <div class="equation">Triangle inequality: \( \|x+y\|\le\|x\|+\|y\| \)</div>
+      <div class="equation">Lagrange multipliers (constrained optimization): \( \nabla f = \lambda \nabla g \)</div>
+    </div>
+
+    <!-- Numerical Methods (brief) -->
+    <div class="section" id="numerical">
+      <h2>Numerical Methods (selected)</h2>
+      <div class="equation">Newton–Raphson (root find): \( x_{n+1}=x_n-\dfrac{f(x_n)}{f'(x_n)} \)</div>
+      <div class="equation">Bisection method: bisect interval where sign change occurs</div>
+      <div class="equation">Trapezoidal rule: \( \int_a^b f(x)\,dx \approx \dfrac{b-a}{2}(f(a)+f(b)) \)</div>
+    </div>
+
+    <!-- Logic & Proofs -->
+    <div class="section" id="logic">
+      <h2>Logic & Proof Techniques</h2>
+      <div class="equation">Logical connectives: \( \neg, \land, \lor, \Rightarrow, \Leftrightarrow \)</div>
+      <div class="equation">Implication: \( p\Rightarrow q \) equivalent to \( \neg p \lor q \)</div>
+      <div class="equation">Proof by induction: base case, inductive step \( P(k)\Rightarrow P(k+1) \)</div>
+      <div class="equation">Contrapositive: \( p\Rightarrow q \iff \neg q\Rightarrow\neg p \)</div>
+    </div>
+
+    <!-- Constants & Useful Limits -->
+    <div class="section" id="constants-limits">
+      <h2>Constants & Common Limits</h2>
+      <div class="equation">Euler's number: \( e = \lim_{n\to\infty} \left(1+\dfrac{1}{n}\right)^n \)</div>
+      <div class="equation">Common limit: \( \lim_{x\to 0}\dfrac{\sin x}{x}=1 \)</div>
+      <div class="equation">Series: \( \sum_{n=1}^\infty \dfrac{1}{n^2} = \dfrac{\pi^2}{6} \)</div>
+      <div class="equation">Stirling approximation: \( n! \sim \sqrt{2\pi n}\left(\dfrac{n}{e}\right)^n \)</div>
+    </div>
+
+    <div class="note small">This library focuses strictly on mathematical formulas and notation (no physics formulas). Use the search box to find items; matches will be highlighted.</div>
+  </div>
+<script>
+  // Replace previous auto-linking behavior.
+  // New behavior:
+  // - Click copies the equation text (or TeX) to the clipboard and flashes the item.
+  // - Ctrl/Cmd + Click opens a Google search in a new tab (noopener,noreferrer).
+  // - No automatic redirects to about:blank.
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.equation').forEach(el => {
+      // ensure originalHtml/text exists (other script sets these too)
+      if (!el.dataset.originalHtml) el.dataset.originalHtml = el.innerHTML;
+      if (!el.dataset.originalText) el.dataset.originalText = (el.textContent || el.innerText || '').trim();
+
+      el.style.cursor = 'pointer';
+      el.title = "Click: copy equation • Ctrl/Cmd+Click: search on Google";
+
+      el.addEventListener('click', (e) => {
+        const plain = el.dataset.originalText || el.textContent.trim();
+        // Ctrl/Cmd click -> open safe search in a new tab
+        if (e.ctrlKey || e.metaKey) {
+          const url = 'https://www.google.com/search?q=' + encodeURIComponent(plain);
+          window.open(url, '_blank', 'noopener,noreferrer');
+          return;
+        }
+
+        // Normal click -> copy to clipboard (prefer the TeX if available)
+        // Attempt to extract TeX between delimiters if present
+        let tex = el.dataset.originalHtml || el.innerHTML || plain;
+        // remove outer HTML tags if any (simple approach)
+        tex = tex.replace(/<\/?[^>]+(>|$)/g, '').trim();
+
+        const textToCopy = tex || plain;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            const prevBg = el.style.backgroundColor;
+            el.style.backgroundColor = '#dff0d8';
+            setTimeout(() => { el.style.backgroundColor = prevBg; }, 700);
+          }).catch(() => {
+            // fallback to select text
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+          });
+        } else {
+          // older browsers fallback
+          const range = document.createRange();
+          range.selectNodeContents(el);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      });
+
+      // keyboard accessibility: Enter/Ctrl+Enter support
+      el.setAttribute('tabindex', '0');
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          // behave like click
+          el.click();
+        } else if ((e.key === 'Enter' || e.key === ' ') && (e.ctrlKey || e.metaKey)) {
+          const url = 'https://www.google.com/search?q=' + encodeURIComponent(el.dataset.originalText || el.textContent.trim());
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }
+      });
+    });
+
+    // Ensure MathJax renders after modifications
+    if (window.MathJax && MathJax.typesetPromise) {
+      MathJax.typesetPromise().catch(() => {/* ignore */});
+    }
+  });
+</script>
+
+  <!-- Utility scripts: preserve original innerHTML and robust search/highlight -->
+  <script>
+    // store original HTML/text for each equation element
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.equation').forEach(el => {
+        el.dataset.originalHtml = el.innerHTML;
+        el.dataset.originalText = el.textContent || el.innerText || '';
+      });
+      // initial typeset
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    });
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function searchEquations() {
+      const inputEl = document.getElementById('search');
+      const raw = (inputEl.value || '').trim();
+      const input = raw.toLowerCase();
+      const equations = document.querySelectorAll('.equation');
+
+      // if empty, reset all equations
+      if (!input) {
+        equations.forEach(eq => {
+          eq.style.display = 'block';
+          eq.innerHTML = eq.dataset.originalHtml;
+        });
+        if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+        return;
+      }
+
+      const esc = escapeRegExp(input);
+      const re = new RegExp(esc, 'gi');
+
+      equations.forEach(eq => {
+        const text = (eq.dataset.originalText || '').toLowerCase();
+        if (text.includes(input)) {
+          // highlight occurrences in the plain text while preserving original latex delimiters
+          // approach: operate on the originalHtml string but highlight based on text matches
+          // fallback: simple replace on originalHtml (safe enough for typical math text)
+          try {
+            const original = eq.dataset.originalHtml;
+            const replaced = original.replace(re, (match) => `<span class="highlight">${match}</span>`);
+            eq.style.display = 'block';
+            eq.innerHTML = replaced;
+          } catch (err) {
+            // fallback: simple text highlight using textContent
+            const html = eq.textContent.replace(re, (m) => `<span class="highlight">${m}</span>`);
+            eq.innerHTML = html;
+          }
+        } else {
+          eq.style.display = 'none';
+        }
+      });
+
+      if (window.MathJax && MathJax.typesetPromise) {
+        // re-render math after DOM changes
+        MathJax.typesetPromise().catch((err)=>console.warn(err));
+      }
+    }
+  </script>
+</body>
+</html>
