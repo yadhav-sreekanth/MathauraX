@@ -10,63 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="manifest" href="manifest.json"/>
     <link rel="stylesheet" href="styles/home.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     
 </head>
 <body>
-    <header style="position: fixed; top: 0; right: 0; width: 100%; z-index: 1000; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background: white; display: flex; justify-content: space-between; align-items: center;">
-        <div class="logo" style="display: flex; align-items: center;">
-            <img src="assets/logo.svg" alt="MathauraX Logo" style="height: 40px; filter: drop-shadow(0 0 1px #007bff);">
-            <h1 style="font-size: 2rem; font-weight: bold; color: rgba(25, 90, 202, 0.815); margin-left: 1rem; font-family: 'Poppins', sans-serif;" class="logo-text">MathauraX</h1>
-        </div>
-        
-        <nav>
-            <div class="nav-toggle" id="navToggle">
-                <img class="nav-toggle-img" src="nav.png" />
-            </div>
-            <ul class="nav-menu" >
-                <li><a href="#home">Home</a></li>
-                <li><a href="#planner">Exam Planner</a></li>
-                <li><a href="#timer">Timer</a></li>
-                <li>
-                    <a href="kidmode/kid.html" class="kid-mode-button">
-                        <i class="fas fa-child"></i> &nbsp; Kid Mode
-                    </a>
-                </li>
-<li>
-  <a href="#ai-assistant" style="
-    background: linear-gradient(135deg, #1e90ff, #6a5acd);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    margin-top: 3px;
-    border-radius: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 0 15px rgba(106, 90, 205, 0.6);
-    transition: all 0.3s ease;
-    display: inline-block;
-    font-size: 1rem;
-    letter-spacing: 1px;
-  " 
-  onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 25px rgba(30,144,255,0.9)'"
-  onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 15px rgba(106, 90, 205, 0.6)'">
-    AI
-  </a>
-</li>
-
-                <li class="settings-menu">
-                    <i id="settingsIcon" class="fas fa-bars" style="cursor: pointer; font-size: 1.4rem; color: #000;"></i>
-                    <ul id="settingsDropdown" class="settings-dropdown">
-                        <li>
-  <button id="darkModeToggle" title="Toggle Dark Mode" style="background: #222;color: white;border: none;padding: 0.5rem ; margin-bottom: 13px ;border-radius: 505px;cursor: pointer;font-weight: bold;transition: 0.3s;">🌙 Dark Mode</button></li>
-
-                        <li><a href="https://yadhav-sreekanth.github.io/Yadhav-Portfolio/" target="_blank"><b>Developer</b></a></li>
-                        <li><a href="index.html" onclick="logout()" id="logoutLink"><b>Logout</b></a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
+   
 <main>
   <section class="search-section" id="home">
     <h2>Find Mathematical Concepts</h2>
@@ -129,35 +77,11 @@
                 <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Mathematical Physics</h3>
                 <p style="font-size: 1rem; color: #000000; font-weight: bold;  " >Math applied to physical problems and systems</p>
             </a>
-        </div>
+        </div > 
         <br/>
         <br/>
     
-      <!-- 📍 MATH AI ASSISTANT CHAT SECTION -->
-<section  class="ai-assistant-section chat-app-card" style="padding: 0; width: 1070px;"  style="border: #000000 1px solid; border-radius:10 px;">
-  <div class="chat-header">
-    <div class="ai-avatar"><img src="assets/logo.svg" style="width: 43px;"/></div>
-    <div class="ai-title">MathauraX AI Assistant</div>
-      <button id="btnEquation">Equation Mode</button>
-<button id="btnMath">Math Mode</button>
-<button id="btnGeneral">General Mode</button>
-    <button id="clearChatBtn" class="clear-chat-btn" title="Clear Chat">🗑️</button>
-  </div>
 
-  <div id="chatWindow" class="chat-window">
-  </div>
-
-
-  <div class="chat-input-container">
-    <input
-      type="text"
-      id="userInput"
-      placeholder="Type your math question or message..."
-      autocomplete="off"
-    />
-    <button id="sendBtn">➤</button>
-  </div>
-</section>
 <section class="planner" id="planner">
      <div class="content">
             <div class="box">
@@ -320,6 +244,52 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+ 
+
+<section class="timer" id="timer">
+  <div class="timer-container">
+        <div class="timer-title" style="font-weight: 600;">Study Timer</div>
+        <div class="purpose-group">
+            <div id="purposeInputWrapper">
+                <input type="text" id="purposeInput" class="purpose-input" maxlength="60" placeholder="Why are you setting this timer?">
+                <button id="purposeEnterBtn" class="purpose-enter-btn">Enter</button>
+            </div>
+            <div id="purposeDisplay" class="purpose-display" style="display:none;">
+                <span id="purposeText" class="purpose-gradient-text"></span>
+                <button id="purposeEditBtn" class="purpose-edit-btn" title="Edit Purpose">✏️</button>
+            </div>
+        </div>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="input-group">
+            <div class="input-col">
+                <label for="minutesInput">Min</label>
+                <input type="number" id="minutesInput" min="0" max="59" value="0">
+            </div>
+            <div class="input-col">
+                <label for="secondsInput">Sec</label>
+                <input type="number" id="secondsInput" min="0" max="59" value="0">
+            </div>
+            <div class="input-col">
+                <label for="hoursInput">Hours</label>
+                <input type="number" id="hoursInput" min="0" max="23" value="0">
+            </div>
+        </div>
+        <div class="timer-buttons">
+            <button id="startBtn"><span class="btn-text">Start</span></button>
+            <button id="pauseBtn" disabled><span class="btn-text">Pause</span></button>
+            <button id="resetBtn"><span class="btn-text">Reset</span></button>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+        <div class="end-message" id="endMessage">Time's up! Take a break 🎉</div>
+    </div>
+        <script src="header-loader.js"></script>
     <script src="script.js"></script>
     <script>
     function updateTimeAndDate() {
@@ -368,45 +338,6 @@ function appendMessage(text, sender) {
 }
 
 </script>
-
-<section class="timer" id="timer">
-  <div class="timer-container">
-        <div class="timer-title" style="font-weight: 600;">Study Timer</div>
-        <div class="purpose-group">
-            <div id="purposeInputWrapper">
-                <input type="text" id="purposeInput" class="purpose-input" maxlength="60" placeholder="Why are you setting this timer?">
-                <button id="purposeEnterBtn" class="purpose-enter-btn">Enter</button>
-            </div>
-            <div id="purposeDisplay" class="purpose-display" style="display:none;">
-                <span id="purposeText" class="purpose-gradient-text"></span>
-                <button id="purposeEditBtn" class="purpose-edit-btn" title="Edit Purpose">✏️</button>
-            </div>
-        </div>
-        <div class="timer-display" id="timerDisplay">25:00</div>
-        <div class="input-group">
-            <div class="input-col">
-                <label for="minutesInput">Min</label>
-                <input type="number" id="minutesInput" min="0" max="59" value="0">
-            </div>
-            <div class="input-col">
-                <label for="secondsInput">Sec</label>
-                <input type="number" id="secondsInput" min="0" max="59" value="0">
-            </div>
-            <div class="input-col">
-                <label for="hoursInput">Hours</label>
-                <input type="number" id="hoursInput" min="0" max="23" value="0">
-            </div>
-        </div>
-        <div class="timer-buttons">
-            <button id="startBtn"><span class="btn-text">Start</span></button>
-            <button id="pauseBtn" disabled><span class="btn-text">Pause</span></button>
-            <button id="resetBtn"><span class="btn-text">Reset</span></button>
-        </div>
-        <div class="progress-bar">
-            <div class="progress" id="progressBar"></div>
-        </div>
-        <div class="end-message" id="endMessage">Time's up! Take a break 🎉</div>
-    </div>
     <script>
         const timerDisplay = document.getElementById('timerDisplay');
         const hoursInput = document.getElementById('hoursInput');
@@ -590,15 +521,30 @@ function appendMessage(text, sender) {
     </script>
 </section>
 
-    <section class="recommended-topics" id="topics">
-        <h2>NCERT Solutions CBSE 2025-2026  Class 10 </h2>
+    <section class="recommended-topics" id="ttopics">
+        <h2>More Features</h2>
         <div class="topic-grid" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <a href="class10/class-10.html" class="topic-card">
-                <h3 style="font-size: 1.5rem; font-weight: bold; color: #fff;">Standard 10</h3>
+                <h3 style="font-size: 1.5rem; align-items: center;text-align: center; font-weight: bold; color: #fff;">Maths, Standard 10 <br>NCERT SOLUTIONS </h3>
             </a>
         </div>
-    </section>
 
+        
+
+        
+
+
+    </section>
+<button id="openAI" 
+        style="position: fixed; bottom: 20px; right: 20px; 
+               background: linear-gradient(135deg,#1e90ff,#6a5acd); 
+               color: white; padding: 0.6rem 1.2rem; border-radius: 50px;
+               font-weight: bold; border:none; cursor:pointer; z-index:9999;
+               ">
+               <script> onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 25px rgba(30,144,255,0.9)'"
+  onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 15px rgba(106, 90, 205, 0.6)'"</script>
+  AI
+</button>
    
     <footer>
         <p>&copy;<img src="assets/logo.svg" alt="MathauraX Logo" style="width: 10px; height: 10px;"> 2025 MathauraX. All rights reserved.</p>
