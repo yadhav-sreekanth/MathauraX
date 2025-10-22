@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathauraX English Mode</title>
+<link rel="icon" href="../assets/logo.svg">
+<style>
+/* ---------- Global Styles ---------- */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Header ---------- */
+header {
+  background-color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header .logo img {
+  height: 50px; width: 50px;
+}
+
+header nav ul {
+  display: flex; list-style: none; margin: 0; padding: 0; gap: 15px;
+}
+
+header nav ul li a {
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+header nav ul li a.home { background: #ff6b6b; }
+header nav ul li a.dictionary { background: #feca57; color: #333; }
+header nav ul li a.grammar { background: #1dd1a1; }
+header nav ul li a.about { background: #54a0ff; }
+
+header nav ul li a:hover { opacity: 0.8; }
+
+/* ---------- Main Layout ---------- */
+main {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+h1 { text-align: center; color: #333; margin-bottom: 20px; }
+
+/* ---------- Sections ---------- */
+section { margin-bottom: 50px; }
+
+/* ---------- Cards ---------- */
+.card {
+  background-color: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+/* ---------- Inputs & Buttons ---------- */
+input[type="text"], textarea {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus, textarea:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button.listen-btn { background-color: #333; color: #fff; margin-left: 10px; }
+button.listen-btn:hover { background-color: #555; }
+
+button.action-btn { background-color: #333; color: #fff; }
+button.action-btn:hover { background-color: #555; }
+
+/* ---------- Result Styles ---------- */
+.result { margin-top: 15px; }
+.word { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+.pronunciation { font-style: italic; color: #555; margin-top: 5px; }
+.definition { margin-top: 10px; }
+.example { margin-top: 10px; background: #f0f0f0; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+.grammar-output { margin-top: 15px; background: #fff3cd; color: #856404; padding: 10px; border-radius: 8px; }
+
+/* Responsive */
+@media(max-width:768px){
+  header nav ul { flex-direction: column; gap: 10px; }
+  input[type="text"], textarea { font-size: 0.95rem; }
+}
+html{
+  scroll-behavior: smooth;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="../assets/logo.svg" alt="Logo">
+    <span><b style="font-size: 37px; color: blue;">MathauraX</b> English Mode</span>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="../home.html" class="home">Home page</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1>MathauraX English Learning</h1>
+
+  <!-- Dictionary Section -->
+  <section id="dictionary">
+    <div class="card">
+      <h2>Dictionary</h2>
+      <input type="text" id="wordInput" placeholder="Enter a word" />
+      <button class="action-btn" onclick="fetchWord()">Search</button>
+      <div id="dictionaryResults" class="result"></div>
+    </div>
+  </section>
+
+  <!-- Grammar AI Section -->
+  <section id="grammar">
+    <div class="card">
+      <h2>Grammar AI</h2>
+      <textarea id="sentenceInput" rows="3" placeholder="Enter a sentence to analyze"></textarea>
+      <button class="action-btn" onclick="analyzeGrammar()">Analyze Grammar</button>
+      <div id="grammarResults" class="grammar-output"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="card">
+      <h2>About MathauraX</h2>
+      <p>This platform provides dictionary lookup, pronunciation, and a massive AI-powered grammar analyzer covering sentence structure, parts of speech, tense, auxiliaries, punctuation, capitalization, subject-verb & pronoun agreement, active voice, and proper modifiers.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+// ---------- Dictionary ----------
+async function fetchWord() {
+  const word = document.getElementById('wordInput').value.trim();
+  const container = document.getElementById('dictionaryResults');
+  container.innerHTML = '';
+  if(!word) return;
+
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    if(!res.ok) { container.innerHTML = `<div class="card">Word not found</div>`; return; }
+    const data = await res.json();
+    const wordData = data[0];
+    const meaning = wordData.meanings[0];
+    const definition = meaning.definitions[0]?.definition || "No definition available";
+    const example = meaning.definitions[0]?.example || "No example available";
+    const pronunciation = wordData.phonetics && wordData.phonetics.length > 0 
+      ? wordData.phonetics[0].text || "No pronunciation" 
+      : "No pronunciation";
+
+    container.innerHTML = `
+      <div class="word">${word}<button class="listen-btn" onclick="speakText('${word}')">🔊 Listen Word</button></div>
+      <div class="pronunciation">${pronunciation}</div>
+      <div class="definition"><strong>Definition:</strong> ${definition}</div>
+      <div class="example"><span><strong>Example:</strong> ${example}</span><button class="listen-btn" onclick="speakText('${example}')">🔊 Listen Sentence</button></div>
+    `;
+  } catch(err) {
+    container.innerHTML = `<div class="card">Error fetching word.</div>`;
+    console.error(err);
+  }
+}
+
+// ---------- Text-to-Speech ----------
+function speakText(text) {
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel(); // stop previous speech
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
+  } else { alert("Your browser does not support speech synthesis"); }
+}
+
+// ---------- Grammar AI ----------
+async function analyzeGrammar() {
+  const text = document.getElementById('sentenceInput').value.trim();
+  const container = document.getElementById('grammarResults');
+  container.innerHTML = '';
+  if(!text) return;
+
+  try {
+    // LanguageTool grammar check
+    const res = await fetch('https://api.languagetool.org/v2/check', {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: `text=${encodeURIComponent(text)}&language=en-US`
+    });
+    const data = await res.json();
+
+    let output = `<p><strong>Grammar Issues Found:</strong></p>`;
+    if(data.matches.length === 0){ output += `<p>No grammar issues detected ✅</p>`; }
+    else{
+      output += '<ul>';
+      data.matches.forEach(m => {
+        output += `<li>${m.message} (Suggestions: ${m.replacements.map(r=>r.value).join(', ') || 'None'})</li>`;
+      });
+      output += '</ul>';
+    }
+
+    // Simple grammar analysis
+    const lowerText = text.toLowerCase();
+    let tense = "Unknown";
+    if(/will|shall/.test(lowerText)) tense = "Future";
+    else if(/\b\w+ed\b/.test(lowerText)) tense = "Past";
+    else tense = "Present";
+
+    const auxiliaries = (text.match(/\b(is|are|am|was|were|has|have|had|do|does|did|will|shall|can|could|may|might|must|should|would)\b/gi) || []).join(', ') || "None";
+    const sentenceStructure = /[A-Za-z]+\s+[A-Za-z]+/.test(text) ? "Valid sentence structure" : "Incomplete sentence";
+    const capitalization = /^[A-Z]/.test(text) ? "Correct capitalization" : "Sentence should start with a capital letter";
+    const punctuation = /[.!?]$/.test(text) ? "Punctuation present" : "Sentence missing ending punctuation";
+
+    output += `<p><strong>Tense Detected:</strong> ${tense}</p>`;
+    output += `<p><strong>Auxiliaries Found:</strong> ${auxiliaries}</p>`;
+    output += `<p><strong>Sentence Structure:</strong> ${sentenceStructure}</p>`;
+    output += `<p><strong>Capitalization:</strong> ${capitalization}</p>`;
+    output += `<p><strong>Punctuation:</strong> ${punctuation}</p>`;
+
+    container.innerHTML = output;
+  } catch(err){
+    container.innerHTML = `<p>Error analyzing grammar</p>`;
+    console.error(err);
+  }
+}
+</script>
+
+</body>
+</html>
