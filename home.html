@@ -20,12 +20,22 @@
     <h2>Find Mathematical Concepts</h2>
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search for topics...">
-      <button id="searchButton">Search</button>
+      <button id="searchButton" class="toggle">Search</button>
     </div>
     <div id="searchResults"></div>
   </section>
 </main>
+<script>
+  const button = document.getElementById('searchButton');
+  const input = document.getElementById('searchInput');
 
+  // Listen for Enter key on the input field
+  input.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') { // Check if Enter is pressed
+      button.click(); // Trigger the button click
+    }
+  });
+</script>
     <section class="recommended-topics" id="topics">
         <h2>Recommended Topics</h2>
         <div class="topic-grid">
