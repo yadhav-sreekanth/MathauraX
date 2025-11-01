@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Persistent Timer</title>
+<title>MathauraX Persistent Timer </title>
+<link rel="icon" href="../assets/logo.svg">
 <style>
   html, body {
     margin: 0;
@@ -13,10 +14,12 @@
     color: #ffa500; /* yellowish-orange */
     display: flex;
     align-items: center;
+    font-weight: 900;
     justify-content: center;
+    margin-top: 30px;
     flex-direction: column;
     font-family: 'Courier New', monospace;
-    font-size: 6rem;
+    font-size: 290px;
   }
 
   #timer {
@@ -24,19 +27,20 @@
   }
 
   #controls {
-    margin-top: 20px;
+    margin-top: 2px;
   }
 
   button {
-    background: #ffa500;
-    border: none;
-    color: black;
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 1rem;
-    border-radius: 8px;
+    background: #0f2b32;
+    border: solid 1px ;
+    color: rgb(206, 200, 200);
+    padding: 10px 23px;
+    margin: 0 1px;
+    font-size: 30px;
+    border-radius: 80px;
     cursor: pointer;
     transition: 0.2s;
+    font-weight: 500;
   }
 
   button:hover {
@@ -54,6 +58,8 @@
     <button id="startBtn">Start</button>
     <button id="stopBtn">Stop</button>
     <button id="resetBtn">Reset</button>
+    <button> Click ALt + Enter</button>
+   
   </div>
 
   <script>

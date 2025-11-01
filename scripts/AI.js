@@ -180,55 +180,76 @@
   }
 
 
-    /* ---------------------------
-      4) Generate AI Response
-    --------------------------- */
-    async function generateResponse(raw){
-      const msg = (raw||'').trim();
-      if(!msg) return;
-      const inputEl = document.getElementById('userInput');
-      if(inputEl) inputEl.disabled = true;
+   /* ---------------------------
+  4) Generate AI Response (with Wolfram fallback)
+--------------------------- */
+async function generateResponse(raw){
+  const msg = (raw||'').trim();
+  if(!msg) return;
+  const inputEl = document.getElementById('userInput');
+  if(inputEl) inputEl.disabled = true;
 
-      // Display user question
-      safeAppend(`<b>You:</b> ${escapeHTML(msg)}`, 'user');
+  // Display user question
+  safeAppend(`<b>You:</b> ${escapeHTML(msg)}`, 'user');
 
-      // 1️⃣ Check for special replies
-      const special = specialReply(msg);
-      if(special){
-          await typeWriter(special, safeAppend('', 'ai'));
-          if(inputEl) inputEl.disabled = false;
-          return;
-      }
-
-      // Thinking placeholder
-      const thinking = safeAppend('🤔 Thinking...', 'ai');
-
-      try{
-          // 2️⃣ Try topic folder first
-          const topicFile = await fetchTopic(msg.replace(/\s+/g,'_').toLowerCase());
-          if(topicFile){
-              await typeWriter(topicFile, thinking);
-              if(inputEl) inputEl.disabled = false;
-              return;
-          }
-
-          // 3️⃣ Pyodide/SymPy fallback
-          const py = await pyodideReady;
-          const result = await py.runPythonAsync(`handle(${JSON.stringify(msg)})`);
-          const data = JSON.parse(result);
-
-          if(data.ok){
-              await typeWriter(`<b>Result:</b> \\(${data.latex}\\)<br><small>${escapeHTML(data.result)}</small>`, thinking);
-          } else {
-              await typeWriter(`<b>Error:</b> ${escapeHTML(data.error || 'Unknown')}`, thinking);
-          }
-
-      } catch(e){
-          await typeWriter(`<b>Runtime error:</b> ${escapeHTML(e.message||String(e))}`, thinking);
-      }
-
+  // 1️⃣ Check for special replies
+  const special = specialReply(msg);
+  if(special){
+      await typeWriter(special, safeAppend('', 'ai'));
       if(inputEl) inputEl.disabled = false;
+      return;
+  }
+
+  // Thinking placeholder
+  const thinking = safeAppend('🤔 Thinking...', 'ai');
+
+  try {
+    // 2️⃣ Try topic file first
+    const topicFile = await fetchTopic(msg.replace(/\s+/g,'_').toLowerCase());
+    if(topicFile){
+      await typeWriter(topicFile, thinking);
+      if(inputEl) inputEl.disabled = false;
+      return;
     }
+
+    // 3️⃣ Try WolframAlpha API first
+    const APP_ID = "VJ5H5KT4YX"; // <-- replace with your real WolframAlpha AppID
+    const url = `https://api.wolframalpha.com/v2/query?appid=${APP_ID}&input=${encodeURIComponent(msg)}&output=json&reinterpret=true&format=plaintext`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.queryresult?.success) {
+      let html = "<b>🔍 WolframAlpha Results:</b><br>";
+      data.queryresult.pods.forEach(pod => {
+        html += `<div class="equation">
+                  <b>${pod.title}</b><br>
+                  ${pod.subpods.map(sub => `<p>${escapeHTML(sub.plaintext || '')}</p>`).join('')}
+                 </div>`;
+      });
+      await typeWriter(html, thinking);
+      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
+      if (inputEl) inputEl.disabled = false;
+      return;
+    }
+
+    // 4️⃣ If Wolfram fails, fallback to SymPy
+    const py = await pyodideReady;
+    const result = await py.runPythonAsync(`handle(${JSON.stringify(msg)})`);
+    const symData = JSON.parse(result);
+
+    if(symData.ok){
+        await typeWriter(`<b>Result:</b> \\(${symData.latex}\\)<br><small>${escapeHTML(symData.result)}</small>`, thinking);
+        if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
+    } else {
+        await typeWriter(`<b>Error:</b> ${escapeHTML(symData.error || 'Unknown')}`, thinking);
+    }
+
+  } catch (e) {
+    await typeWriter(`<b>Runtime error:</b> ${escapeHTML(e.message||String(e))}`, thinking);
+  }
+
+  if(inputEl) inputEl.disabled = false;
+}
 
     /* ---------------------------
       5) Create Fullscreen AI Panel Dynamically

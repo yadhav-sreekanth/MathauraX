@@ -34,9 +34,7 @@ header .logo {
   gap: 10px;
 }
 
-header .logo img {
-  height: 50px; width: 50px;
-}
+header .logo img { height: 50px; width: 50px; }
 
 header nav ul {
   display: flex; list-style: none; margin: 0; padding: 0; gap: 15px;
@@ -55,19 +53,11 @@ header nav ul li a.home { background: #ff6b6b; }
 header nav ul li a.dictionary { background: #feca57; color: #333; }
 header nav ul li a.grammar { background: #1dd1a1; }
 header nav ul li a.about { background: #54a0ff; }
-
 header nav ul li a:hover { opacity: 0.8; }
 
 /* ---------- Main Layout ---------- */
-main {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 0 20px;
-}
-
+main { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
 h1 { text-align: center; color: #333; margin-bottom: 20px; }
-
-/* ---------- Sections ---------- */
 section { margin-bottom: 50px; }
 
 /* ---------- Cards ---------- */
@@ -119,14 +109,22 @@ button.action-btn:hover { background-color: #555; }
 .example { margin-top: 10px; background: #f0f0f0; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 .grammar-output { margin-top: 15px; background: #fff3cd; color: #856404; padding: 10px; border-radius: 8px; }
 
+/* ---------- TTS Section ---------- */
+.tts-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.tts-controls label { font-size: 0.9rem; }
+.tts-controls input { width: 80px; }
+
 /* Responsive */
 @media(max-width:768px){
   header nav ul { flex-direction: column; gap: 10px; }
   input[type="text"], textarea { font-size: 0.95rem; }
 }
-html{
-  scroll-behavior: smooth;
-}
+html{ scroll-behavior: smooth; }
 </style>
 </head>
 <body>
@@ -138,7 +136,7 @@ html{
   </div>
   <nav>
     <ul>
-      <li><a href="../home.html" class="home">Home page</a></li>
+      <li><a href="#" onclick="window.close(); return false;" class="home">Home Page</a></li>
     </ul>
   </nav>
 </header>
@@ -166,11 +164,29 @@ html{
     </div>
   </section>
 
+  <!-- 🔊 Text-to-Speech Section -->
+  <section id="tts">
+    <div class="card">
+      <h2>Text-to-Speech (Auditory Learning)</h2>
+      <textarea id="ttsText" rows="3" placeholder="Enter text to read aloud..."></textarea>
+      <div class="tts-controls">
+        <label>Speed: <input type="number" id="rate" min="0.5" max="2" step="0.1" value="1"></label>
+        <label>Pitch: <input type="number" id="pitch" min="0.5" max="2" step="0.1" value="1"></label>
+      </div>
+      <div style="margin-top:10px;">
+        <button class="action-btn" onclick="playTTS()">▶️ Speak</button>
+        <button class="action-btn" onclick="pauseTTS()">⏸️ Pause</button>
+        <button class="action-btn" onclick="resumeTTS()">▶️ Resume</button>
+        <button class="action-btn" onclick="stopTTS()">⏹️ Stop</button>
+      </div>
+    </div>
+  </section>
+
   <!-- About Section -->
   <section id="about">
     <div class="card">
       <h2>About MathauraX</h2>
-      <p>This platform provides dictionary lookup, pronunciation, and a massive AI-powered grammar analyzer covering sentence structure, parts of speech, tense, auxiliaries, punctuation, capitalization, subject-verb & pronoun agreement, active voice, and proper modifiers.</p>
+      <p>This platform provides dictionary lookup, pronunciation, grammar checking, and auditory learning support with realistic text-to-speech for English learners.</p>
     </div>
   </section>
 </main>
@@ -208,14 +224,33 @@ async function fetchWord() {
 }
 
 // ---------- Text-to-Speech ----------
+let utterance;
 function speakText(text) {
   if('speechSynthesis' in window){
-    window.speechSynthesis.cancel(); // stop previous speech
-    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.cancel();
+    utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
     window.speechSynthesis.speak(utterance);
-  } else { alert("Your browser does not support speech synthesis"); }
+  } else alert("Your browser does not support speech synthesis");
 }
+
+function playTTS(){
+  const text = document.getElementById('ttsText').value.trim();
+  const rate = parseFloat(document.getElementById('rate').value);
+  const pitch = parseFloat(document.getElementById('pitch').value);
+  if(!text) return alert('Enter some text!');
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = rate;
+    utterance.pitch = pitch;
+    window.speechSynthesis.speak(utterance);
+  }
+}
+function pauseTTS(){ if(window.speechSynthesis.speaking) window.speechSynthesis.pause(); }
+function resumeTTS(){ if(window.speechSynthesis.paused) window.speechSynthesis.resume(); }
+function stopTTS(){ window.speechSynthesis.cancel(); }
 
 // ---------- Grammar AI ----------
 async function analyzeGrammar() {
@@ -225,7 +260,6 @@ async function analyzeGrammar() {
   if(!text) return;
 
   try {
-    // LanguageTool grammar check
     const res = await fetch('https://api.languagetool.org/v2/check', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -243,7 +277,6 @@ async function analyzeGrammar() {
       output += '</ul>';
     }
 
-    // Simple grammar analysis
     const lowerText = text.toLowerCase();
     let tense = "Unknown";
     if(/will|shall/.test(lowerText)) tense = "Future";
