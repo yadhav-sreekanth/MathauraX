@@ -118,6 +118,7 @@
             'Applications of Trigonometry', 'Circles', 'Constructions', 'Areas Related to Circles',
             'Surface Areas and Volumes', 'Statistics', 'Probability'
         ],
+
         'Physics': [
             'Light - Reflection and Refraction', 'Human Eye and Colourful World', 'Electricity',
             'Magnetic Effects of Electric Current', 'Sources of Energy', 'Our Environment',
@@ -198,6 +199,60 @@
 },
 'Class 10': {
     'CBSE': {
+                'Malayalam': [
+    'ലക്ഷ്മണ സാന്ത്വനം',
+    'പ്രിയദർശനം',
+    'പവങ്ങൾ',
+    'കടൽത്തീരത്ത്',
+    'പ്ലാവിലക്കഞ്ഞി',
+    'അമ്മത്തൊട്ടിൽ',
+    'ഓണമുട്ടത്ത്',
+    'പത്രനീതി',
+    'യുദ്ധത്തിന്റെ ഫലനം',
+    'അശ്വമേധം'
+],
+'Information Technology': [
+    'Communication Skills',
+    'Self-Management Skills',
+    'ICT',
+    'Entrepreneurial Skills',
+    'Green Skills',
+    'Styles',
+    'Working with Images',
+    'Advanced Features of Writer',
+    'Analyze Data using Scenario and Goal Seek',
+    'Macros',
+    'Linking Spreadsheet',
+    'Share and Review Spreadsheet',
+    'Introduction to DBMS',
+    'LibreOffice Base',
+    'Multiple Table Working',
+    'Queries',
+    'Forms and Reports',
+    'Health, Safety and Security',
+    'Workplace Quality Measures',
+    'Prevent Accidents and Emergencies'
+],
+'Social Science': [
+    'Development',
+    'Sectors of Economy',
+    'Money and Credit',
+    'Globalisation',
+    'Making of New World',
+    'Nationalism in Europe',
+    'Nationalism in India',
+    'Political Parties',
+    'Outcomes of Democracy',
+    'Federalism',
+    'Power Sharing',
+    'Gender, Religion and Caste',
+    'Agriculture',
+    'Resource and Development',
+    'Water',
+    'Forest',
+    'Minerals',
+],
+
         'Mathematics': [
             'Real Numbers', 'Polynomials', 'Pair of Linear Equations', 'Quadratic Equations',
             'Arithmetic Progressions', 'Triangles', 'Coordinate Geometry', 'Introduction to Trigonometry',
@@ -209,12 +264,23 @@
             'Magnetic Effects of Electric Current', 'Sources of Energy', 'Our Environment',
             'Management of Natural Resources'
         ],
-        'Science': [
-            'Chemical Reactions and Equations', 'Acids, Bases and Salts', 'Metals and Non-metals',
-            'Carbon and its Compounds', 'Periodic Classification of Elements', 'Life Processes',
-            'Control and Coordination', 'How do Organisms Reproduce?', 'Heredity and Evolution',
-            'Our Environment', 'Management of Natural Resources'
-        ],
+'Science': [
+    'Chemical Reactions and Equations',
+    'Acids, Bases and Salts',
+    'Metals and Non-metals',
+    'Carbon and its Compounds',
+    'Life Processes',
+    'Control and Coordination',
+    'How do Organisms Reproduce?',
+    'Heredity and Evolution',
+    'Light',
+    'Human Eye and Colourful World',
+    'Electricity',
+    'Magnet',
+],
+
+
+
             'English': [
                 'A Letter to God',
                 'Dust of Snow',
