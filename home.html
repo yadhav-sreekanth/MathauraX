@@ -14,7 +14,7 @@
     
 </head>
 <body>
-   
+
 <main>
   <section class="search-section" id="home">
     <h2>Find Mathematical Concepts</h2>
@@ -91,177 +91,7 @@
         <br/>
         <br/>
         
-
-    <section class="planner" id="planner">
-        <div class="content">
-                <div class="box">
-                    <div class="container">
-
-                
-                        <div class="stats-bar">
-                            <div class="stat-card">
-                                <div class="stat-icon" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-weight: 700; color: #325983;">EXAM PLANNER</div>
-                                <div class="stat-content">
-                                    <div class="stat-value" id="totalSubjects">0</div>
-                                    <div class="stat-label">Subjects</div>
-                                </div>
-                            </div>
-                        </div>
-                
-                        <div class="actions-section">
-                            <button id="addSubjectBtn" class="add-subject-btn">
-                                <i class="fas fa-plus"></i>
-                                Add Subject
-                            </button>
-                        </div>
-                
-                        <div class="subjects-grid" id="subjectsGrid"></div>
-                
-                        <!-- Modal for Class and Syllabus Selection -->
-                        <div id="subjectModal" class="modal">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div class="modal-title">Add New Subject</div>
-                                    <div class="modal-subtitle">Select your class and syllabus to get relevant chapters</div>
-                                </div>
-                                <form id="subjectForm">
-                                    <div class="form-group">
-                                        <label class="form-label">Subject Name</label>
-                                        <input type="text" id="modalSubjectName" class="form-select" placeholder="Enter subject name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Class</label>
-                                        <select id="modalClassName" class="form-select" required>
-                                            <option value="">Select Class</option>
-                                            <option value="Class 8">Class 8</option>
-                                            <option value="Class 9">Class 9</option>
-                                            <option value="Class 10">Class 10</option>
-                                            <option value="Class 11">Class 11</option>
-                                            <option value="Class 12">Class 12</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Syllabus</label>
-                                        <select id="modalSyllabus" class="form-select" required>
-                                            <option value="">Select Syllabus</option>
-                                            <option value="CBSE">CBSE</option>
-                                            <option value="ICSE">ICSE</option>
-                                            <option value="State Board">State Board</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Chapters</label>
-                                        <input type="number" id="modalChapters" class="form-select" placeholder="Enter number of chapters" min="1" max="50" required>
-                                    </div>
-                                    <div class="modal-buttons">
-                                        <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
-                                        <button type="submit" class="btn-confirm">Add Subject</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                
-                        <!-- Enhanced Subject Details Modal -->
-                        <div id="subjectDetailsModal" class="modal">
-                            <div class="modal-content" style="max-width: 700px;">
-                                <div class="modal-header">
-                                    <div class="modal-title" id="detailsSubjectTitle">Subject Details</div>
-                                    <div class="modal-subtitle" id="detailsSubjectSubtitle">Learn more about this subject</div>
-                                </div>
-                                <div class="subject-details-content">
-                                    <div class="subject-info-section">
-                                        <div class="subject-icon-large" id="detailsSubjectIcon">📚</div>
-                                        <div class="subject-description" id="detailsSubjectDescription">
-                                            This subject covers fundamental concepts and advanced topics essential for academic success.
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="class-selection-section">
-                                        <h3>Select Your Class</h3>
-                                        <div class="class-options">
-                                            <div class="class-option" onclick="selectClass('Class 10')">
-                                                <div class="class-number">10</div>
-                                                <div class="class-label">Class 10</div>
-                                                <div class="class-desc">Secondary Education</div>
-                                            </div>
-                                            <div class="class-option" onclick="selectClass('Class 11')">
-                                                <div class="class-number">11</div>
-                                                <div class="class-label">Class 11</div>
-                                                <div class="class-desc">Higher Secondary</div>
-                                            </div>
-                                            <div class="class-option" onclick="selectClass('Class 12')">
-                                                <div class="class-number">12</div>
-                                                <div class="class-label">Class 12</div>
-                                                <div class="class-desc">Senior Secondary</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="syllabus-selection-section">
-                                        <h3>Choose Your Syllabus</h3>
-                                        <div class="syllabus-options">
-                                            <div class="syllabus-option" onclick="selectSyllabus('CBSE')">
-                                                <div class="syllabus-icon">🏛️</div>
-                                                <div class="syllabus-name">CBSE</div>
-                                                <div class="syllabus-desc">Central Board of Secondary Education</div>
-                                            </div>
-                                            <div class="syllabus-option" onclick="selectSyllabus('ICSE')">
-                                                <div class="syllabus-icon">📖</div>
-                                                <div class="syllabus-name">ICSE</div>
-                                                <div class="syllabus-desc">Indian Certificate of Secondary Education</div>
-                                            </div>
-                                            <div class="syllabus-option" onclick="selectSyllabus('State Board')">
-                                                <div class="syllabus-icon">🏛️</div>
-                                                <div class="syllabus-name">State Board</div>
-                                                <div class="syllabus-desc">State Education Board</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="chapters-preview" id="chaptersPreview" style="display: none;">
-                                        <h3>Available Chapters</h3>
-                                        <div class="chapters-list" id="chaptersList"></div>
-                                    </div>
-                                </div>
-                                <div class="modal-buttons">
-                                    <button type="button" class="btn-cancel" onclick="closeDetailsModal()">Cancel</button>
-                                    <button type="button" class="btn-confirm" onclick="addSubjectFromDetails()">Add Subject</button>
-                                </div>
-                            </div>
-                        </div>
-                
-                        <!-- Alert Modal for Maximum Chapters -->
-                        <div id="alertModal" class="alert-modal">
-                            <div class="alert-content">
-                                <div class="alert-icon">⚠️</div>
-                                <div class="alert-title">Maximum Chapters Reached</div>
-                                <div class="alert-message" id="alertMessage">
-                                    You have reached the maximum number of chapters allowed for this subject.
-                                </div>
-                                <button class="alert-btn" onclick="closeAlertModal()">Got it!</button>
-                            </div>
-                        </div>
-
-                        <div id="congratsModal" class="congrats-modal">
-                        <div class="congrats-content">
-                            <div class="congrats-title">🎉 Congratulations!</div>
-                            <div class="congrats-message">You have completed all chapters for this subject!</div>
-                            <button class="congrats-btn" onclick="closeCongratsModal()">OK</button>
-                        </div>
-                        </div>
-                
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
- 
-
-<section class="timer" id="timer">
+        <section class="timer" id="timer">
   <div class="timer-container">
         <div class="timer-title" style="font-weight: 600;">Study Timer</div>
         <div class="purpose-group">
@@ -561,6 +391,12 @@ function appendMessage(text, sender) {
        style="flex: 1 1 300px; max-width: 320px;">
       <h3 style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #fff;">
         English Dictionary
+      </h3>
+    </a>
+    <a href="topics/examplanner.html" class="topic-card" target="_blank"
+       style="flex: 1 1 300px; max-width: 320px;">
+      <h3 style="font-size: 1.5rem; text-align: center; font-weight: bold; color: #fff;">
+        Exam Planner
       </h3>
     </a>
 
