@@ -2765,110 +2765,14 @@ body{
                 display: none;
             }
 
-            .nav-menu {
-                visibility: hidden;
-                opacity: 0;
-                position: fixed;
-                top: 80px;
-                right: 0;
-                width: 250px;
-                min-width: 200px;
-                height: auto;
-                background: white;
-                padding: 0.5rem;
-                box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
-                z-index: 1000;
-                transition: all 0.3s ease;
-                transform: translateX(10px);
-                border-radius: 0 0 0 10px;
-                flex-direction: column;
-                gap: 0.3rem;
-            }
 
-            .nav-menu.open {
-                visibility: visible !important;
-                opacity: 1 !important;
-                transform: translateX(0) !important;
-                animation: slideIn 0.3s ease-out;
-            }
 
             @keyframes slideIn {
                 from { transform: translateX(100%); opacity: 0; }
                 to { transform: translateX(0); opacity: 1; }
             }
 
-            .nav-menu li {
-                width: 100%;
-                text-align: center;
-                padding: 0.3rem 0;
-            }
 
-            .nav-menu li a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                font-size: 0.95rem;
-                padding: 0.3rem 1rem;
-            }
-
-            .nav-toggle {
-                display: block !important;
-                z-index: 1001;
-                cursor: pointer;
-            }
-
-            .nav-toggle-img {
-                transition: transform 0.3s ease;
-            }
-
-            .nav-toggle:hover .nav-toggle-img {
-                transform: rotate(90deg);
-            }
-
-            .settings-dropdown {
-                position: static;
-                width: 100%;
-                box-shadow: none;
-                margin-top: 0.3rem;
-                display: none;
-                flex-direction: column;
-                background: #fff;
-                padding: 0.5em 0;
-                border-radius: 8px;
-                min-width: 120px;
-                z-index: 1002;
-            }
-
-            .settings-dropdown.show {
-                display: flex;
-                animation: fadeIn 0.3s ease-out;
-            }
-
-            .settings-dropdown li {
-                display: block;
-                width: 100%;
-                text-align: left;
-                padding: 0.3em 1em;
-            }
-
-            .settings-dropdown li a {
-                display: block;
-                width: 100%;
-                padding: 0.3em 0;
-                color: #222;
-                text-decoration: none;
-            }
-
-            .settings-dropdown li a:hover {
-                background: #f0f4ff;
-                color: #195acd;
-            }
-        }
-
-        /* Base styles for nav elements */
-        .nav-toggle {
-            display: none;
         }
 
         /* Settings icon specific styles */
