@@ -78,11 +78,7 @@
         }
 
         /* Subjects grid */
-        .subjects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
-        }
+
 
         .subject-card {
             background: white;
@@ -93,6 +89,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: block;
         }
 
         .subject-card::before {
@@ -876,9 +873,8 @@ body {
 }
 
 .subjects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 1.5rem;
+    display: block;
+        gap: 1.5rem;
     margin-bottom: 2.5rem;
 }
 
@@ -919,6 +915,16 @@ body {
 }
 .actions-bar {
     margin-bottom: 1.2rem;
+}
+@media (max-width: 773px) {
+.stats-bar{
+    display: none;
+}}
+@media (max-width: 587px) {
+.headingst{
+    display: none;
+}
+    
 }
 @media (max-width: 1024px) {
     .container {

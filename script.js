@@ -750,19 +750,89 @@
                   updateStudyStreak();
               }
           }
+// --- SMART STUDY PLANNER: Suggest what to learn next ---
+function suggestNextToLearn() {
+  const boxId = "nextToLearn";
+  let suggestionBox = document.getElementById(boxId);
 
-          function toggleTask(subject, idx) {
-              examData[subject].tasks[idx].completed = !examData[subject].tasks[idx].completed;
-              saveData();
-              renderTasks(subject);
-              updateStats();
-              updateStudyStreak();
-              // Check if all chapters are completed
-              const tasks = examData[subject].tasks || [];
-              if (tasks.length > 0 && tasks.every(t => t.completed)) {
-                  showCongratsModal();
-              }
-          }
+  // Create container if not present
+  if (!suggestionBox) {
+    suggestionBox = document.createElement("div");
+    suggestionBox.id = boxId;
+    suggestionBox.style.margin = "25px auto";
+    suggestionBox.style.maxWidth = "750px";
+    suggestionBox.style.background = "white";
+    suggestionBox.style.borderRadius = "15px";
+    suggestionBox.style.padding = "20px 25px";
+    suggestionBox.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
+    suggestionBox.style.textAlign = "center";
+    suggestionBox.style.fontSize = "1rem";
+    suggestionBox.style.color = "#334155";
+    suggestionBox.style.lineHeight = "1.6";
+    suggestionBox.style.fontWeight = "500";
+    suggestionBox.innerHTML = "📘 Analyzing your study data...";
+    document.querySelector(".planner")?.appendChild(suggestionBox);
+  }
+
+  // If no subjects yet
+  if (!userSubjects.length) {
+    suggestionBox.innerHTML = "Add subjects to get your first personalized study plan!";
+    return;
+  }
+
+  // Find the subject with lowest progress
+  let nextSubject = null;
+  for (const subject of userSubjects) {
+    const tasks = examData[subject]?.tasks || [];
+    const completed = tasks.filter(t => t.completed).length;
+    const total = tasks.length || 1;
+    const progress = (completed / total) * 100;
+    if (!nextSubject || progress < nextSubject.progress) {
+      nextSubject = { subject, progress, tasks };
+    }
+  }
+
+  // If everything is completed
+  if (!nextSubject || nextSubject.progress >= 100) {
+    suggestionBox.innerHTML = `
+      🎉 <b>All subjects completed!</b><br>
+      Time to revise or take mock tests!
+    `;
+    return;
+  }
+
+  // Suggest the first incomplete chapter
+  const pendingTask = nextSubject.tasks.find(t => !t.completed);
+  const nextChapter = pendingTask ? pendingTask.text : "next topic";
+
+  // Create smart plan suggestion
+  suggestionBox.innerHTML = `
+    <h2 style="color:#3b82f6;font-size:1.4rem;margin-bottom:8px;">🧠 Smart Study Suggestion</h2>
+    <p>Start with <b>${nextSubject.subject}</b> — you’re ${nextSubject.progress.toFixed(0)}% done.</p>
+    <p>Next, complete <b>${nextChapter}</b> to stay on track!</p>
+    <p style="color:#6366f1;margin-top:10px;">💪 Consistency is key — keep going!</p>
+  `;
+}
+
+ function toggleTask(subject, idx) {
+  examData[subject].tasks[idx].completed = !examData[subject].tasks[idx].completed;
+  saveData();
+  renderTasks(subject);
+  updateStats();
+  updateStudyStreak();
+
+  // Update daily goal progress when a task is completed
+  if (examData[subject].tasks[idx].completed) {
+    updateGoalProgress();
+  }
+
+  // Check if all chapters are completed
+  const tasks = examData[subject].tasks || [];
+  if (tasks.length > 0 && tasks.every(t => t.completed)) {
+    showCongratsModal();
+  }
+}
+
 
           function deleteTask(subject, idx) {
               examData[subject].tasks.splice(idx, 1);
@@ -883,6 +953,7 @@
           renderSubjects();
           updateStats();
           updateStudyStreak();
+suggestNextToLearn();
 
           // Add subject button functionality
           document.getElementById('addSubjectBtn').addEventListener('click', () => {
@@ -1105,3 +1176,70 @@
               initNavToggle();
               initDropdowns();
           }
+
+          // --- Study Goal System ---
+let dailyGoal = parseInt(localStorage.getItem('dailyGoal') || '0');
+let completedToday = parseInt(localStorage.getItem('completedToday') || '0');
+let goalDate = localStorage.getItem('goalDate');
+const today = new Date().toDateString();
+
+// Reset daily goal progress each new day
+if (goalDate !== today) {
+  localStorage.setItem('goalDate', today);
+  localStorage.setItem('completedToday', '0');
+  completedToday = 0;
+}
+
+const goalStatus = document.getElementById('goalStatus');
+const goalInput = document.getElementById('dailyGoalInput');
+const goalBtn = document.getElementById('setGoalBtn');
+
+// Save new goal
+goalBtn.addEventListener('click', () => {
+  const value = parseInt(goalInput.value);
+  if (isNaN(value) || value <= 0) {
+    alert('Enter a valid goal number!');
+    return;
+  }
+  dailyGoal = value;
+  localStorage.setItem('dailyGoal', dailyGoal);
+  goalStatus.textContent = `🎯 Daily goal: ${dailyGoal} chapters`;
+  showGoalPopup('Goal set successfully!');
+});
+
+// Update progress each time a task is completed
+function updateGoalProgress() {
+  completedToday++;
+  localStorage.setItem('completedToday', completedToday);
+  goalStatus.textContent = `Progress: ${completedToday}/${dailyGoal} chapters`;
+  if (completedToday >= dailyGoal) {
+    showGoalPopup('✅ Goal Completed! Great work!');
+  }
+}
+
+// Show nice motivational popup
+function showGoalPopup(message) {
+  const popup = document.createElement('div');
+  popup.textContent = message;
+  popup.style.position = 'fixed';
+  popup.style.bottom = '25px';
+  popup.style.right = '25px';
+  popup.style.background = 'white';
+  popup.style.color = '#3b82f6';
+  popup.style.border = '2px solid #3b82f6';
+  popup.style.padding = '12px 18px';
+  popup.style.borderRadius = '10px';
+  popup.style.fontWeight = '600';
+  popup.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)';
+  popup.style.display = 'flex';
+  popup.style.alignItems = 'center';
+  popup.style.gap = '10px';
+  popup.innerHTML = `✔️ ${message}`;
+  document.body.appendChild(popup);
+  setTimeout(() => popup.remove(), 3000);
+}
+
+// Show stored goal on load
+if (dailyGoal > 0) {
+  goalStatus.textContent = `Progress: ${completedToday}/${dailyGoal} chapters`;
+}

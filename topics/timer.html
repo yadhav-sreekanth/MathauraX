@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Timer</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="icon" href="../assets/logo.svg">
+</head>
+<body>
+            <section class="timer" id="timer">
+  <div class="timer-container">
+        <div class="timer-title" style="font-weight: 600;">Study Timer</div>
+        <div class="purpose-group">
+            <div id="purposeInputWrapper">
+                <input type="text" id="purposeInput" class="purpose-input" maxlength="60" placeholder="Why are you setting this timer?">
+                <button id="purposeEnterBtn" class="purpose-enter-btn">Enter</button>
+            </div>
+            <div id="purposeDisplay" class="purpose-display" style="display:none;">
+                <span id="purposeText" class="purpose-gradient-text"></span>
+                <button id="purposeEditBtn" class="purpose-edit-btn" title="Edit Purpose">✏️</button>
+            </div>
+        </div>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="input-group">
+            <div class="input-col">
+                <label for="minutesInput">Min</label>
+                <input type="number" id="minutesInput" min="0" max="59" value="0">
+            </div>
+            <div class="input-col">
+                <label for="secondsInput">Sec</label>
+                <input type="number" id="secondsInput" min="0" max="59" value="0">
+            </div>
+            <div class="input-col">
+                <label for="hoursInput">Hours</label>
+                <input type="number" id="hoursInput" min="0" max="23" value="0">
+            </div>
+        </div>
+        <div class="timer-buttons">
+            <button id="startBtn"><span class="btn-text">Start</span></button>
+            <button id="pauseBtn" disabled><span class="btn-text">Pause</span></button>
+            <button id="resetBtn"><span class="btn-text">Reset</span></button>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+        <div class="end-message" id="endMessage">Time's up! Take a break 🎉</div>
+    </div>
+        <script src="header-loader.js"></script>
+    <script src="script.js"></script>
+    <script>
+    function updateTimeAndDate() {
+        const now = new Date();
+        const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString([], timeOptions);
+        document.getElementById('currentDate').textContent = now.toLocaleDateString([], dateOptions);
+    }
+    updateTimeAndDate();
+    setInterval(updateTimeAndDate, 1000);
+    </script>
+</section>
+
+<script>
+    
+    const sendBtn = document.getElementById("sendBtn");
+const userInput = document.getElementById("userInput");
+const chatWindow = document.getElementById("chatWindow");
+const clearChatBtn = document.getElementById("clearChatBtn");
+
+sendBtn.addEventListener("click", sendMessage);
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
+clearChatBtn.addEventListener("click", () => {
+  chatWindow.innerHTML = "";
+});
+
+function sendMessage() {
+  const msg = userInput.value.trim();
+  if (msg === "") return;
+
+  appendMessage(msg, "user");
+  userInput.value = "";
+  generateResponse(msg); // this now lives in responses.js
+}
+
+function appendMessage(text, sender) {
+  const messageDiv = document.createElement("div");
+  messageDiv.classList.add("message", sender === "user" ? "user-message" : "ai-message");
+  messageDiv.innerHTML = text;
+  chatWindow.appendChild(messageDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+</script>
+    <script>
+        const timerDisplay = document.getElementById('timerDisplay');
+        const hoursInput = document.getElementById('hoursInput');
+        const minutesInput = document.getElementById('minutesInput');
+        const secondsInput = document.getElementById('secondsInput');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressBar = document.getElementById('progressBar');
+        const endMessage = document.getElementById('endMessage');
+
+        function getTotalSeconds() {
+            let m = parseInt(minutesInput.value, 10) || 0;
+            let s = parseInt(secondsInput.value, 10) || 0;
+            let h = parseInt(hoursInput.value, 10) || 0;
+            return h * 3600 + m * 60 + s;
+        }
+
+        let totalSeconds = getTotalSeconds();
+        let remainingSeconds = totalSeconds;
+        let timerInterval = null;
+        let isRunning = false;
+
+        function updateDisplay() {
+            const h = Math.floor(remainingSeconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((remainingSeconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (remainingSeconds % 60).toString().padStart(2, '0');
+            timerDisplay.textContent = `${h}:${m}:${s}`;
+            const percent = totalSeconds === 0 ? 0 : 100 * (1 - remainingSeconds / totalSeconds);
+            progressBar.style.width = percent + '%';
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            if (remainingSeconds <= 0) return;
+            isRunning = true;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            hoursInput.disabled = true;
+            minutesInput.disabled = true;
+            secondsInput.disabled = true;
+            endMessage.style.display = 'none';
+            progressBar.classList.remove('bounce');
+            void progressBar.offsetWidth;
+            progressBar.classList.add('bounce');
+            timerInterval = setInterval(() => {
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    startBtn.disabled = false;
+                    pauseBtn.disabled = true;
+                    endMessage.style.display = 'block';
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (!isRunning) return;
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            minutesInput.value = 0;
+            secondsInput.value = 0;
+            hoursInput.value = 0;
+            totalSeconds = 0;
+            remainingSeconds = 0;
+            updateDisplay();
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            hoursInput.disabled = false;
+            minutesInput.disabled = false;
+            secondsInput.disabled = false;
+            endMessage.style.display = 'none';
+            document.getElementById('purposeInputWrapper').style.display = 'block';
+            document.getElementById('purposeDisplay').style.display = 'none';
+            document.getElementById('purposeDisplay').classList.remove('purpose-display-animate-in');
+            document.getElementById('purposeInput').value = '';
+            document.getElementById('purposeText').textContent = '';
+            const inputEl = document.getElementById('purposeInput');
+            const btnEl = document.getElementById('purposeEnterBtn');
+            inputEl.style.opacity = 1;
+            inputEl.style.transform = 'translateY(0)';
+            btnEl.style.opacity = 1;
+            btnEl.style.transform = 'translateY(0)';
+        }
+
+        function inputChangeHandler() {
+            if (isRunning) return;
+            let m = parseInt(minutesInput.value, 10);
+            let s = parseInt(secondsInput.value, 10);
+            let h = parseInt(hoursInput.value, 10);
+            if (isNaN(m) || m < 0) m = 0;
+            if (m > 59) m = 59;
+            if (isNaN(s) || s < 0) s = 0;
+            if (s > 59) s = 59;
+            if (isNaN(h) || h < 0) h = 0;
+            if (h > 23) h = 23;
+            minutesInput.value = m;
+            secondsInput.value = s;
+            hoursInput.value = h;
+            totalSeconds = getTotalSeconds();
+            remainingSeconds = totalSeconds;
+            updateDisplay();
+        }
+
+        hoursInput.addEventListener('change', inputChangeHandler);
+        minutesInput.addEventListener('change', inputChangeHandler);
+        secondsInput.addEventListener('change', inputChangeHandler);
+
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Initialize display
+        minutesInput.value = 0;
+        secondsInput.value = 0;
+        hoursInput.value = 0;
+        totalSeconds = 0;
+        remainingSeconds = 0;
+        updateDisplay();
+
+        // Purpose input logic
+        const purposeInput = document.getElementById('purposeInput');
+        const purposeEnterBtn = document.getElementById('purposeEnterBtn');
+        const purposeInputWrapper = document.getElementById('purposeInputWrapper');
+        const purposeDisplay = document.getElementById('purposeDisplay');
+        const purposeText = document.getElementById('purposeText');
+        const purposeEditBtn = document.getElementById('purposeEditBtn');
+
+        function setPurpose() {
+            const value = purposeInput.value.trim();
+            if (value.length === 0) return;
+            purposeText.textContent = value;
+            // Animate out input and button
+            const inputEl = document.getElementById('purposeInput');
+            const btnEl = document.getElementById('purposeEnterBtn');
+            inputEl.classList.add('purpose-input-animate-out');
+            btnEl.classList.add('purpose-enter-btn-animate-out');
+            setTimeout(() => {
+                purposeInputWrapper.style.display = 'none';
+                inputEl.style.opacity = 1;
+                inputEl.style.transform = 'translateY(0)';
+                btnEl.style.opacity = 1;
+                btnEl.style.transform = 'translateY(0)';
+                inputEl.classList.remove('purpose-input-animate-out');
+                btnEl.classList.remove('purpose-enter-btn-animate-out');
+                purposeDisplay.style.display = 'flex';
+                setTimeout(() => {
+                    purposeDisplay.classList.add('purpose-display-animate-in');
+                }, 10);
+            }, 480);
+        }
+        function editPurpose() {
+            purposeInputWrapper.style.display = 'block';
+            purposeDisplay.style.display = 'none';
+            purposeDisplay.classList.remove('purpose-display-animate-in');
+            const inputEl = document.getElementById('purposeInput');
+            const btnEl = document.getElementById('purposeEnterBtn');
+            inputEl.style.opacity = 1;
+            inputEl.style.transform = 'translateY(0)';
+            btnEl.style.opacity = 1;
+            btnEl.style.transform = 'translateY(0)';
+            purposeInput.focus();
+        }
+        purposeEnterBtn.addEventListener('click', setPurpose);
+        purposeEditBtn.addEventListener('click', editPurpose);
+        purposeInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                setPurpose();
+            }
+        });
+    </script>
+</section>
+</body>
+</html>
