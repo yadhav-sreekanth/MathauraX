@@ -1,13 +1,67 @@
+const SUBJECT_ORDER_KEY = 'subjectOrder';
+const STORAGE_KEY = 'studyPlannerData';
+const COLLAPSE_KEY = 'collapsedSubjects';
+let draggedSubject = null;
+
+function showPositionPicker(x, y) {
+  removePicker();
+
+  const picker = document.createElement('div');
+  picker.className = 'position-picker';
+
+  const subjects = [...document.querySelectorAll('.subject-grid')];
+
+  subjects.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = i + 1;
+
+    btn.onclick = () => {
+      moveSubjectTo(i);
+      removePicker();
+    };
+
+    picker.appendChild(btn);
+  });
+
+  picker.style.left = x + 'px';
+  picker.style.top = y + 'px';
+
+  document.body.appendChild(picker);
+}
+
+function moveSubjectTo(index) {
+  const container = document.getElementById('plannerContainer');
+  const subjects = [...container.children];
+
+  container.removeChild(draggedSubject);
+  container.insertBefore(draggedSubject, subjects[index] || null);
+
+  saveSubjectOrder();
+}
+
+function saveSubjectOrder() {
+  const order = [...document.querySelectorAll('.subject-title')].map((t) => t.textContent.trim());
+
+  localStorage.setItem(SUBJECT_ORDER_KEY, JSON.stringify(order));
+}
+
+function removePicker() {
+  document.querySelector('.position-picker')?.remove();
+}
+
+document.addEventListener('click', removePicker);
+
 const chapterCounter = document.getElementById('chapterCounter');
 
 function updateChapterCounter() {
   let remaining = 0;
 
   Object.entries(plannerData).forEach(([subject, chapters]) => {
-    chapters.forEach((chapter, i) => {
+    chapters.forEach((_, i) => {
       const state = savedData[subject]?.[i] || { a: false, b: false };
+
       if (state.a && state.b) {
-        // fully done, 0 remaining
+        // done
       } else if (state.a || state.b) {
         remaining += 0.5;
       } else {
@@ -16,14 +70,12 @@ function updateChapterCounter() {
     });
   });
 
-  // Show half as ½
   chapterCounter.textContent = Number.isInteger(remaining)
     ? remaining
     : Math.floor(remaining) + '½';
 }
 
-
-const STORAGE_KEY = 'studyPlannerData';
+let collapsedSubjects = JSON.parse(localStorage.getItem(COLLAPSE_KEY)) || {};
 
 const plannerData = {
   Maths: [
@@ -165,9 +217,15 @@ function updateOverallProgress() {
   document.getElementById('overallPercent').textContent = percent + '%';
 }
 
-Object.entries(plannerData).forEach(([subject, chapters]) => {
+const subjectOrder =
+  JSON.parse(localStorage.getItem(SUBJECT_ORDER_KEY)) || Object.keys(plannerData);
+
+subjectOrder.forEach((subject) => {
+  const chapters = plannerData[subject];
+  if (!chapters) return;
   const subjectDiv = document.createElement('div');
   subjectDiv.className = 'subject-grid';
+  subjectDiv.draggable = true;
 
   subjectDiv.innerHTML = `
         <div class="subject-header">
@@ -180,7 +238,11 @@ Object.entries(plannerData).forEach(([subject, chapters]) => {
               <span class="subject-percent">0%</span>
             </div>
           </div>
-          <button class="toggle-btn">Hide</button>
+          <div style="display:flex; gap:8px;">
+  <button class="clear-subject-btn">Clear</button>
+  <button class="toggle-btn">Hide</button>
+</div>
+
         </div>
 
         <div class="subject-body">
@@ -200,11 +262,37 @@ Object.entries(plannerData).forEach(([subject, chapters]) => {
   const gridTable = subjectDiv.querySelector('.grid-table');
   const subjectFill = subjectDiv.querySelector('.subject-fill');
   const subjectPercent = subjectDiv.querySelector('.subject-percent');
+  const clearSubjectBtn = subjectDiv.querySelector('.clear-subject-btn');
   const toggleBtn = subjectDiv.querySelector('.toggle-btn');
+  // Restore collapsed state
+  if (collapsedSubjects[subject]) {
+    subjectDiv.classList.add('collapsed');
+    toggleBtn.textContent = 'Show';
+  }
+
+  clearSubjectBtn.onclick = () => {
+    if (!confirm(`Clear progress for ${subject}?`)) return;
+
+    // Remove subject data
+    delete savedData[subject];
+    saveData();
+
+    // Clear UI for this subject only
+    subjectDiv.querySelectorAll('input[type=checkbox]').forEach((c) => (c.checked = false));
+    subjectDiv.querySelectorAll('.notes-input').forEach((n) => (n.value = ''));
+
+    updateOverallProgress();
+    updateChapterCounter();
+  };
 
   toggleBtn.onclick = () => {
-    subjectDiv.classList.toggle('collapsed');
-    toggleBtn.textContent = subjectDiv.classList.contains('collapsed') ? 'Show' : 'Hide';
+    const isCollapsed = subjectDiv.classList.toggle('collapsed');
+
+    toggleBtn.textContent = isCollapsed ? 'Show' : 'Hide';
+
+    // Save to localStorage
+    collapsedSubjects[subject] = isCollapsed;
+    localStorage.setItem(COLLAPSE_KEY, JSON.stringify(collapsedSubjects));
   };
 
   chapters.forEach((chapter, i) => {
@@ -224,23 +312,22 @@ Object.entries(plannerData).forEach(([subject, chapters]) => {
     const notes = row.querySelector('.notes-input');
     const cell = row.querySelector('.progress-cell');
 
-function updateRow() {
-  const done = [...checks].filter((c) => c.checked).length;
-  cell.textContent = done * 50 + '%';
+    function updateRow() {
+      const done = [...checks].filter((c) => c.checked).length;
+      cell.textContent = done * 50 + '%';
 
-  savedData[subject] ??= {};
-  savedData[subject][i] = {
-    a: checks[0].checked,
-    b: checks[1].checked,
-    n: notes.value
-  };
+      savedData[subject] ??= {};
+      savedData[subject][i] = {
+        a: checks[0].checked,
+        b: checks[1].checked,
+        n: notes.value
+      };
 
-  saveData();
-  updateSubject();
-  updateOverallProgress();
-  updateChapterCounter(); // <-- add this line
-}
-
+      saveData();
+      updateSubject();
+      updateOverallProgress();
+      updateChapterCounter(); // <-- add this line
+    }
 
     function updateSubject() {
       const rows = subjectDiv.querySelectorAll('.grid-row');
@@ -255,6 +342,7 @@ function updateRow() {
       subjectFill.style.width = percent + '%';
       subjectPercent.textContent = percent + '%';
     }
+    
 
     checks.forEach((c) => (c.onchange = updateRow));
     notes.oninput = updateRow;
@@ -352,3 +440,68 @@ table.addEventListener('input', (e) => {
    Initial total calculation
 -------------------------------- */
 updateWeeklyTotal();
+const manualSortBtn = document.getElementById('manualSortBtn');
+const lowProgressSortBtn = document.getElementById('lowProgressSortBtn');
+const highProgressSortBtn = document.getElementById('highProgressSortBtn');
+
+/* ---------- Helper: get subject progress % ---------- */
+function getSubjectProgress(subjectDiv) {
+  const percentText = subjectDiv.querySelector('.subject-percent').textContent;
+  return parseInt(percentText.replace('%', '')) || 0;
+}
+
+/* ---------- Manual Sorting ---------- */
+manualSortBtn.onclick = () => {
+  alert('Drag subjects to reorder them manually.');
+};
+
+/* ---------- Less Progress First ---------- */
+lowProgressSortBtn.onclick = () => {
+  const container = document.getElementById('plannerContainer');
+  const subjects = [...container.children];
+
+  subjects
+    .sort((a, b) => getSubjectProgress(a) - getSubjectProgress(b))
+    .forEach((s) => container.appendChild(s));
+
+  saveSubjectOrder();
+};
+
+/* ---------- More Progress First ---------- */
+highProgressSortBtn.onclick = () => {
+  const container = document.getElementById('plannerContainer');
+  const subjects = [...container.children];
+
+  subjects
+    .sort((a, b) => getSubjectProgress(b) - getSubjectProgress(a))
+    .forEach((s) => container.appendChild(s));
+
+  saveSubjectOrder();
+};
+function setActive(btn) {
+  document.querySelectorAll('.sort-bar button').forEach((b) => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+manualSortBtn.onclick = () => {
+  setActive(manualSortBtn);
+  alert('Drag subjects to reorder manually.');
+};
+
+lowProgressSortBtn.onclick = () => {
+  setActive(lowProgressSortBtn);
+  const container = document.getElementById('plannerContainer');
+  [...container.children]
+    .sort((a, b) => getSubjectProgress(a) - getSubjectProgress(b))
+    .forEach((s) => container.appendChild(s));
+  saveSubjectOrder();
+};
+
+highProgressSortBtn.onclick = () => {
+  setActive(highProgressSortBtn);
+  const container = document.getElementById('plannerContainer');
+  [...container.children]
+    .sort((a, b) => getSubjectProgress(b) - getSubjectProgress(a))
+    .forEach((s) => container.appendChild(s));
+  saveSubjectOrder();
+};

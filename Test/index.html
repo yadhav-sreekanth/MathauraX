@@ -12,6 +12,49 @@
             box-sizing: border-box;
             font-family: "Segoe UI", sans-serif;
         }
+.sort-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  background: #eef2ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.sort-bar span {
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.sort-bar button {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  color: #1e40af;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+
+.sort-bar button:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.sort-bar button.active {
+  background: #1d4ed8;
+  color: white;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
 
         .king {
             margin: 0;
@@ -514,9 +557,6 @@
             background: #dc2626;
         }
  .chapter-counter {
-  position: fixed;
-  top: 20px;
-  left: 20px;
   background: linear-gradient(135deg, #4ade80, #22d3ee); /* green → blue gradient */
   color: #fff;
   font-weight: 800;
@@ -526,24 +566,104 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   text-align: center;
   min-width: 40px;
-  z-index: 1000;
   transition: all 0.3s ease;
 }
+.chapter-controls {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
+}
+
 .chapter-counter:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 16px rgba(0,0,0,0.35);
 }
+.chapter-controls {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.reset-all-btn {
+  background: #ef4444;
+  color: white;
+  font-weight: 800;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reset-all-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+.clear-subject-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #f97316;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+.clear-subject-btn:hover {
+  background: #ea580c;
+}
+.position-picker {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 32px);
+  gap: 8px;
+  background: white;
+  padding: 10px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  z-index: 2000;
+}
+
+.position-picker button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.position-picker button:hover {
+  background: #1d4ed8;
+}
+
 
     </style>
 
 </head>
 
 <body>
+
 <div class="king">
     <div class="container">
-
         <div class="header">
-<div id="chapterCounter" class="chapter-counter">107</div>
+
+
+<div class="chapter-controls">
+    <div id="chapterCounter" class="chapter-counter">107</div>
+    <button id="resetAllBtn" class="reset-all-btn" title="Reset your progression">↺</button>
+</div>
+
 
             <div id="countdown" style="font-size:20px; font-weight:600; margin-bottom:20px;"></div>
 <button id="openSettings" class="settings-btn">⚙</button>
@@ -618,6 +738,14 @@
 
     </div>
     </div>
+<div class="sort-bar">
+    <span>Sort Subjects:</span>
+    <button id="manualSortBtn">Manual</button>
+    <button id="lowProgressSortBtn">Less Progress</button>
+    <button id="highProgressSortBtn">More Progress</button>
+</div>
+
+
 <section class="grid-planner">
 
     <h1>Study Progress Planner</h1>
@@ -817,7 +945,11 @@
 
         closeBtn.addEventListener("click", closeModal);
         overlay.addEventListener("click", closeModal);
+       
+        
+
     </script>
+    
 
 </body>
 
